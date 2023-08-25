@@ -11,7 +11,6 @@ import {
 } from "./ui/dropdown-menu";
 import Link from "next/link";
 import { signOut } from "next-auth/react";
-import { Button } from "./ui/button";
 import { LogOut, User } from "lucide-react";
 import UserAvatar from "./UserAvatar";
 
