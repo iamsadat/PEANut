@@ -8,28 +8,64 @@ type Props = {};
 
 const data = [
   {
-    text: "Hey",
+    text: "Python",
+    value: 1,
+  },
+  {
+    text: "JavaScript",
+    value: 2,
+  },
+  {
+    text: "Java",
     value: 3,
   },
   {
-    text: "Hi",
+    text: "Rust",
     value: 4,
   },
   {
-    text: "Hello",
-    value: 7,
-  },
-  {
-    text: "Hola",
+    text: "Golang",
     value: 5,
   },
   {
-    text: "Moshi Moshi",
+    text: "Typescript",
+    value: 6,
+  },
+  {
+    text: "R",
+    value: 7,
+  },
+  {
+    text: "Web",
+    value: 8,
+  },
+  {
+    text: "C++",
     value: 9,
   },
   {
-    text: "Namaste",
-    value: 1,
+    text: "C",
+    value: 10,
+  },
+  {
+    text: "SQL",
+    value: 11,
+  },
+  {
+    text: "Perl",
+    value: 12,
+  },
+  {
+    text: "Scala",
+    value: 13,
+  },
+  {
+    text: "Pascal",
+    value: 14,
+  },
+  {
+    text: "C#",
+    value: 15,
   },
 ];
 

@@ -5,7 +5,7 @@ import React from "react";
 
 type Props = {};
 
-const metadata = {
+export const metadata = {
   title: "QuizPage",
 };
 
