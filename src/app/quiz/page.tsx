@@ -14,7 +14,11 @@ const QuizPage = async (props: Props) => {
   if (!session?.user) {
     return redirect("/");
   }
-  return <QuizCreation />;
+  return (
+    <>
+      <QuizCreation />
+    </>
+  );
 };
 
 export default QuizPage;
