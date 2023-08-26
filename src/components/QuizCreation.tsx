@@ -118,10 +118,10 @@ const QuizCreation = (props: Props) => {
                 <Separator orientation="vertical" />
                 <Button
                   type="button"
-                  onClick={() => form.setValue("type", "open-ended")}
+                  onClick={() => form.setValue("type", "open_ended")}
                   className="w-1/2 rounded-none rounded-r-lg"
                   variant={
-                    form.getValues("type") == "open-ended"
+                    form.getValues("type") == "open_ended"
                       ? "default"
                       : "secondary"
                   }
