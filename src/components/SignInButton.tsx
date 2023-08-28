@@ -3,6 +3,7 @@
 import React from "react";
 import { Button } from "./ui/button";
 import { signIn } from "next-auth/react";
+import Link from "next/link";
 
 type Props = {
   text: string;
@@ -10,12 +11,8 @@ type Props = {
 
 const SignInButton = ({ text }: Props) => {
   return (
-    <Button
-      onClick={() => {
-        signIn("google").catch(console.error);
-      }}
-    >
-      {text}
+    <Button>
+      <Link href="/register">{text}</Link>
     </Button>
   );
 };

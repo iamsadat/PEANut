@@ -38,13 +38,15 @@ model Session {
  
 model User {
   id            String    @id @default(cuid())
+  rollNumber    String?   @unique
   name          String?
   email         String?   @unique
+  password      String?   // Added password field
   emailVerified DateTime?
-  image    String?
-  games      Game[]
-  accounts Account[]
-  sessions Session[]
+  image         String?
+  games         Game[]
+  accounts      Account[]
+  sessions      Session[]
 }
 
 enum GameType {

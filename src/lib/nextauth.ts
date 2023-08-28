@@ -1,5 +1,4 @@
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
-import { type GetServerSidePropsContext } from "next";
 import {
   getServerSession,
   type NextAuthOptions,
@@ -7,6 +6,7 @@ import {
 } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/db";
+import CredentialsProvider from "next-auth/providers/credentials";
 
 declare module "next-auth" {
   interface Session extends DefaultSession {
@@ -16,11 +16,6 @@ declare module "next-auth" {
       // role: UserRole;
     } & DefaultSession["user"];
   }
-
-  // interface User {
-  //   // ...other properties
-  //   // role: UserRole;
-  // }
 }
 
 declare module "next-auth/jwt" {
@@ -58,9 +53,29 @@ export const authOptions: NextAuthOptions = {
   },
   adapter: PrismaAdapter(prisma),
   providers: [
-    GoogleProvider({
-      clientId: process.env.GOOGLE_CLIENT_ID as string,
-      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    CredentialsProvider({
+      name: "Set Up Account",
+      credentials: {
+        username: { label: "Username" },
+        password: { label: "Password" },
+      },
+      async authorize(credentials: any) {
+        // Make sure to define the properties name, password, and domain
+        const dbUser = await prisma.user.findFirst({
+          where: {
+            id: credentials.username,
+          },
+        });
+        if (dbUser && credentials.id === dbUser.id) {
+          return {
+            id: dbUser.id,
+            name: dbUser.name,
+            email: dbUser.email,
+          };
+        } else {
+          return null; // Return null for unsuccessful authentication
+        }
+      },
     }),
   ],
 };
