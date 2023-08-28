@@ -50,6 +50,9 @@ export const authOptions: NextAuthOptions = {
     },
   },
   adapter: PrismaAdapter(prisma),
+  pages: {
+    signIn: "/login",
+  },
   providers: [
     CredentialsProvider({
       name: "Set Up Account",

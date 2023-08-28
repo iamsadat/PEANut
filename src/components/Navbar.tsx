@@ -5,6 +5,7 @@ import UserAccountNav from "./UserAccountNav";
 import { ThemeToggle } from "./ThemeToggle";
 import { getAuthSession } from "@/lib/nextauth";
 import SignInButton from "./SignInButton";
+import SignUpButton from "./SignUpButton";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -22,7 +23,10 @@ const Navbar = async () => {
           {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
-            <SignInButton text={"Sign In"} />
+            <div className="space-x-4">
+              <SignInButton text={"Sign In"} />
+              <SignUpButton text={"Register"} />
+            </div>
           )}
         </div>
       </div>

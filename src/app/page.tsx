@@ -1,4 +1,5 @@
 import SignInButton from "@/components/SignInButton";
+import SignUpButton from "@/components/SignUpButton";
 import {
   Card,
   CardContent,
@@ -25,7 +26,10 @@ export default async function Home() {
           </CardDescription>
         </CardHeader>
         <CardContent>
-          <SignInButton text="Sign In with Google" />
+          <div className="flex justify-between px-3">
+            <SignUpButton text="Register" />
+            <SignInButton text="Sign In" />
+          </div>
         </CardContent>
       </Card>
     </div>
