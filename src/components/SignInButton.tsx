@@ -11,8 +11,12 @@ type Props = {
 
 const SignInButton = ({ text }: Props) => {
   return (
-    <Button>
-      <Link href="/register">{text}</Link>
+    <Button
+      onClick={() => {
+        signIn().catch(console.error);
+      }}
+    >
+      {text}
     </Button>
   );
 };

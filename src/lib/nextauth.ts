@@ -4,7 +4,6 @@ import {
   type NextAuthOptions,
   type DefaultSession,
 } from "next-auth";
-import GoogleProvider from "next-auth/providers/google";
 import { prisma } from "@/lib/db";
 import CredentialsProvider from "next-auth/providers/credentials";
 
@@ -46,7 +45,6 @@ export const authOptions: NextAuthOptions = {
         session.user.id = token.id;
         session.user.name = token.name;
         session.user.email = token.email;
-        session.user.image = token.picture;
       }
       return session;
     },
@@ -56,20 +54,20 @@ export const authOptions: NextAuthOptions = {
     CredentialsProvider({
       name: "Set Up Account",
       credentials: {
-        username: { label: "Username" },
-        password: { label: "Password" },
+        rollNumber: { label: "Roll Number", type: "text" },
+        password: { label: "Password", type: "password" },
       },
       async authorize(credentials: any) {
         // Make sure to define the properties name, password, and domain
         const dbUser = await prisma.user.findFirst({
           where: {
-            id: credentials.username,
+            rollNumber: credentials.rollNumber,
           },
         });
-        if (dbUser && credentials.id === dbUser.id) {
+        if (dbUser && credentials.rollNumber === dbUser.rollNumber) {
           return {
             id: dbUser.id,
-            name: dbUser.name,
+            name: dbUser.rollNumber,
             email: dbUser.email,
           };
         } else {
