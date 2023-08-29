@@ -1,9 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { authOptions } from "@/lib/nextauth";
-import axios from "axios";
+import { signIn, useSession } from "next-auth/react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import { PrismaClient } from "@prisma/client";
+import { authenticateUser } from "@/lib/authUtils";
+const prisma = new PrismaClient();
 
 function LogIn() {
   const [data, setData] = useState({
@@ -13,8 +17,14 @@ function LogIn() {
 
   const router = useRouter();
 
+  const { data: session } = useSession();
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    signIn("credentials", {
+      ...data,
+      redirect: false,
+    });
     router.push("/dashboard");
   };
 
@@ -63,7 +73,7 @@ function LogIn() {
               <div className="text-sm">
                 <a
                   href="#"
-                  className="font-semibold text-indigo-600 hover:text-indigo-500"
+                  className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
                 >
                   Forgot password?
                 </a>
@@ -85,19 +95,19 @@ function LogIn() {
           </div>
 
           <div>
-            <button
+            <Button
               type="submit"
-              className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white dark:text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             >
               Log In
-            </button>
+            </Button>
             <div className=" py-3 text-sm">
-              <a
-                href="#"
-                className="font-semibold text-indigo-600 hover:text-indigo-500"
+              <Link
+                href="/register"
+                className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
               >
                 {"Don't have an account? Register"}
-              </a>
+              </Link>
             </div>
           </div>
         </form>

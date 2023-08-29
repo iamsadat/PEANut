@@ -1,7 +1,7 @@
 import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
 import { NextResponse, NextRequest } from "next/server";
-import axios from "axios";
+
+const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   const reqBody = await request.json();
@@ -15,5 +15,5 @@ export async function POST(request: NextRequest) {
     },
   });
   // ...
-  return NextResponse.json({ message: "Hello World" });
+  return NextResponse.json({ message: "Success!" });
 }

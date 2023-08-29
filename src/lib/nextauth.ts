@@ -67,7 +67,11 @@ export const authOptions: NextAuthOptions = {
             rollNumber: credentials.rollNumber,
           },
         });
-        if (dbUser && credentials.rollNumber === dbUser.rollNumber) {
+        if (
+          dbUser &&
+          credentials.rollNumber === dbUser.rollNumber &&
+          credentials.password === dbUser.password
+        ) {
           return {
             id: dbUser.id,
             name: dbUser.rollNumber,
