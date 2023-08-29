@@ -113,14 +113,7 @@ function SignUp() {
               >
                 Password
               </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
-                >
-                  Forgot password?
-                </a>
-              </div>
+              
             </div>
             <div className="mt-2">
               <input
