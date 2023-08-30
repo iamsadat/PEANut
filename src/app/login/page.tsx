@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
 import { SignInResponse, signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
-import { useToast } from "@/components/ui/use-toast";
 import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
 import { authenticateUser } from "@/lib/authUtils";
 import { getServerSession } from "next-auth";
+import { getAuthSession } from "@/lib/nextauth";
 const prisma = new PrismaClient();
 
 function LogIn() {
@@ -19,6 +20,25 @@ function LogIn() {
   });
 
   const router = useRouter();
+
+  const { data: session, status } = useSession();
+  console.log(session);
+
+  if (status === "authenticated") {
+    router.push("/dashboard");
+  }
+
+  const notify = () =>
+    toast.error("Wrong credentials!", {
+      position: "bottom-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -36,7 +56,7 @@ function LogIn() {
       if (result?.error !== "CredentialsSignin") {
         router.push("/dashboard");
       } else {
-        toast.error("Invalid credentials");
+        notify();
       }
     } catch (error) {
       console.log(error);
@@ -127,6 +147,18 @@ function LogIn() {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }
