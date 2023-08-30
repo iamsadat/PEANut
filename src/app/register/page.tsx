@@ -90,10 +90,10 @@ function SignUp() {
             </label>
             <div className="mt-2">
               <input
-                id="email"
-                name="email"
+                id="rollNumber"
+                name="rollNumber"
                 type="text"
-                autoComplete="email"
+                autoComplete="rollNumber"
                 placeholder="Enter roll number"
                 required
                 value={data.rollNumber}
@@ -113,7 +113,6 @@ function SignUp() {
               >
                 Password
               </label>
-              
             </div>
             <div className="mt-2">
               <input

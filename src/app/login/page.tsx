@@ -1,12 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
-import { signIn, useSession } from "next-auth/react";
+import { redirect, useRouter } from "next/navigation";
+import { SignInResponse, signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastContainer, toast } from "react-toastify";
 import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
 import { authenticateUser } from "@/lib/authUtils";
+import { getServerSession } from "next-auth";
 const prisma = new PrismaClient();
 
 function LogIn() {
@@ -17,15 +20,27 @@ function LogIn() {
 
   const router = useRouter();
 
-  const { data: session } = useSession();
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    signIn("credentials", {
-      ...data,
-      redirect: false,
-    });
-    router.push("/dashboard");
+    // Sign in with credentials
+    try {
+      const result = await signIn("credentials", {
+        ...data,
+        redirect: false,
+      });
+
+      console.log(result);
+
+      console.log(result?.error);
+
+      if (result?.error !== "CredentialsSignin") {
+        router.push("/dashboard");
+      } else {
+        toast.error("Invalid credentials");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
@@ -47,10 +62,10 @@ function LogIn() {
             </label>
             <div className="mt-2">
               <input
-                id="email"
-                name="email"
+                id="rollNumber"
+                name="rollNumber"
                 type="text"
-                autoComplete="email"
+                autoComplete="rollNumber"
                 placeholder="Enter roll number"
                 required
                 value={data.rollNumber}

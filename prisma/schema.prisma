@@ -38,10 +38,10 @@ model Session {
  
 model User {
   id            String    @id @default(cuid())
-  rollNumber    String?   @unique
+  rollNumber    String   @unique
   name          String?
-  email         String?   @unique
-  password      String?   // Added password field
+  email         String   @unique
+  password      String   // Added password field
   emailVerified DateTime?
   image         String?
   games         Game[]
