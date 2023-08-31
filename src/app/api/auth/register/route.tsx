@@ -11,12 +11,13 @@ export async function POST(request: NextRequest) {
   const existingUser = await prisma.user.findFirst({
     where: {
       email: email,
+      rollNumber: rollNumber,
     },
   });
 
   if (existingUser) {
     return NextResponse.json(
-      { message: "user already exists" },
+      { statusText: "User already exists" },
       { status: 400 }
     );
   }

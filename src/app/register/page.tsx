@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
+import { ToastContainer, toast } from "react-toastify";
 
 function SignUp() {
   const [data, setData] = useState({
@@ -13,6 +14,18 @@ function SignUp() {
   });
 
   const router = useRouter();
+
+  const notify = () =>
+    toast.warn("User already exists", {
+      position: "bottom-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
@@ -25,8 +38,12 @@ function SignUp() {
       },
       body: JSON.stringify(data),
     });
-
-    router.push("/api/auth/signin");
+    console.log(response);
+    if (response.status === 400) {
+      notify();
+    } else {
+      router.push("/api/auth/signin");
+    }
   };
 
   return (
@@ -147,6 +164,18 @@ function SignUp() {
           </div>
         </form>
       </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

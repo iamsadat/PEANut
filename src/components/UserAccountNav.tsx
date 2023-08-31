@@ -34,6 +34,7 @@ const UserAccountNav = () => {
   };
 
   const { data: session } = useSession();
+
   const userRollNumber = session?.user?.rollNumber;
 
   const [userData, setUserData] = useState<User | null>(null);
