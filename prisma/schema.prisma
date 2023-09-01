@@ -72,7 +72,7 @@ model Question {
   question     String
   answer      String
   gameId      String
-  option      Json?
+  options      Json?
   percentageCorrect Float?
   isCorrect Boolean?
   questionType GameType
