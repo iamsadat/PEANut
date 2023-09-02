@@ -1,0 +1,217 @@
+"use client";
+
+import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { ToastContainer, toast } from "react-toastify";
+
+function QuestionCreation() {
+  const [data, setData] = useState({
+    question: "",
+    correctAnswer: "",
+    option1: "",
+    option2: "",
+    option3: "",
+  });
+
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const totalPages = 10; // Total number of pages
+
+  const router = useRouter();
+
+  const notify = () =>
+    toast.warn("User already exists", {
+      position: "bottom-right",
+      autoClose: 4000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "light",
+    });
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    // Send registration data to your API endpoint
+    const response = await fetch("/api/questions", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
+    console.log(response);
+    if (response.status === 400) {
+      notify();
+    } else {
+      router.push("/api/questions");
+    }
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
+  };
+
+  return (
+    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+          Create a new question
+        </h2>
+      </div>
+
+      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+        <form onSubmit={handleSubmit} className="space-y-6">
+          <div>
+            <label
+              htmlFor="question"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Question
+            </label>
+            <div className="mt-2">
+              <input
+                id="question"
+                name="question"
+                type="text"
+                placeholder="Enter your question"
+                autoComplete="question"
+                required
+                value={data.question}
+                onChange={(e) => setData({ ...data, question: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="correctAnswer"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Correct Answer
+            </label>
+            <div className="mt-2">
+              <input
+                id="correctAnswer"
+                name="correctAnswer"
+                type="text"
+                autoComplete="correctAnswer"
+                placeholder="Enter the correct answer"
+                required
+                value={data.correctAnswer}
+                onChange={(e) =>
+                  setData({ ...data, correctAnswer: e.target.value })
+                }
+                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="option1"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Option 1
+            </label>
+            <div className="mt-2">
+              <input
+                id="option1"
+                name="option1"
+                type="text"
+                autoComplete="option1"
+                placeholder="Enter option 1"
+                required
+                value={data.option1}
+                onChange={(e) => setData({ ...data, option1: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="option2"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Option 2
+            </label>
+            <div className="mt-2">
+              <input
+                id="option2"
+                name="option2"
+                type="text"
+                autoComplete="option2"
+                placeholder="Enter option 2"
+                required
+                value={data.option2}
+                onChange={(e) => setData({ ...data, option2: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="option3"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Option 3
+            </label>
+            <div className="mt-2">
+              <input
+                id="option3"
+                name="option3"
+                type="text"
+                autoComplete="option3"
+                placeholder="Enter option 3"
+                required
+                value={data.option3}
+                onChange={(e) => setData({ ...data, option3: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <Button
+              type="submit"
+              className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white dark:text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              Create
+            </Button>
+          </div>
+        </form>
+      </div>
+      <div className="flex justify-center mt-4">
+        {/* Pagination buttons */}
+        {Array.from({ length: totalPages }, (_, index) => (
+          <button
+            key={index}
+            onClick={() => handlePageChange(index + 1)}
+            className={`${
+              currentPage === index + 1
+                ? "bg-indigo-600 text-white"
+                : "bg-gray-300 text-gray-800"
+            } px-4 py-2 mx-1 rounded-md`}
+          >
+            {index + 1}
+          </button>
+        ))}
+      </div>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+    </div>
+  );
+}
+
+export default QuestionCreation;
