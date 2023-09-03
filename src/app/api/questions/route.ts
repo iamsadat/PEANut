@@ -1,9 +1,11 @@
 import { getAuthSession } from "@/lib/nextauth";
-import { NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
+import { NextRequest, NextResponse } from "next/server";
+import { PrismaClient } from "@prisma/client";
 import axios from "axios";
 
-export async function POST(req: Request, res: Response) {
+const prisma = new PrismaClient();
+
+export async function POST(request: NextRequest) {
   try {
     const session = await getAuthSession();
     if (!session?.user) {
@@ -14,14 +16,40 @@ export async function POST(req: Request, res: Response) {
         { status: 401 }
       );
     }
-    const body = await req.json();
-    const { question, answer, option1, option2, option3 } = body;
-    const game = await prisma.question.create({
+    const reqBody = await request.json();
+    const {
+      quizId,
+      quizName,
+      question,
+      correctAnswer,
+      option1,
+      option2,
+      option3,
+    } = reqBody;
+
+    const quizTopic = await prisma.quiz.findFirst({
+      where: {
+        topic: quizName,
+      },
+    });
+
+    if (!quizTopic) {
+      return NextResponse.json(
+        {
+          error: "Quiz not found.", // Handle this case as needed
+        },
+        { status: 404 }
+      );
+    }
+
+    const quiz = await prisma.question.create({
       data: {
         question: question,
-        answer: answer,
-        gameId: session.user.id,
+        answer: correctAnswer,
+        quizId: quizTopic.id,
+        quizName: quizName,
         options: {
+          answer: correctAnswer,
           option1: option1,
           option2: option2,
           option3: option3,
@@ -29,7 +57,7 @@ export async function POST(req: Request, res: Response) {
         questionType: "mcq",
       },
     });
-    NextResponse.json(game);
+    NextResponse.json(quiz);
   } catch (error) {
     console.log(error);
     return NextResponse.error();

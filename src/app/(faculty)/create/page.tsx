@@ -6,19 +6,23 @@ import { Button } from "@/components/ui/button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
-function SignUp() {
+function QuizCreation() {
   const [data, setData] = useState({
-    name: "",
-    rollNumber: "",
-    department: "",
-    email: "",
-    password: "",
+    quizName: "",
+    question: "",
+    correctAnswer: "",
+    option1: "",
+    option2: "",
+    option3: "",
   });
+
+  const [currentPage, setCurrentPage] = useState(1); // Current page number
+  const totalPages = 10; // Total number of pages
 
   const router = useRouter();
 
-  const notify = () =>
-    toast.warn("User already exists", {
+  const notify = (message: string) =>
+    toast(message, {
       position: "bottom-right",
       autoClose: 4000,
       hideProgressBar: false,
@@ -33,7 +37,7 @@ function SignUp() {
     e.preventDefault();
 
     // Send registration data to your API endpoint
-    const response = await fetch("/api/auth/register", {
+    const response = await fetch("/api/questions", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -41,18 +45,22 @@ function SignUp() {
       body: JSON.stringify(data),
     });
     console.log(response);
-    if (response.status === 400) {
-      notify();
+    if (response.ok) {
+      notify("Successfully created question");
     } else {
-      router.push("/api/auth/signin");
+      notify("An error occurred.");
     }
+  };
+
+  const handlePageChange = (pageNumber: number) => {
+    setCurrentPage(pageNumber);
   };
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-          Create a new account
+          Create a new quiz
         </h2>
       </div>
 
@@ -60,115 +68,128 @@ function SignUp() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
-              htmlFor="name"
+              htmlFor="quizName"
               className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
             >
-              Name
+              Quiz Name
             </label>
             <div className="mt-2">
               <input
-                id="name"
-                name="name"
+                id="quizName"
+                name="quizName"
                 type="text"
-                placeholder="Enter your name"
-                autoComplete="name"
+                placeholder="Enter the name of the quiz"
+                autoComplete="quizName"
                 required
-                value={data.name}
-                onChange={(e) => setData({ ...data, name: e.target.value })}
+                value={data.quizName}
+                onChange={(e) => setData({ ...data, quizName: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-
           <div>
             <label
-              htmlFor="rollNumber"
+              htmlFor="question"
               className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
             >
-              Roll Number
+              Question
             </label>
             <div className="mt-2">
               <input
-                id="rollNumber"
-                name="rollNumber"
+                id="question"
+                name="question"
                 type="text"
-                autoComplete="rollNumber"
-                placeholder="Enter roll number"
+                placeholder="Enter your question"
+                autoComplete="question"
                 required
-                value={data.rollNumber}
+                value={data.question}
+                onChange={(e) => setData({ ...data, question: e.target.value })}
+                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+          <div>
+            <label
+              htmlFor="correctAnswer"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Correct Answer
+            </label>
+            <div className="mt-2">
+              <input
+                id="correctAnswer"
+                name="correctAnswer"
+                type="text"
+                autoComplete="correctAnswer"
+                placeholder="Enter the correct answer"
+                required
+                value={data.correctAnswer}
                 onChange={(e) =>
-                  setData({ ...data, rollNumber: e.target.value })
+                  setData({ ...data, correctAnswer: e.target.value })
                 }
                 className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-
           <div>
             <label
-              htmlFor="department"
+              htmlFor="option1"
               className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
             >
-              Department
+              Option 1
             </label>
             <div className="mt-2">
               <input
-                id="department"
-                name="department"
+                id="option1"
+                name="option1"
                 type="text"
-                autoComplete="department"
-                placeholder="Enter your department"
+                autoComplete="option1"
+                placeholder="Enter option 1"
                 required
-                value={data.department}
-                onChange={(e) =>
-                  setData({ ...data, department: e.target.value })
-                }
+                value={data.option1}
+                onChange={(e) => setData({ ...data, option1: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-
           <div>
             <label
-              htmlFor="email"
+              htmlFor="option2"
               className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
             >
-              Email address
+              Option 2
             </label>
             <div className="mt-2">
               <input
-                id="email"
-                name="email"
-                type="email"
-                autoComplete="email"
-                placeholder="Enter email address"
+                id="option2"
+                name="option2"
+                type="text"
+                autoComplete="option2"
+                placeholder="Enter option 2"
                 required
-                value={data.email}
-                onChange={(e) => setData({ ...data, email: e.target.value })}
+                value={data.option2}
+                onChange={(e) => setData({ ...data, option2: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
           </div>
-
           <div>
-            <div className="flex items-center justify-between">
-              <label
-                htmlFor="password"
-                className="block text-sm font-medium leading-6 text-gray-900 px-4 dark:text-white"
-              >
-                Password
-              </label>
-            </div>
+            <label
+              htmlFor="option3"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Option 3
+            </label>
             <div className="mt-2">
               <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                placeholder="Enter password"
+                id="option3"
+                name="option3"
+                type="text"
+                autoComplete="option3"
+                placeholder="Enter option 3"
                 required
-                value={data.password}
-                onChange={(e) => setData({ ...data, password: e.target.value })}
+                value={data.option3}
+                onChange={(e) => setData({ ...data, option3: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -179,16 +200,8 @@ function SignUp() {
               type="submit"
               className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white dark:text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
             >
-              Register
+              Create
             </Button>
-            <div className="text-sm py-2">
-              <a
-                href="/api/auth/signin"
-                className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
-              >
-                Already have an account? Sign in
-              </a>
-            </div>
           </div>
         </form>
       </div>
@@ -208,4 +221,4 @@ function SignUp() {
   );
 }
 
-export default SignUp;
+export default QuizCreation;

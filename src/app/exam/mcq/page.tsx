@@ -6,18 +6,19 @@ import React from "react";
 
 type Props = {
   params: {
-    gameId: string;
+    quizId: string;
   };
 };
 
-const MCQPage = async ({ params: { gameId } }: Props) => {
+const MCQPage = async ({ params: { quizId } }: Props) => {
   const session = await getAuthSession();
   if (!session?.user) {
     return redirect("/");
   }
-  const game = await prisma.game.findUnique({
+
+  const quiz = await prisma.quiz.findUnique({
     where: {
-      id: gameId,
+      id: quizId,
     },
     include: {
       questions: {
@@ -30,15 +31,11 @@ const MCQPage = async ({ params: { gameId } }: Props) => {
     },
   });
 
-  if (!game || game.gameType !== "mcq") {
+  if (!quiz || quiz.quizType === "open_ended") {
     return redirect("/quiz");
   }
 
-  return (
-    <>
-      <MCQ game={game} />
-    </>
-  );
+  return <MCQ quiz={quiz} />;
 };
 
 export default MCQPage;

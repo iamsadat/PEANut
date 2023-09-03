@@ -8,7 +8,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
-import { authenticateUser } from "@/lib/authUtils";
 import { getServerSession } from "next-auth";
 import { getAuthSession } from "@/lib/nextauth";
 const prisma = new PrismaClient();

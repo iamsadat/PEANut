@@ -65,12 +65,12 @@ const QuizCreation = (props: Props) => {
         type: input.type,
       },
       {
-        onSuccess: ({ gameId }) => {
+        onSuccess: ({ quizId }) => {
           if (form.getValues("type") == "open_ended") {
-            router.push(`/quiz/open-ended/${gameId}`);
+            router.push(`/quiz/open-ended/${quizId}`);
             return;
           } else {
-            router.push(`/quiz/mcq/${gameId}`);
+            router.push(`/quiz/mcq/${quizId}`);
           }
         },
       }
@@ -84,7 +84,7 @@ const QuizCreation = (props: Props) => {
       <Card>
         <CardHeader>
           <CardTitle className="text-2xl font-bold">Quiz Creation</CardTitle>
-          <CardDescription>Choose a topic</CardDescription>
+          <CardDescription>Enter the name of the quiz</CardDescription>
         </CardHeader>
         <CardContent>
           <Form {...form}>
@@ -99,8 +99,7 @@ const QuizCreation = (props: Props) => {
                       <Input placeholder="Enter a topic" {...field} />
                     </FormControl>
                     <FormDescription>
-                      Please provide any topic you would like to be quizzed on
-                      here.
+                      Please provide the name of the quiz here.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>

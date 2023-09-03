@@ -6,7 +6,7 @@ const prisma = new PrismaClient();
 export async function POST(request: NextRequest) {
   const reqBody = await request.json();
   console.log(reqBody);
-  const { name, rollNumber, email, password } = reqBody;
+  const { name, rollNumber, department, email, password } = reqBody;
 
   const existingUser = await prisma.user.findFirst({
     where: {
@@ -26,6 +26,7 @@ export async function POST(request: NextRequest) {
     data: {
       name,
       rollNumber,
+      department,
       email,
       password,
     },
