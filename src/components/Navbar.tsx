@@ -5,7 +5,6 @@ import UserAccountNav from "./UserAccountNav";
 import { ThemeToggle } from "./ThemeToggle";
 import { getAuthSession } from "@/lib/nextauth";
 import SignInButton from "./SignInButton";
-import SignUpButton from "./SignUpButton";
 
 const Navbar = async () => {
   const session = await getAuthSession();
@@ -15,7 +14,7 @@ const Navbar = async () => {
         {/* Logo */}
         <Link href={"/"} className="flex items-center gap-2">
           <p className="rounded-lg border-2 border-b-4 border-r-4 border-black px-2 py-1 text-xl font-bold transition-all hover:-translate-y-[2px] md:block dark:border-white">
-            PEANut
+            Quizmify
           </p>
         </Link>
         <div className="flex items-center">
@@ -23,10 +22,7 @@ const Navbar = async () => {
           {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
-            <div className="space-x-4">
-              <SignInButton text={"Sign In"} />
-              <SignUpButton text={"Register"} />
-            </div>
+            <SignInButton text={"Sign In"} />
           )}
         </div>
       </div>
