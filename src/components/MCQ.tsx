@@ -39,8 +39,18 @@ const MCQ = ({ quiz }: Props) => {
 
   const options = React.useMemo(() => {
     if (!currentQuestion) return [];
-    if (!currentQuestion.options) return [];
-    return JSON.parse(currentQuestion.options as string) as string[];
+
+    let optionsString = "";
+
+    if (typeof currentQuestion.options === "number") {
+      optionsString = currentQuestion.options.toString();
+    } else if (typeof currentQuestion.options === "string") {
+      optionsString = currentQuestion.options;
+    }
+
+    if (!optionsString) return [];
+    console.log(JSON.parse(optionsString) as string[]);
+    return JSON.parse(optionsString) as string[];
   }, [currentQuestion]);
 
   const { toast } = useToast();
@@ -51,6 +61,10 @@ const MCQ = ({ quiz }: Props) => {
         userInput: options[selectedChoice],
       };
       const response = await axios.post(`/api/checkAnswer`, payload);
+      console.log("Questions array:", response.data.quiz.questions);
+      console.log("Options:", response.data.quiz.questions[0].id);
+      console.log("Options:", response.data.quiz.questions[0].question);
+      console.log("Options:", response.data.quiz.questions[0].options);
       return response.data;
     },
   });

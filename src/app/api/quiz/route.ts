@@ -65,21 +65,6 @@ export async function POST(req: Request, res: Response) {
       await prisma.question.createMany({
         data: manyData,
       });
-    } else if (type === "open_ended") {
-      type openQuestion = {
-        question: string;
-        answer: string;
-      };
-      await prisma.question.createMany({
-        data: data.questions.map((question: openQuestion) => {
-          return {
-            question: question.question,
-            answer: question.answer,
-            quizId: quiz.id,
-            questionType: "open_ended",
-          };
-        }),
-      });
     }
 
     return NextResponse.json({ quizId: quiz.id }, { status: 200 });
@@ -101,6 +86,7 @@ export async function POST(req: Request, res: Response) {
     }
   }
 }
+
 export async function GET(req: Request, res: Response) {
   try {
     const session = await getAuthSession();
@@ -147,11 +133,10 @@ export async function GET(req: Request, res: Response) {
       }
     );
   } catch (error) {
+    console.error(error); // Log the error for debugging
     return NextResponse.json(
       { error: "An unexpected error occurred." },
-      {
-        status: 500,
-      }
+      { status: 500 }
     );
   }
 }

@@ -58,23 +58,13 @@ const QuizCreation = (props: Props) => {
   });
 
   function onSubmit(input: Input) {
-    getQuestions(
-      {
-        amount: input.amount,
-        topic: input.topic,
-        type: input.type,
-      },
-      {
-        onSuccess: ({ quizId }) => {
-          if (form.getValues("type") == "open_ended") {
-            router.push(`/quiz/open-ended/${quizId}`);
-            return;
-          } else {
-            router.push(`/quiz/mcq/${quizId}`);
-          }
-        },
-      }
-    );
+    console.log(input);
+    router.push("/questions");
+    getQuestions({
+      amount: input.amount,
+      topic: input.topic,
+      type: input.type,
+    });
   }
 
   form.watch();

@@ -16,16 +16,10 @@ export async function POST(request: NextRequest) {
         { status: 401 }
       );
     }
+
     const reqBody = await request.json();
-    const {
-      quizId,
-      quizName,
-      question,
-      correctAnswer,
-      option1,
-      option2,
-      option3,
-    } = reqBody;
+    const { quizName, question, correctAnswer, option1, option2, option3 } =
+      reqBody;
 
     const quizTopic = await prisma.quiz.findFirst({
       where: {
