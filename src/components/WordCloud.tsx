@@ -67,6 +67,14 @@ const data = [
     text: "C#",
     value: 15,
   },
+  {
+    text: "Ruby",
+    value: 16,
+  },
+  {
+    text: "PHP",
+    value: 16,
+  },
 ];
 
 const fontSizeMapper = (word: { value: number }) => {
