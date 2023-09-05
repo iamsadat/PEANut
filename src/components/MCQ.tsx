@@ -39,18 +39,9 @@ const MCQ = ({ quiz }: Props) => {
 
   const options = React.useMemo(() => {
     if (!currentQuestion) return [];
-
-    let optionsString = "";
-
-    if (typeof currentQuestion.options === "number") {
-      optionsString = currentQuestion.options.toString();
-    } else if (typeof currentQuestion.options === "string") {
-      optionsString = currentQuestion.options;
-    }
-
-    if (!optionsString) return [];
-    console.log(JSON.parse(optionsString) as string[]);
-    return JSON.parse(optionsString) as string[];
+    if (!currentQuestion.options) return [];
+    const currentOptions = Object.values(currentQuestion.options);
+    return currentOptions;
   }, [currentQuestion]);
 
   const { toast } = useToast();
@@ -61,20 +52,16 @@ const MCQ = ({ quiz }: Props) => {
         userInput: options[selectedChoice],
       };
       const response = await axios.post(`/api/checkAnswer`, payload);
-      console.log("Questions array:", response.data.quiz.questions);
-      console.log("Options:", response.data.quiz.questions[0].id);
-      console.log("Options:", response.data.quiz.questions[0].question);
-      console.log("Options:", response.data.quiz.questions[0].options);
       return response.data;
     },
   });
 
-  const { mutate: endquiz } = useMutation({
+  const { mutate: endQuiz } = useMutation({
     mutationFn: async () => {
       const payload: z.infer<typeof endQuizSchema> = {
         quizId: quiz.id,
       };
-      const response = await axios.post(`/api/endquiz`, payload);
+      const response = await axios.post(`/api/endQuiz`, payload);
       return response.data;
     },
   });
@@ -113,14 +100,14 @@ const MCQ = ({ quiz }: Props) => {
           });
         }
         if (questionIndex === quiz.questions.length - 1) {
-          endquiz();
+          endQuiz();
           setHasEnded(true);
           return;
         }
         setQuestionIndex((questionIndex) => questionIndex + 1);
       },
     });
-  }, [checkAnswer, questionIndex, quiz.questions.length, toast, endquiz]);
+  }, [checkAnswer, questionIndex, quiz.questions.length, toast, endQuiz]);
 
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
@@ -168,7 +155,7 @@ const MCQ = ({ quiz }: Props) => {
     <div className="absolute -translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw] top-1/2 left-1/2">
       <div className="flex flex-row justify-between">
         <div className="flex flex-col">
-          {/* topic */}
+          {quiz.topic}
           <p>
             <span className="text-slate-400">Topic</span> &nbsp;
             <span className="px-2 py-1 text-white rounded-lg bg-slate-800">

@@ -37,6 +37,8 @@ const MCQPage = async ({ params: { quizId } }: Props) => {
     },
   });
 
+  console.log("quiz:", quiz?.questions);
+
   if (!quiz) {
     return redirect("/quiz");
   }

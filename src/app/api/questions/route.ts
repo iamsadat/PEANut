@@ -8,14 +8,6 @@ const prisma = new PrismaClient();
 export async function POST(request: NextRequest) {
   try {
     const session = await getAuthSession();
-    if (!session?.user) {
-      return NextResponse.json(
-        {
-          error: "You must be logged in.",
-        },
-        { status: 401 }
-      );
-    }
 
     const reqBody = await request.json();
     const { quizName, question, correctAnswer, option1, option2, option3 } =
