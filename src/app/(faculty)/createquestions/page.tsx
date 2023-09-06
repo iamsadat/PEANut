@@ -16,9 +16,6 @@ function QuestionCreation() {
     option3: "",
   });
 
-  const [currentPage, setCurrentPage] = useState(1); // Current page number
-  const totalPages = 10; // Total number of pages
-
   const router = useRouter();
 
   const notify = (message: string) =>
@@ -50,10 +47,6 @@ function QuestionCreation() {
     } else {
       notify("An error occurred.");
     }
-  };
-
-  const handlePageChange = (pageNumber: number) => {
-    setCurrentPage(pageNumber);
   };
 
   return (
@@ -204,22 +197,6 @@ function QuestionCreation() {
             </Button>
           </div>
         </form>
-      </div>
-      <div className="flex justify-center mt-4">
-        {/* Pagination buttons */}
-        {Array.from({ length: totalPages }, (_, index) => (
-          <button
-            key={index}
-            onClick={() => handlePageChange(index + 1)}
-            className={`${
-              currentPage === index + 1
-                ? "bg-indigo-600 text-white"
-                : "bg-gray-300 text-gray-800"
-            } px-4 py-2 mx-1 rounded-md`}
-          >
-            {index + 1}
-          </button>
-        ))}
       </div>
       <ToastContainer
         position="bottom-right"

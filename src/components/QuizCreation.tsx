@@ -25,8 +25,10 @@ import {
 } from "@/components/ui/card";
 import { BookOpen, CopyCheck } from "lucide-react";
 import { Separator } from "./ui/separator";
-import axios from "axios";
+import axios, { AxiosError } from "axios";
 import { useMutation } from "@tanstack/react-query";
+import LoadingQuestions from "./LoadingQuestions";
+import { useToast } from "@/components/ui/use-toast";
 
 type Props = {};
 
@@ -44,6 +46,8 @@ const QuizCreation = (props: Props) => {
     },
   });
 
+  const { toast } = useToast();
+
   const router = useRouter();
   const [showLoader, setShowLoader] = React.useState(false);
   const [finishedLoading, setFinishedLoading] = React.useState(false);
@@ -57,17 +61,36 @@ const QuizCreation = (props: Props) => {
     },
   });
 
-  function onSubmit(input: Input) {
-    console.log(input);
-    router.push("/questions");
-    getQuestions({
-      amount: input.amount,
-      topic: input.topic,
-      type: input.type,
+  const onSubmit = async (data: Input) => {
+    setShowLoader(true);
+    getQuestions(data, {
+      onError: (error) => {
+        setShowLoader(false);
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 500) {
+            toast({
+              title: "Error",
+              description: "Something went wrong. Please try again later.",
+              variant: "destructive",
+            });
+          }
+        }
+      },
     });
-  }
-
+    setTimeout(() => {
+      setFinishedLoading(true);
+      // if (form.getValues("type") === "mcq") {
+      router.push("/createquestions");
+      // } else if (form.getValues("type") === "open_ended") {
+      //   router.push(`/quiz/open-ended/${quizId}`);
+      // }
+    }, 2000);
+  };
   form.watch();
+
+  if (showLoader) {
+    return <LoadingQuestions finished={finishedLoading} />;
+  }
 
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
