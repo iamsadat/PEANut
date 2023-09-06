@@ -1,7 +1,5 @@
-import HistoryCard from "@/components/dashboard/HistoryCard";
+import AccountCard from "@/components/dashboard/AccountCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
-import RecentActivities from "@/components/dashboard/RecentActivities";
-import TopicsCard from "@/components/dashboard/TopicsCard";
 import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -27,13 +25,10 @@ const Dasboard = async (props: Props) => {
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
         <QuizMeCard />
-        <HistoryCard />
+        <AccountCard href="/faculty/account" />
       </div>
 
-      <div className="grid gap-4 mt-4 md:grid-cols-2">
-        <TopicsCard />
-        <RecentActivities />
-      </div>
+      <div className="grid gap-4 mt-4 md:grid-cols-2"></div>
     </main>
   );
 };
