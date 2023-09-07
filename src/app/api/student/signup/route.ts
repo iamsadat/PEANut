@@ -8,7 +8,7 @@ export async function POST(request: NextRequest) {
   try {
 
     const reqBody = await request.json();
-    const { name, rollNumber, email, password } = reqBody;
+    const { name, rollNumber, email, password, department } = reqBody;
     console.log(reqBody);
 
     const existingUser = await prisma.user.findFirst({
@@ -31,6 +31,7 @@ export async function POST(request: NextRequest) {
       data: {
         name,
         rollNumber,
+        department,
         email,
         password: hashedPassword,
       },
