@@ -37,7 +37,7 @@ export async function POST(request:NextRequest) {
 
         const tokenData = {
             id: user.id,
-            username: user.rollNumber,
+            rollNumber: user.rollNumber,
             email: user.email,
             role: user.role
         }

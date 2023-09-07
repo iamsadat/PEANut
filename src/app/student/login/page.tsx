@@ -11,24 +11,23 @@ import Link from "next/link";
 
 function LogIn() {
     const [data, setData] = useState({
-      rollnumber: "",
+      rollNumber: "",
       password: "",
     });
   
     const router = useRouter();
     const [loading, setLoading] = useState(false);
 
-  
-    // const { data: session } = useSession();
-  
+    
+
     const handleSubmit = async (e: any) => {
       e.preventDefault();
       try {
         setLoading(true);
-        const response = await axios.post("/api/users/login", data);
+        const response = await axios.post("/api/student/login", data);
         console.log("Login success", response.data);
         toast.success("Login success");
-        router.push("/student/profile");
+        router.push("/student/dashboard");
     } catch (error:any) {
         console.log("Login failed", error.message);
         toast.error(error.message);
@@ -49,22 +48,22 @@ function LogIn() {
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>
               <label
-                htmlFor="rollnumber"
+                htmlFor="rollNumber"
                 className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
               >
                 Roll Number
               </label>
               <div className="mt-2">
                 <input
-                  id="email"
-                  name="email"
+                  id="rollNumber"
+                  name="rollNumber"
                   type="text"
-                  autoComplete="email"
+                  autoComplete="rollNumber"
                   placeholder="Enter roll number"
                   required
-                  value={data.rollnumber}
+                  value={data.rollNumber}
                   onChange={(e) =>
-                    setData({ ...data, rollnumber: e.target.value })
+                    setData({ ...data, rollNumber: e.target.value })
                   }
                   className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                 />
