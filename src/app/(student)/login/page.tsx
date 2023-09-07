@@ -2,14 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { redirect, useRouter } from "next/navigation";
-import { SignInResponse, signIn, useSession } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Link from "next/link";
 import { PrismaClient } from "@prisma/client";
-import { getServerSession } from "next-auth";
-import { getAuthSession } from "@/lib/nextauth";
 const prisma = new PrismaClient();
 
 function LogIn() {
@@ -19,13 +16,6 @@ function LogIn() {
   });
 
   const router = useRouter();
-
-  const { data: session, status } = useSession();
-  console.log(session);
-
-  if (status === "authenticated") {
-    router.push("/dashboard");
-  }
 
   const notify = () =>
     toast.error("Wrong credentials!", {
@@ -39,28 +29,7 @@ function LogIn() {
       theme: "light",
     });
 
-  const handleSubmit = async (e: any) => {
-    e.preventDefault();
-    // Sign in with credentials
-    try {
-      const result = await signIn("credentials", {
-        ...data,
-        redirect: false,
-      });
-
-      console.log(result);
-
-      console.log(result?.error);
-
-      if (result?.error !== "CredentialsSignin") {
-        router.push("/dashboard");
-      } else {
-        notify();
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  const handleSubmit = async (e: any) => {};
 
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">

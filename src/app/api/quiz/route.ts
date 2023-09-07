@@ -1,5 +1,4 @@
 import { prisma } from "@/lib/db";
-import { getAuthSession } from "@/lib/nextauth";
 import { quizCreationSchema } from "@/schemas/form/quiz";
 import { NextResponse } from "next/server";
 import { z } from "zod";
@@ -7,22 +6,13 @@ import axios from "axios";
 
 export async function POST(req: Request, res: Response) {
   try {
-    const session = await getAuthSession();
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: "You must be logged in to create a quiz." },
-        {
-          status: 401,
-        }
-      );
-    }
     const body = await req.json();
     const { topic, type, amount } = quizCreationSchema.parse(body);
     const quiz = await prisma.quiz.create({
       data: {
         quizType: type,
         timeStarted: new Date(),
-        userId: session.user.id,
+        userId: user.id,
         topic,
       },
     });

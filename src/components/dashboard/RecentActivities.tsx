@@ -7,17 +7,12 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
 
 type Props = {};
 
 const RecentActivityCard = async (props: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
-    return redirect("/");
-  }
   return (
     <Card className="col-span-4 lg:col-span-3">
       <CardHeader>
