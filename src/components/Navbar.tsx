@@ -1,9 +1,9 @@
 import Link from "next/link";
 import React from "react";
 
-import UserAccountNav from "./UserAccountNav";
+// import UserAccountNav from "./UserAccountNav";
 import { ThemeToggle } from "./ThemeToggle";
-import SignInButton from "./SignInButton";
+// import SignInButton from "./SignInButton";
 
 const Navbar = async () => {
   return (
@@ -27,11 +27,11 @@ const Navbar = async () => {
         </div>
         <div className="flex items-center">
           <ThemeToggle className="mr-4" />
-          {session?.user ? (
+          {/* {session?.user ? (
             <UserAccountNav user={session.user} />
           ) : (
-            <SignInButton text={"Sign In"} />
-          )}
+            <SignInButton text={"Sign In"} /> */}
+          
         </div>
       </div>
     </div>

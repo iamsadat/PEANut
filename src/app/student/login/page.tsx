@@ -1,134 +1,127 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { redirect, useRouter } from "next/navigation";
+import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import axios from "axios";
+import { toast } from "react-hot-toast";
 import Link from "next/link";
-import { PrismaClient } from "@prisma/client";
-const prisma = new PrismaClient();
+
+
 
 function LogIn() {
-  const [data, setData] = useState({
-    rollNumber: "",
-    password: "",
-  });
-
-  const router = useRouter();
-
-  const notify = () =>
-    toast.error("Wrong credentials!", {
-      position: "bottom-right",
-      autoClose: 4000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      progress: undefined,
-      theme: "light",
+    const [data, setData] = useState({
+      rollnumber: "",
+      password: "",
     });
+  
+    const router = useRouter();
+    const [loading, setLoading] = useState(false);
 
-  const handleSubmit = async (e: any) => {};
-
-  return (
-    <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
-      <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-          Log In to your account
-        </h2>
-      </div>
-
-      <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form onSubmit={handleSubmit} className="space-y-6">
-          <div>
-            <label
-              htmlFor="rollNumber"
-              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
-            >
-              Roll Number
-            </label>
-            <div className="mt-2">
-              <input
-                id="rollNumber"
-                name="rollNumber"
-                type="text"
-                autoComplete="rollNumber"
-                placeholder="Enter roll number"
-                required
-                value={data.rollNumber}
-                onChange={(e) =>
-                  setData({ ...data, rollNumber: e.target.value })
-                }
-                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
-            </div>
-          </div>
-
-          <div>
-            <div className="flex items-center justify-between">
+  
+    // const { data: session } = useSession();
+  
+    const handleSubmit = async (e: any) => {
+      e.preventDefault();
+      try {
+        setLoading(true);
+        const response = await axios.post("/api/users/login", data);
+        console.log("Login success", response.data);
+        toast.success("Login success");
+        router.push("/student/profile");
+    } catch (error:any) {
+        console.log("Login failed", error.message);
+        toast.error(error.message);
+    } finally{
+    setLoading(false);
+    }
+};
+  
+    return (
+      <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
+        <div className="sm:mx-auto sm:w-full sm:max-w-sm">
+          <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+            {loading ? "Processing" : "Log In to your account"}
+          </h2>
+        </div>
+  
+        <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            <div>
               <label
-                htmlFor="password"
+                htmlFor="rollnumber"
                 className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
               >
-                Password
+                Roll Number
               </label>
-              <div className="text-sm">
-                <a
-                  href="#"
-                  className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
-                >
-                  Forgot password?
-                </a>
+              <div className="mt-2">
+                <input
+                  id="email"
+                  name="email"
+                  type="text"
+                  autoComplete="email"
+                  placeholder="Enter roll number"
+                  required
+                  value={data.rollnumber}
+                  onChange={(e) =>
+                    setData({ ...data, rollnumber: e.target.value })
+                  }
+                  className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
               </div>
             </div>
-            <div className="mt-2">
-              <input
-                id="password"
-                name="password"
-                type="password"
-                autoComplete="current-password"
-                placeholder="Enter password"
-                required
-                value={data.password}
-                onChange={(e) => setData({ ...data, password: e.target.value })}
-                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-              />
+  
+            <div>
+              <div className="flex items-center justify-between">
+                <label
+                  htmlFor="password"
+                  className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+                >
+                  Password
+                </label>
+                <div className="text-sm">
+                  <a
+                    href="#"
+                    className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                  >
+                    Forgot password?
+                  </a>
+                </div>
+              </div>
+              <div className="mt-2">
+                <input
+                  id="password"
+                  name="password"
+                  type="password"
+                  autoComplete="current-password"
+                  placeholder="Enter password"
+                  required
+                  value={data.password}
+                  onChange={(e) => setData({ ...data, password: e.target.value })}
+                  className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                />
+              </div>
             </div>
-          </div>
-
-          <div>
-            <Button
-              type="submit"
-              className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white dark:text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-            >
-              Log In
-            </Button>
-            <div className=" py-3 text-sm">
-              <Link
-                href="/register"
-                className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
+  
+            <div>
+              <Button
+                type="submit"
+                className="flex w-full justify-center rounded-md px-3 py-1.5 text-sm font-semibold leading-6 text-white dark:text-black shadow-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
               >
-                {"Don't have an account? Register"}
-              </Link>
+                Log In
+              </Button>
+              <div className=" py-3 text-sm">
+                <Link
+                  href="/student/signup"
+                  className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
+                >
+                  {"Don't have an account? Register"}
+                </Link>
+              </div>
             </div>
-          </div>
-        </form>
+          </form>
+        </div>
       </div>
-      <ToastContainer
-        position="bottom-right"
-        autoClose={5000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
-    </div>
-  );
-}
-
-export default LogIn;
+    );
+  }
+  export default LogIn;
