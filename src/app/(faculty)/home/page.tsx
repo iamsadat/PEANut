@@ -1,6 +1,5 @@
 import AccountCard from "@/components/dashboard/AccountCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
-import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
 import React from "react";
 
@@ -12,11 +11,6 @@ export const metadata = {
 };
 
 const Dasboard = async (props: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
-    redirect("/");
-  }
-
   return (
     <main className="p-8 mx-auto max-w-7xl">
       <div className="flex items-center">

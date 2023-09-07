@@ -1,6 +1,5 @@
 import MCQ from "@/components/MCQ";
 import { prisma } from "@/lib/db";
-import { getAuthSession } from "@/lib/nextauth";
 import { redirect, useRouter } from "next/navigation";
 import React from "react";
 
@@ -15,11 +14,6 @@ const MCQPage = async ({ params: { quizId } }: Props) => {
   if (!quizId) {
     console.log("quizId:", quizId);
     return <div>Invalid quizId {quizId} </div>; // You can provide an error message or handle this case as needed
-  }
-
-  const session = await getAuthSession();
-  if (!session?.user) {
-    return redirect("/");
   }
 
   const quiz = await prisma.quiz.findUnique({
