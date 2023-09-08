@@ -56,9 +56,8 @@ model Faculty {
   name          String
   email         String   @unique
   password      String   // Added password field
-  phone         String
-  department    String?
-  designation   String?
+  department    String
+  designation   String
   role          String    @default("faculty") 
 }
 

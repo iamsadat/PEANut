@@ -7,7 +7,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 
-function LogIn() {
+function login() {
     const [data, setData] = useState({
       email: "",
       password: "",
@@ -23,12 +23,12 @@ function LogIn() {
       e.preventDefault();
       try {
         setLoading(true);
-        const response = await axios.post("/api/Faculty/Login", data);
-        console.log("Login success", response.data);
-        toast.success("Login success");
-        router.push("/Faculty/profile");
+        const response = await axios.post("/api/faculty/login", data);
+        console.log("login success", response.data);
+        toast.success("login success");
+        router.push("/faculty/dashboard");
     } catch (error:any) {
-        console.log("Login failed", error.message);
+        console.log("login failed", error.message);
         toast.error(error.message);
     } finally{
     setLoading(false);
@@ -110,7 +110,7 @@ function LogIn() {
               </Button>
               <div className=" py-3 text-sm">
                 <Link
-                  href="/signup"
+                  href="/faculty/signup"
                   className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
                 >
                   {"Don't have an account? Register"}
@@ -122,4 +122,4 @@ function LogIn() {
       </div>
     );
   }
-  export default LogIn;
+  export default login;

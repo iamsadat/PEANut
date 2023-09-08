@@ -31,12 +31,12 @@ function SignUp() {
         setLoading(false);
     }
     
-      const response = await axios.post("/api/Faculty/Signup", data);
-      console.log("Signup success", response.data);
-      router.push("/Faculty/Login");
+      const response = await axios.post("/api/faculty/signup", data);
+      console.log("signup success", response.data);
+      router.push("/faculty/login");
       
   } catch (error:any) {
-      console.log("Signup failed", error.message);
+      console.log("signup failed", error.message);
       toast.error(error.message);
 
       
@@ -178,7 +178,7 @@ function SignUp() {
             </Button>
             <div className="text-sm py-2">
               <a
-                href="/api/Faculty/Login"
+                href="/api/faculty/login"
                 className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
               >
                 Already have an account? Sign in
