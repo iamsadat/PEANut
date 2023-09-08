@@ -48,6 +48,7 @@ model User {
   quizzes         Quiz[]
   accounts      Account[]
   sessions      Session[]
+  role          String    @default("student") 
 }
 
 model Faculty {
@@ -55,9 +56,9 @@ model Faculty {
   name          String
   email         String   @unique
   password      String   // Added password field
-  phone         String
-  department    String?
-  designation   String?
+  department    String
+  designation   String
+  role          String    @default("faculty") 
 }
 
 enum QuizType {

@@ -1,5 +1,4 @@
-import SignInButton from "@/components/SignInButton";
-import SignUpButton from "@/components/SignUpButton";
+import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
@@ -7,6 +6,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import Link from "next/link";
 import { redirect } from "next/navigation";
 
 export default async function Home() {
@@ -22,7 +22,12 @@ export default async function Home() {
         </CardHeader>
         <CardContent>
           <div className="flex justify-between px-3">
-            {/* signInButton */}
+            <Link href="/student/login">
+              <Button>Log In</Button>
+            </Link>
+            <Link href="/student/signup">
+              <Button>Sign Up</Button>
+            </Link>
             {/* signUpButton */}
           </div>
         </CardContent>

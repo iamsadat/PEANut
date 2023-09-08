@@ -5,26 +5,13 @@ import Image from "next/image";
 import { type AvatarProps } from "@radix-ui/react-avatar";
 import { AvatarIcon } from "@radix-ui/react-icons";
 
-interface Props extends AvatarProps {
-  user: Pick<User, "name" | "image">;
-}
+interface Props {}
 
-const UserAvatar = ({ user, ...props }: Props) => {
+const UserAvatar = (props: Props) => {
   return (
-    <Avatar {...props}>
-      {user.image ? (
-        <div className="relative w-full h-full aspect-square">
-          <Avatar>
-            <AvatarImage src="https://github.com/shadcn.png" />
-            <AvatarFallback>CN</AvatarFallback>
-          </Avatar>
-        </div>
-      ) : (
-        <Avatar>
-          <AvatarImage src="https://github.com/shadcn.png" />
-          <AvatarFallback>CN</AvatarFallback>
-        </Avatar>
-      )}
+    <Avatar>
+      <AvatarImage className="w-10 h-10" src="https://github.com/shadcn.png" />
+      <AvatarFallback>CN</AvatarFallback>
     </Avatar>
   );
 };

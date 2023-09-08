@@ -7,25 +7,27 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 
-function LogIn() {
+function login() {
   const [data, setData] = useState({
-    rollNumber: "",
+    email: "",
     password: "",
   });
 
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
+  // const { data: session } = useSession();
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post("/api/student/login", data);
-      console.log("Login success", response.data);
-      toast.success("Login success");
-      router.push("/student/dashboard");
+      const response = await axios.post("/api/faculty/login", data);
+      console.log("login success", response.data);
+      toast.success("login success");
+      router.push("/faculty/dashboard");
     } catch (error: any) {
-      console.log("Login failed", error.message);
+      console.log("login failed", error.message);
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -44,23 +46,21 @@ function LogIn() {
         <form onSubmit={handleSubmit} className="space-y-6">
           <div>
             <label
-              htmlFor="rollNumber"
+              htmlFor="email"
               className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
             >
-              Roll Number
+              email
             </label>
             <div className="mt-2">
               <input
-                id="rollNumber"
-                name="rollNumber"
+                id="email"
+                name="email"
                 type="text"
-                autoComplete="rollNumber"
-                placeholder="Enter roll number"
+                autoComplete="email"
+                placeholder="Enter email"
                 required
-                value={data.rollNumber}
-                onChange={(e) =>
-                  setData({ ...data, rollNumber: e.target.value })
-                }
+                value={data.email}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
                 className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
             </div>
@@ -107,7 +107,7 @@ function LogIn() {
             </Button>
             <div className=" py-3 text-sm">
               <Link
-                href="/student/signup"
+                href="/faculty/signup"
                 className="font-semibold text-gray-700 dark:text-gray-300 hover:text-black dark:hover:text-white"
               >
                 {"Don't have an account? Register"}
@@ -119,4 +119,4 @@ function LogIn() {
     </div>
   );
 }
-export default LogIn;
+export default login;
