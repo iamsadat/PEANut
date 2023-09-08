@@ -5,7 +5,7 @@ import { Target } from "lucide-react";
 type Props = { accuracy: number };
 
 const AccuracyCard = ({ accuracy }: Props) => {
-  accuracy = Math.round(accuracy * 100) / 100;
+  accuracy = (accuracy * 100) / 100;
   return (
     <Card className="md:col-span-3">
       <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
@@ -13,7 +13,7 @@ const AccuracyCard = ({ accuracy }: Props) => {
         <Target />
       </CardHeader>
       <CardContent>
-        <div className="text-sm font-medium">{accuracy.toString()}</div>
+        <div className="text-sm font-medium">{accuracy.toString() + "%"}</div>
       </CardContent>
     </Card>
   );

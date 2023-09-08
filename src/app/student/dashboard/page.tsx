@@ -3,23 +3,17 @@ import HistoryCard from "@/components/dashboard/HistoryCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
 import RecentActivities from "@/components/dashboard/RecentActivities";
 import TopicsCard from "@/components/dashboard/TopicsCard";
-import { getAuthSession } from "@/lib/nextauth";
 import { redirect } from "next/navigation";
 import React from "react";
 
 type Props = {};
 
 export const metadata = {
-  title: "Dashboard | Quizmify",
+  title: "Student Dashboard | PEANut",
   description: "Quiz yourself on anything!",
 };
 
 const Dasboard = async (props: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
-    redirect("/");
-  }
-
   return (
     <main className="p-8 mx-auto max-w-7xl">
       <div className="flex items-center">
@@ -27,7 +21,7 @@ const Dasboard = async (props: Props) => {
       </div>
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
-        <AccountCard href="/account" />
+        <AccountCard href="/student/account" />
         <HistoryCard />
       </div>
 

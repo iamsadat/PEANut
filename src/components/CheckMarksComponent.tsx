@@ -1,7 +1,6 @@
+import { prisma } from "@/lib/db";
+import { Quiz } from "@prisma/client";
 import React, { useEffect, useState } from "react";
-import { Quiz, Question } from "@prisma/client";
-import axios from "axios";
-import { Card } from "../ui/card";
 import {
   Table,
   TableBody,
@@ -10,19 +9,16 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from "../ui/table";
-import Link from "next/link";
-import { Button } from "../ui/button";
+} from "@/components/ui/table";
 import { redirect, useRouter } from "next/navigation";
-import LoadingQuestions from "../LoadingQuestions";
+import Link from "next/link";
+import { Button } from "./ui/button";
+import axios from "axios";
 
 type Props = {};
 
-const QuizCard = (props: Props) => {
+const CheckMarksComponent = (props: Props) => {
   const [allQuizzes, setAllQuizzes] = useState([]);
-  const [showLoader, setShowLoader] = React.useState(false);
-  const [finishedLoading, setFinishedLoading] = React.useState(false);
-
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -35,22 +31,6 @@ const QuizCard = (props: Props) => {
 
     fetchData();
   }, []);
-  const router = useRouter();
-
-  const handleClick = () => {
-    setShowLoader(true);
-    setTimeout(() => {
-      setFinishedLoading(true);
-      // if (form.getValues("type") === "mcq") {
-      router.push("/student/quiz/mcq/clm9n0ny90000tm14puw28cot");
-      // } else if (form.getValues("type") === "open_ended") {
-      //   router.push(`/quiz/open-ended/${quizId}`);
-      // }
-    }, 2000);
-  };
-
-  if (showLoader) return <LoadingQuestions finished={finishedLoading} />;
-
   console.log(allQuizzes);
 
   return (
@@ -73,11 +53,19 @@ const QuizCard = (props: Props) => {
                 <TableRow key={quiz.id}>
                   <TableCell className="font-medium">{index + 1}</TableCell>
                   <TableCell>
-                    <Link href={`/quiz/mcq/${quiz.id}`}>{quiz.topic}</Link>
+                    <Link href={`/student/statistics/${quiz.id}`}>
+                      {quiz.topic}
+                    </Link>
                   </TableCell>
                   <TableCell>{quiz.quizType}</TableCell>
                   <TableCell>
-                    <Button onClick={handleClick}>Take Quiz</Button>
+                    <Button
+                      onClick={() => {
+                        redirect(`/student/statistics/${quiz.id}`);
+                      }}
+                    >
+                      View Stats
+                    </Button>
                   </TableCell>
                 </TableRow>
               );
@@ -89,4 +77,4 @@ const QuizCard = (props: Props) => {
   );
 };
 
-export default QuizCard;
+export default CheckMarksComponent;

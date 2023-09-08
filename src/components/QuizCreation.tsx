@@ -80,7 +80,7 @@ const QuizCreation = (props: Props) => {
     setTimeout(() => {
       setFinishedLoading(true);
       // if (form.getValues("type") === "mcq") {
-      router.push("/createquestions");
+      router.push("/faculty/createquestions");
       // } else if (form.getValues("type") === "open_ended") {
       //   router.push(`/quiz/open-ended/${quizId}`);
       // }

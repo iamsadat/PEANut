@@ -141,7 +141,7 @@ const MCQ = ({ quiz }: Props) => {
           {formatTimeDelta(differenceInSeconds(now, quiz.timeStarted))}
         </div>
         <Link
-          href={`/statistics/${quiz.id}`}
+          href={`/student/statistics/${quiz.id}`}
           className={cn(buttonVariants({ size: "lg" }), "mt-2")}
         >
           View Statistics

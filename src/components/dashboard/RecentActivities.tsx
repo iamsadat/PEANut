@@ -9,21 +9,30 @@ import {
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import { prisma } from "@/lib/db";
+import HistoryComponent from "../HistoryComponent";
 
 type Props = {};
 
 const RecentActivityCard = async (props: Props) => {
+  const quizCount = await prisma.quiz.count({
+    where: {
+      id: "",
+    },
+  });
+
   return (
     <Card className="col-span-4 lg:col-span-3">
       <CardHeader>
         <CardTitle className="text-2xl font-bold">
-          <Link href="/history">Recent Activity</Link>
+          <Link href="/student/history">Recent Activity</Link>
         </CardTitle>
         <CardDescription>
-          You have completed a total of 7 quizzes.
+          You have completed a total of {quizCount} quizzes.
         </CardDescription>
       </CardHeader>
-      <CardContent className="max-h-[580px] overflow-y-scroll"></CardContent>
+      <CardContent className="max-h-[580px] overflow-y-scroll">
+        <HistoryComponent limit={10} userId={""} />
+      </CardContent>
     </Card>
   );
 };

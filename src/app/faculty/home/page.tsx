@@ -1,12 +1,12 @@
 import AccountCard from "@/components/dashboard/AccountCard";
+import CheckMarksCard from "@/components/dashboard/CheckMarksCard";
 import QuizMeCard from "@/components/dashboard/QuizMeCard";
-import { redirect } from "next/navigation";
 import React from "react";
 
 type Props = {};
 
 export const metadata = {
-  title: "Dashboard | Quizmify",
+  title: "Faculty Dashboard | PEANut",
   description: "Quiz yourself on anything!",
 };
 
@@ -22,7 +22,9 @@ const Dasboard = async (props: Props) => {
         <AccountCard href="/faculty/account" />
       </div>
 
-      <div className="grid gap-4 mt-4 md:grid-cols-2"></div>
+      <div className="grid gap-4 mt-4 md:grid-cols-2">
+        <CheckMarksCard />
+      </div>
     </main>
   );
 };

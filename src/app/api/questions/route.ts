@@ -1,4 +1,3 @@
-import { getAuthSession } from "@/lib/nextauth";
 import { NextRequest, NextResponse } from "next/server";
 import { PrismaClient } from "@prisma/client";
 import axios from "axios";
@@ -7,8 +6,6 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
-    const session = await getAuthSession();
-
     const reqBody = await request.json();
     const { quizName, question, correctAnswer, option1, option2, option3 } =
       reqBody;

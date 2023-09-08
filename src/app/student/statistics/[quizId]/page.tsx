@@ -4,7 +4,6 @@ import ResultsCard from "@/components/statistics/ResultsCard";
 import TimeTakenCard from "@/components/statistics/TimeTakenCard";
 import { buttonVariants } from "@/components/ui/button";
 import { prisma } from "@/lib/db";
-import { getAuthSession } from "@/lib/nextauth";
 import { LucideLayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -17,11 +16,6 @@ type Props = {
 };
 
 const StatisticsPage = async ({ params: { quizId } }: Props) => {
-  const session = await getAuthSession();
-  if (!session?.user) {
-    return redirect("/");
-  }
-
   const quiz = await prisma.quiz.findUnique({
     where: {
       id: quizId,
@@ -46,14 +40,14 @@ const StatisticsPage = async ({ params: { quizId } }: Props) => {
     accuracy = (totalCorrect / quiz.questions.length) * 100;
   }
 
-  accuracy = Math.round(accuracy * 100) / 100;
+  accuracy = (accuracy * 100) / 100;
 
   return (
     <div className="p-8 mx-auto max-w-7xl">
       <div className="flex items-center justify-between space-y-2">
         <h2 className="text-3xl font-bold tracking-tight">Statistics</h2>
         <div className="flex items-center space-x-2">
-          <Link href="/dashboard" className={buttonVariants()}>
+          <Link href="/student/dashboard" className={buttonVariants()}>
             <LucideLayoutDashboard className="mr-2" />
             Back to Dashboard
           </Link>
