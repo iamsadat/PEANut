@@ -1,7 +1,6 @@
 import { NextRequest } from "next/server";
 import puppeteer from "puppeteer";
 import { verifyJwtToken } from "@/lib/auth";
-import { prisma } from "@/lib/db";
 
 export async function POST(request: NextRequest) {
   let browser;
@@ -17,12 +16,6 @@ export async function POST(request: NextRequest) {
     // Authenticate the user if needed using verifyJwtToken
     const token = request.cookies.get("token")?.value || "";
     const user = await verifyJwtToken(token);
-
-    const userExists = await prisma.user.findUnique({
-      where: {
-        id: user?.id,
-      },
-    });
 
     const page = await browser.newPage();
     await page.goto(
