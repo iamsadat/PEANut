@@ -13,7 +13,7 @@ export const metadata = {
   description: "Quiz yourself on anything!",
 };
 
-const Dasboard = async (props: Props) => {
+const page = async (props: Props) => {
   return (
     <main className="p-8 mx-auto max-w-7xl">
       <div className="flex items-center">
@@ -33,4 +33,4 @@ const Dasboard = async (props: Props) => {
   );
 };
 
-export default Dasboard;
+export default page;
