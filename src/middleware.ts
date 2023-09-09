@@ -1,6 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import { verifyJwtToken } from "./lib/auth";
 
+let isAuthenticated = false;
+
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
@@ -19,15 +21,19 @@ export async function middleware(request: NextRequest) {
   const userRole = await verifyJwtToken(token);
 
   if (token && isPublicPath) {
-    if (userRole === "student") {
+    if (userRole?.role === "student") {
       return NextResponse.redirect(
         new URL("/student/dashboard", request.nextUrl)
       );
-    } else if (userRole === "faculty") {
+    } else if (userRole?.role === "faculty") {
       return NextResponse.redirect(
         new URL("/faculty/dashboard", request.nextUrl)
       );
     }
+  }
+
+  if (userRole?.id) {
+    isAuthenticated = true;
   }
 
   if (!token && !isPublicPath) {
@@ -35,11 +41,11 @@ export async function middleware(request: NextRequest) {
   }
 
   if (token && !isPublicPath) {
-    if (userRole === "student" && !path.startsWith("/student")) {
+    if (userRole?.role === "student" && !path.startsWith("/student")) {
       return NextResponse.redirect(
         new URL("/student/dashboard", request.nextUrl)
       );
-    } else if (userRole === "faculty" && !path.startsWith("/faculty")) {
+    } else if (userRole?.role === "faculty" && !path.startsWith("/faculty")) {
       return NextResponse.redirect(
         new URL("/faculty/dashboard", request.nextUrl)
       );
@@ -66,3 +72,9 @@ export const config = {
     "/faculty/home",
   ],
 };
+
+export function authenticated() {
+  console.log(isAuthenticated);
+
+  return isAuthenticated;
+}

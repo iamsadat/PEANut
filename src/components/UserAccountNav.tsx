@@ -17,6 +17,7 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
+import jwt from "jsonwebtoken";
 
 const prisma = new PrismaClient();
 
@@ -28,6 +29,7 @@ const UserAccountNav = () => {
   const logout = async () => {
     try {
       await axios.get("/api/student/logout");
+      localStorage.removeItem("token");
       toast.success("Logout successful");
       router.push("/");
     } catch (error: any) {

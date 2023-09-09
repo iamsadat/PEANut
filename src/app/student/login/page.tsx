@@ -7,7 +7,7 @@ import axios from "axios";
 import { toast } from "react-hot-toast";
 import Link from "next/link";
 
-function LogIn() {
+const LogIn = () => {
   const [data, setData] = useState({
     rollNumber: "",
     password: "",
@@ -118,5 +118,5 @@ function LogIn() {
       </div>
     </div>
   );
-}
+};
 export default LogIn;
