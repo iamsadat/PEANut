@@ -19,7 +19,12 @@ export async function verifyJwtToken(token: string | Uint8Array) {
     const id = payload.id;
     const rollNumber = payload.rollNumber;
     const email = payload.email;
-    return { role, id, rollNumber, email };
+    return { role, id, rollNumber, email } as {
+      role: string;
+      id: string;
+      rollNumber: string;
+      email: string;
+    };
   } catch (error) {
     return null;
   }
