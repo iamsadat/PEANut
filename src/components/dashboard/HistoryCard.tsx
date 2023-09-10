@@ -8,6 +8,7 @@ type Props = {};
 
 const HistoryCard = (props: Props) => {
   const router = useRouter();
+  if (!router.prefetch) return <div>Error</div>;
   return (
     <Card
       className="hover:cursor-pointer hover:opacity-75"

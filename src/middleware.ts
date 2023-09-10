@@ -69,7 +69,7 @@ export const config = {
     "/faculty/dashboard",
     "/faculty/createquiz",
     "/faculty/createquestions",
-    "/faculty/home",
+    "/faculty/dashboard",
   ],
 };
 

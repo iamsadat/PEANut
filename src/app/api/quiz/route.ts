@@ -3,11 +3,19 @@ import { quizCreationSchema } from "@/schemas/form/quiz";
 import { NextResponse } from "next/server";
 import { z } from "zod";
 import axios from "axios";
+import { verifyJwtToken } from "@/lib/auth";
 
 export async function POST(req: Request, res: Response) {
   try {
     const body = await req.json();
     const { topic, type, amount } = quizCreationSchema.parse(body);
+    const token = localStorage.getItem("token");
+    let user;
+    if (token) {
+      user = await verifyJwtToken(token);
+    }
+    user = user as { id: string };
+
     const quiz = await prisma.quiz.create({
       data: {
         quizType: type,
@@ -79,15 +87,6 @@ export async function POST(req: Request, res: Response) {
 
 export async function GET(req: Request, res: Response) {
   try {
-    const session = await getAuthSession();
-    if (!session?.user) {
-      return NextResponse.json(
-        { error: "You must be logged in to create a quiz." },
-        {
-          status: 401,
-        }
-      );
-    }
     const url = new URL(req.url);
     const quizId = url.searchParams.get("quizId");
     if (!quizId) {
