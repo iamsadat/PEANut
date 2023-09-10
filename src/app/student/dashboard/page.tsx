@@ -1,7 +1,7 @@
 import AccountCard from "@/components/dashboard/AccountCard";
-import HistoryCard from "@/components/dashboard/HistoryCard";
 import RecentActivities from "@/components/dashboard/RecentActivities";
 import TopicsCard from "@/components/dashboard/TopicsCard";
+import AttendanceCard from "@/components/dashboard/AttendanceCard";
 import React from "react";
 
 type Props = {};
@@ -20,7 +20,7 @@ const Dashboard = (props: Props) => {
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
         <AccountCard />
-        <HistoryCard />
+        <AttendanceCard />
       </div>
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">

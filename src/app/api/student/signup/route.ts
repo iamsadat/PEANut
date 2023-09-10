@@ -6,14 +6,13 @@ const prisma = new PrismaClient();
 
 export async function POST(request: NextRequest) {
   try {
-
     const reqBody = await request.json();
     const { name, rollNumber, email, password, department } = reqBody;
     console.log(reqBody);
 
     const existingUser = await prisma.user.findFirst({
       where: {
-        rollNumber:rollNumber
+        rollNumber: rollNumber,
       },
     });
 
@@ -24,8 +23,8 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    const salt = await bcryptjs.genSalt(10)
-    const hashedPassword = await bcryptjs.hash(password, salt)
+    const salt = await bcryptjs.genSalt(10);
+    const hashedPassword = await bcryptjs.hash(password, salt);
 
     const user = await prisma.user.create({
       data: {
@@ -33,7 +32,7 @@ export async function POST(request: NextRequest) {
         rollNumber,
         department,
         email,
-        password: hashedPassword,
+        password,
       },
     });
 
@@ -41,10 +40,8 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({
       message: "User created successfully",
       success: true,
-
-    })
+    });
   } catch (error: any) {
-    return NextResponse.json({ error: error.message }, { status: 500 })
-
+    return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }

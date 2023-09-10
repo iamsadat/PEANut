@@ -1,21 +1,16 @@
 import jwt from "jsonwebtoken"; // Import the jwt library
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
+import { verifyJwtToken } from "@/lib/auth";
 
 export async function GET(request: NextRequest, response: NextResponse) {
-  const token = request.cookies.get("token")?.value || "";
-
   try {
-    // Verify the JWT token using your secret key
-    const decodedToken = jwt.verify(token, process.env.JWT_SECRET as string);
+    const token = request.cookies.get("token")?.value || "";
 
-    // Extract user data from the token
-    const user = decodedToken as { id: string };
-
-    // Fetch user data from the database
-    const userFromDb = await prisma.user.findUnique({
+    const userRole = await verifyJwtToken(token);
+    const userFromDb = await prisma.user.findFirst({
       where: {
-        id: user.id,
+        id: userRole?.id,
       },
     });
 
