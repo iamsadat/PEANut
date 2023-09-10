@@ -19,7 +19,7 @@ const page = async (props: Props) => {
       </div>
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
-        <AccountCard href="/student/account" />
+        <AccountCard />
         <HistoryCard />
       </div>
 
