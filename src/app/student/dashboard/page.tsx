@@ -1,9 +1,7 @@
 import AccountCard from "@/components/dashboard/AccountCard";
 import HistoryCard from "@/components/dashboard/HistoryCard";
-import QuizMeCard from "@/components/dashboard/QuizMeCard";
 import RecentActivities from "@/components/dashboard/RecentActivities";
 import TopicsCard from "@/components/dashboard/TopicsCard";
-import { redirect } from "next/navigation";
 import React from "react";
 
 type Props = {};
