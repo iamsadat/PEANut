@@ -2,7 +2,7 @@ import React from "react";
 
 type Props = {};
 
-const page = (props: Props) => {
+const AccountPage = (props: Props) => {
   return (
     <div>
       <>Account page</>
@@ -10,4 +10,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default AccountPage;

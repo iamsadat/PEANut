@@ -5,7 +5,7 @@ import React from "react";
 
 type Props = {};
 
-const page = (props: Props) => {
+const CheckMarksPage = (props: Props) => {
   return (
     <div>
       <CheckMarksComponent />
@@ -13,4 +13,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default CheckMarksPage;
