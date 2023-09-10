@@ -3,7 +3,7 @@ import SignUp from "../../../components/signup/SignUp";
 
 type Props = {};
 
-const page = (props: Props) => {
+const SignUpPage = (props: Props) => {
   return (
     <div>
       <SignUp />
@@ -11,4 +11,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default SignUpPage;

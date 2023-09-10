@@ -11,7 +11,7 @@ export const metadata = {
   description: "Quiz yourself on anything!",
 };
 
-const page = (props: Props) => {
+const Dashboard = (props: Props) => {
   return (
     <main className="p-8 mx-auto max-w-7xl">
       <div className="flex items-center">
@@ -31,4 +31,4 @@ const page = (props: Props) => {
   );
 };
 
-export default page;
+export default Dashboard;
