@@ -5,6 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { toast } from "react-hot-toast";
+import { ToastContainer } from "react-toastify";
 
 function SignUp() {
   const router = useRouter();
@@ -188,7 +189,7 @@ function SignUp() {
           </div>
         </form>
       </div>
-      {/* <ToastContainer
+      <ToastContainer
         position="bottom-right"
         autoClose={5000}
         hideProgressBar={false}
@@ -199,7 +200,7 @@ function SignUp() {
         draggable
         pauseOnHover
         theme="dark"
-      /> */}
+      />
     </div>
   );
 }

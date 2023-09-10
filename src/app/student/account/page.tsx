@@ -5,7 +5,7 @@ type Props = {};
 const AccountPage = (props: Props) => {
   return (
     <div>
-      <>Account page</>
+      <div>Account page</div>
     </div>
   );
 };

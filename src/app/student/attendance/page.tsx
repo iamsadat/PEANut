@@ -11,15 +11,15 @@ const Attendance = (props: Props) => {
     const rollNumber = 160921737074;
     const password = "Sadat786";
 
-    axios
-      .post("/api/attendance", { rollNumber, password })
-      .then((response) => {
-        const { attendancePercentage } = response.data;
-        setAttendance(attendancePercentage); // Update attendance state
-      })
-      .catch((error) => {
-        console.error(error);
-      });
+    // axios
+    //   .post("/api/attendance", { rollNumber, password })
+    //   .then((response) => {
+    //     const { attendancePercentage } = response.data;
+    //     setAttendance(attendancePercentage); // Update attendance state
+    //   })
+    //   .catch((error) => {
+    //     console.error(error);
+    //   });
   }, []);
 
   return (
