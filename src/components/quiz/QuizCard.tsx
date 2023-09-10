@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useState } from "react";
 import { Quiz, Question } from "@prisma/client";
 import axios from "axios";
