@@ -19,7 +19,7 @@ const Dasboard = async (props: Props) => {
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
         <QuizMeCard />
-        <AccountCard href="/faculty/account" />
+        <AccountCard />
       </div>
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
