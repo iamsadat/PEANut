@@ -6,12 +6,7 @@ import React from "react";
 
 type Props = {};
 
-export const metadata = {
-  title: "Student Dashboard | PEANut",
-  description: "Quiz yourself on anything!",
-};
-
-const Dashboard = (props: Props) => {
+const DashboardPage = async (props: Props) => {
   return (
     <main className="p-8 mx-auto max-w-7xl">
       <div className="flex items-center">
@@ -24,11 +19,10 @@ const Dashboard = (props: Props) => {
       </div>
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
-        <TopicsCard />
         <RecentActivities />
       </div>
     </main>
   );
 };
 
-export default Dashboard;
+export default DashboardPage;
