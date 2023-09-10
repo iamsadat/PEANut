@@ -126,10 +126,14 @@ const MCQ = ({ quiz }: Props) => {
       }
     };
 
-    document.addEventListener("keydown", handleKeyDown);
+    if (typeof window !== "undefined") {
+      document.addEventListener("keydown", handleKeyDown);
+    }
 
     return () => {
-      document.removeEventListener("keydown", handleKeyDown);
+      if (typeof window !== "undefined") {
+        document.removeEventListener("keydown", handleKeyDown);
+      }
     };
   }, [handleNext]);
 
