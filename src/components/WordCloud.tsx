@@ -1,7 +1,7 @@
 "use client";
 
-import React from "react";
 import { useTheme } from "next-themes";
+import React from "react";
 import D3WordCloud from "react-d3-cloud";
 
 type Props = {};

@@ -1,6 +1,6 @@
 import MCQ from "@/components/MCQ";
 import { prisma } from "@/lib/db";
-import { redirect, useRouter } from "next/navigation";
+import { redirect } from "next/navigation";
 import React from "react";
 
 type Props = {

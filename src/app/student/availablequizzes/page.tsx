@@ -1,5 +1,3 @@
-"use client";
-
 import QuizCard from "@/components/quiz/QuizCard";
 import React from "react";
 

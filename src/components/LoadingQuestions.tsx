@@ -1,3 +1,4 @@
+"use client";
 import React from "react";
 import { Progress } from "./ui/progress";
 import Image from "next/image";

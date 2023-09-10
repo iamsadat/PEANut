@@ -13,15 +13,15 @@ import {
 } from "../ui/table";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { redirect, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
 import LoadingQuestions from "../LoadingQuestions";
 
 type Props = {};
 
 const QuizCard = (props: Props) => {
   const [allQuizzes, setAllQuizzes] = useState([]);
-  const [showLoader, setShowLoader] = React.useState(false);
-  const [finishedLoading, setFinishedLoading] = React.useState(false);
+  const [showLoader, setShowLoader] = useState(false);
+  const [finishedLoading, setFinishedLoading] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
