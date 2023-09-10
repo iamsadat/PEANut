@@ -11,7 +11,7 @@ export const metadata = {
   description: "Quiz yourself on anything!",
 };
 
-const page = async (props: Props) => {
+const page = (props: Props) => {
   return (
     <main className="p-8 mx-auto max-w-7xl">
       <div className="flex items-center">
