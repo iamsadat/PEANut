@@ -7,19 +7,11 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import Link from "next/link";
-import { redirect } from "next/navigation";
-import { prisma } from "@/lib/db";
 import HistoryComponent from "../HistoryComponent";
 
 type Props = {};
 
-const RecentActivityCard = async (props: Props) => {
-  const quizCount = await prisma.quiz.count({
-    where: {
-      id: "",
-    },
-  });
-
+const RecentActivityCard = (props: Props) => {
   return (
     <Card className="col-span-4 lg:col-span-3">
       <CardHeader>
@@ -27,7 +19,7 @@ const RecentActivityCard = async (props: Props) => {
           <Link href="/student/history">Recent Activity</Link>
         </CardTitle>
         <CardDescription>
-          You have completed a total of {quizCount} quizzes.
+          You have completed a total of {} quizzes.
         </CardDescription>
       </CardHeader>
       <CardContent className="max-h-[580px] overflow-y-scroll">
