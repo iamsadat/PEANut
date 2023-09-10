@@ -1,7 +1,8 @@
 "use client";
 import React from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { usePathname, useRouter } from "next/navigation";
+import { useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { User } from "lucide-react";
 
 type Props = {};
@@ -9,6 +10,9 @@ type Props = {};
 const AccountCard = (props: Props) => {
   const router = useRouter();
   const pathName = usePathname();
+  if (!router.prefetch) {
+    return <div>Error</div>;
+  }
   return (
     <Card
       className="hover:cursor-pointer hover:opacity-75"
