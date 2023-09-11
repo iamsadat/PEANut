@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -15,7 +15,7 @@ import { verifyJwtToken } from "@/lib/auth";
 import { NextRequest } from "next/server";
 import axios from "axios";
 import toast from "react-hot-toast";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 
@@ -24,7 +24,50 @@ const prisma = new PrismaClient();
 type Props = {};
 
 const UserAccountNav = () => {
+  const [user, setUser] = useState({
+    id: "",
+    rollNumber: "",
+    name: "",
+    email: "",
+    password: "",
+    department: "",
+    emailVerified: null,
+    image: null,
+    designation: "",
+    role: "",
+  });
   const router = useRouter();
+
+  const pathname = usePathname();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (pathname.includes("/student")) {
+          const response = await axios.get("/api/getUser");
+          const userData = response.data;
+          if (!userData) {
+            console.error("User data is missing in the response.");
+            return;
+          }
+          setUser(userData);
+          console.log("User data:", userData);
+        } else {
+          const response = await axios.get("/api/getFaculty");
+          const userData = response.data;
+          if (!userData) {
+            console.error("User data is missing in the response.");
+            return;
+          }
+          setUser(userData);
+          console.log("User data:", userData);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const logout = async () => {
     try {
@@ -38,15 +81,6 @@ const UserAccountNav = () => {
     }
   };
 
-  let token;
-  let user;
-  // if (request.cookies) {
-  //   token = request.cookies.get("token")?.value || "";
-  // }
-  // if (token) {
-  //   user = verifyJwtToken(token);
-  // }
-
   return (
     <DropdownMenu>
       <DropdownMenuTrigger>
@@ -55,8 +89,26 @@ const UserAccountNav = () => {
       <DropdownMenuContent className="bg-white dark:bg-gray-950" align="end">
         <div className="flex items-center justify-start gap-2 p-2">
           <div className="flex flex-col space-y-1 leading-none">
-            {/* {user.payLoad.name && <p className="font-medium">{user.name}</p>}
-            {user.email && (
+            {pathname.includes("/student") ? (
+              <>
+                {user.name && <p className="font-medium">{user.name}</p>}
+                {user.rollNumber && (
+                  <p className="w-[200px] truncate text-sm text-zinc-700 dark:text-white">
+                    {user.rollNumber}
+                  </p>
+                )}
+              </>
+            ) : (
+              <>
+                {user.name && <p className="font-medium">{user.name}</p>}
+                {user.email && (
+                  <p className="w-[200px] truncate text-sm text-zinc-700 dark:text-white">
+                    {user.email}
+                  </p>
+                )}
+              </>
+            )}
+            {/* {user.email && (
               <p className="w-[200px] truncate text-sm text-zinc-700 dark:text-white">
                 {user.email}
               </p>
@@ -65,7 +117,11 @@ const UserAccountNav = () => {
         </div>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
-          <Link href="#">Account</Link>
+          {pathname.includes("/student") ? (
+            <Link href="/student/account">Account</Link>
+          ) : (
+            <Link href="/faculty/account">Account</Link>
+          )}
         </DropdownMenuItem>
 
         <DropdownMenuSeparator />
