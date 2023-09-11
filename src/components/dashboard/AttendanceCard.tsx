@@ -18,26 +18,33 @@ const AttendanceCard = (props: Props) => {
   const router = useRouter();
 
   useEffect(() => {
-    axios.get("/api/getUser").then((response) => {
-      const { user: userData } = response.data;
-      setUser(userData);
-    });
+    const fetchData = async () => {
+      try {
+        const response = await axios.get("/api/getUser");
+        const userData = response.data;
+        if (!userData) {
+          console.error("User data is missing in the response.");
+          return;
+        }
+        setUser(userData);
+        console.log("User data:", userData);
 
-    axios
-      .post("/api/attendance", {
-        rollNumber: user?.rollNumber,
-        password: user?.password,
-      })
-      .then((response) => {
-        const { attendancePercentage } = response.data;
-        setAttendance(attendancePercentage);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  }, [user?.password, user?.rollNumber]);
+        // Only make the POST request if user data is available
+        if (userData.rollNumber && userData.password) {
+          const attendanceResponse = await axios.post("/api/attendance", {
+            rollNumber: userData.rollNumber,
+            password: userData.password,
+          });
+          const { attendancePercentage } = attendanceResponse.data;
+          setAttendance(attendancePercentage);
+        }
+      } catch (error) {
+        console.error("Error fetching data:", error);
+      }
+    };
 
-  console.log(user);
+    fetchData();
+  }, []);
 
   return (
     <div>
@@ -52,7 +59,7 @@ const AttendanceCard = (props: Props) => {
           {attendance !== null ? (
             <div className="text-2xl font-semibold">{attendance}</div>
           ) : (
-            <div>Loading...</div>
+            <div>Fetching...</div>
           )}
         </CardHeader>
         <CardContent>

@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import puppeteer from "puppeteer-core";
+import puppeteer from "puppeteer";
 import { verifyJwtToken } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
     await page.waitForSelector("#txtUserName", { visible: true });
 
     // Fill in the username field
-    await page.type("#txtUserName", JSON.stringify(rollNumber));
+    await page.type("#txtUserName", rollNumber);
 
     // Click the 'Next' button
     await Promise.all([page.waitForNavigation(), page.click("#btnNext")]).catch(
@@ -63,6 +63,8 @@ export async function POST(request: NextRequest) {
       });
     } else {
       // Handle the case where the login was not successful
+      console.log(rollNumber, password);
+
       return new Response("Authentication failed.", { status: 401 });
     }
   } catch (error) {
