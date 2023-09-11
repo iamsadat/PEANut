@@ -1,5 +1,5 @@
 import { NextRequest } from "next/server";
-import puppeteer from "puppeteer";
+import puppeteer from "puppeteer-core";
 import { verifyJwtToken } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
@@ -12,10 +12,6 @@ export async function POST(request: NextRequest) {
 
     const reqBody = await request.json();
     const { rollNumber, password } = reqBody;
-
-    // Authenticate the user if needed using verifyJwtToken
-    const token = request.cookies.get("token")?.value || "";
-    const user = await verifyJwtToken(token);
 
     const page = await browser.newPage();
     await page.goto(
@@ -32,7 +28,11 @@ export async function POST(request: NextRequest) {
     await page.type("#txtUserName", JSON.stringify(rollNumber));
 
     // Click the 'Next' button
-    await Promise.all([page.waitForNavigation(), page.click("#btnNext")]);
+    await Promise.all([page.waitForNavigation(), page.click("#btnNext")]).catch(
+      (error) => {
+        console.log(error);
+      }
+    );
 
     // Wait for the password input field to appear
     await page.waitForSelector("#txtPassword", { visible: true });

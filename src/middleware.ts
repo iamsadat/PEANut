@@ -1,8 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { verifyJwtToken } from "./lib/auth";
 
-let isAuthenticated = false;
-
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
 
@@ -30,10 +28,6 @@ export async function middleware(request: NextRequest) {
         new URL("/faculty/dashboard", request.nextUrl)
       );
     }
-  }
-
-  if (userRole?.id) {
-    isAuthenticated = true;
   }
 
   if (!token && !isPublicPath) {
@@ -72,9 +66,3 @@ export const config = {
     "/faculty/dashboard",
   ],
 };
-
-export function authenticated() {
-  console.log(isAuthenticated);
-
-  return isAuthenticated;
-}

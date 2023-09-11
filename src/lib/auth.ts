@@ -14,7 +14,6 @@ export async function verifyJwtToken(token: string | Uint8Array) {
   try {
     const { payload } = await jwtVerify(token, getJwtSecretKey());
 
-    // Access the "role" claim from the payload
     const role = payload.role;
     const id = payload.id;
     const rollNumber = payload.rollNumber;
