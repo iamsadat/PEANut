@@ -65,7 +65,7 @@ const UserAccountNav = () => {
 
   const logout = async () => {
     try {
-      await axios.get("/api/student/logout");
+      await axios.post("/api/student/logout");
 
       toast.success("Logout successful");
       router.push("/");
