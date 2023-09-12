@@ -8,7 +8,7 @@ export async function GET(request: NextRequest, response: NextResponse) {
     const token = request.cookies.get("token")?.value || "";
 
     const user = await verifyJwtToken(token);
-    const userFromDb = await prisma.faculty.findFirst({
+    const userFromDb = await prisma.user.findUnique({
       where: {
         id: user?.id,
       },

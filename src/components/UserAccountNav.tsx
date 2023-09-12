@@ -66,9 +66,10 @@ const UserAccountNav = () => {
   const logout = async () => {
     try {
       await axios.get("/api/student/logout");
-      localStorage.removeItem("token");
+
       toast.success("Logout successful");
       router.push("/");
+
     } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
