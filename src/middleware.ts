@@ -58,6 +58,7 @@ export const config = {
     "/student/dashboard",
     "/student/login",
     "/student/signup",
+    "/student/attendance",
     "/faculty/login",
     "/faculty/signup",
     "/faculty/dashboard",
