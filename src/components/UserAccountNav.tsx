@@ -67,7 +67,7 @@ const UserAccountNav = () => {
     try {
       await axios.post("/api/student/logout");
       toast.success("Logout successful");
-      router.push("/");
+      window.location.href = "/";
 
     } catch (error: any) {
       console.log(error.message);
