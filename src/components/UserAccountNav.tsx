@@ -11,15 +11,9 @@ import {
 import UserAvatar from "./UserAvatar";
 import Link from "next/link";
 import { LogOut } from "lucide-react";
-import { verifyJwtToken } from "@/lib/auth";
-import { NextRequest } from "next/server";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { usePathname, useRouter } from "next/navigation";
-import { PrismaClient } from "@prisma/client";
-import jwt from "jsonwebtoken";
-
-const prisma = new PrismaClient();
 
 type Props = {};
 
@@ -67,7 +61,7 @@ const UserAccountNav = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [pathname]);
 
   const logout = async () => {
     try {

@@ -17,6 +17,8 @@ const AttendanceCard = (props: Props) => {
 
   const router = useRouter();
 
+  let currentAttendance;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
