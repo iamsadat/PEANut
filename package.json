@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf node_modules package-lock.json",
-    "postinstall": "prisma generate && npx playwright install"
+    "postinstall": "prisma generate && npx playwright install chromium"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.0",
