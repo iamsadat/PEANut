@@ -16,8 +16,6 @@ const LogIn = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
 
-  // const { data: session } = useSession();
-
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     try {
@@ -25,7 +23,7 @@ const LogIn = () => {
       const response = await axios.post("/api/faculty/login", data);
       console.log("login success", response.data);
       toast.success("login success");
-      router.push("/faculty/dashboard");
+      window.location.href = "/faculty/dashboard";
     } catch (error: any) {
       console.log("login failed", error.message);
       toast.error(error.message);

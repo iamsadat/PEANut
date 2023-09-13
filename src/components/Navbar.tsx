@@ -87,7 +87,7 @@ const Navbar = () => {
           ) : (
             <div>
               <Link href={"/student/login"}>
-                <Button>Log In</Button>
+                <Button className="">Log In</Button>
               </Link>
               <Link href={"/student/signup"}>
                 <Button>Sign Up</Button>
