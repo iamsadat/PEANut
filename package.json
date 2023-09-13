@@ -7,6 +7,7 @@
     "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
+    "clean": "rm -rf node_modules package-lock.json",
     "postinstall": "prisma generate"
   },
   "dependencies": {
@@ -26,16 +27,13 @@
     "@types/node": "20.4.6",
     "@types/react": "18.2.18",
     "@types/react-dom": "18.2.7",
-    "@vercel/analytics": "^1.0.2",
     "autoprefixer": "10.4.14",
     "axios": "^1.5.0",
     "bcryptjs": "^2.4.3",
     "bufferutil": "^4.0.7",
-    "chrome-aws-lambda": "^10.1.0",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.0.0",
     "date-fns": "^2.30.0",
-    "electron": "^26.2.1",
     "eslint": "8.46.0",
     "eslint-config-next": "^13.4.19",
     "formik": "^2.4.3",
@@ -60,7 +58,6 @@
     "tailwindcss": "3.3.3",
     "tailwindcss-animate": "^1.0.6",
     "typescript": "5.1.6",
-    "utf-8-validate": "^5.0.10",
     "yup": "^1.2.0",
     "zod": "^3.22.2"
   },
