@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build && npx playwright install chromium",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf node_modules package-lock.json",
-    "postinstall": "prisma generate && npx playwright install chromium"
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.0",
@@ -46,9 +46,8 @@
     "lucide-react": "^0.269.0",
     "next": "^13.4.19",
     "next-themes": "^0.2.1",
-    "playwright": "^1.37.1",
-    "playwright-chromium": "^1.37.1",
     "postcss": "8.4.27",
+    "puppeteer": "^21.3.1",
     "react": "^18.2.0",
     "react-d3-cloud": "^1.0.6",
     "react-dom": "^18.2.0",

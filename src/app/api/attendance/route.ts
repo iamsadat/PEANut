@@ -1,35 +1,41 @@
 import { NextRequest } from "next/server";
-import { chromium } from "playwright-chromium";
+import puppeteer from "puppeteer";
+import { verifyJwtToken } from "@/lib/auth";
 
 export async function POST(request: NextRequest) {
   let browser;
 
   try {
-    browser = await chromium.launch();
+    browser = await puppeteer.launch({
+      headless: "new",
+    });
 
     const reqBody = await request.json();
     const { rollNumber, password } = reqBody;
 
-    const context = await browser.newContext();
-    const page = await context.newPage();
+    const page = await browser.newPage();
     await page.goto(
       "https://www.lordsautomation.com/StudentLogin/MainStud.aspx",
       {
-        waitUntil: "networkidle",
+        waitUntil: "networkidle0",
       }
     );
 
     // Wait for the username input field to appear
-    await page.waitForSelector("#txtUserName");
+    await page.waitForSelector("#txtUserName", { visible: true });
 
     // Fill in the username field
     await page.type("#txtUserName", rollNumber);
 
     // Click the 'Next' button
-    await Promise.all([page.waitForNavigation(), page.click("#btnNext")]);
+    await Promise.all([page.waitForNavigation(), page.click("#btnNext")]).catch(
+      (error) => {
+        console.log(error);
+      }
+    );
 
     // Wait for the password input field to appear
-    await page.waitForSelector("#txtPassword");
+    await page.waitForSelector("#txtPassword", { visible: true });
 
     // Fill in the password field
     await page.type("#txtPassword", password);
