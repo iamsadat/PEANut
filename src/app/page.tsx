@@ -12,12 +12,11 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
-      <Card className="w-[300px]">
+      <Card className="w-[285px] shadow-2xl">
         <CardHeader>
-          <CardTitle>Welcome to PEANut 🔥!</CardTitle>
-          <CardDescription>
-            PEANut is a platform for creating quizzes using AI!. Get started by
-            loggin in below!
+          <CardTitle className="text-center">Welcome to PEANut 🔥!</CardTitle>
+          <CardDescription className="text-center">
+            PEANut is a platform for creating quizzes using AI!. Get started by logging in below!
           </CardDescription>
         </CardHeader>
         <CardContent>
