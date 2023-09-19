@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && next build && npx playwright install chromium",
     "start": "next start",
     "lint": "next lint",
     "clean": "rm -rf node_modules package-lock.json",
