@@ -1,7 +1,7 @@
 "use client";
 
 import { useTheme } from "next-themes";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import D3WordCloud from "react-d3-cloud";
 
 type Props = {};
@@ -83,19 +83,29 @@ const fontSizeMapper = (word: { value: number }) => {
 
 const WordCloud = (props: Props) => {
   const theme = useTheme();
-  return (
+
+  const [shouldRender, setShouldRender] = useState(false);
+
+  useEffect(() => {
+    setShouldRender(true);
+  }, []);
+
+  return shouldRender ? (
     <>
-      <D3WordCloud
-        height={500}
-        font="Times"
-        fontSize={fontSizeMapper}
-        rotate={0}
-        padding={10}
-        fill={theme.theme == "dark" ? "white" : "black"}
-        data={data}
-      />
+      {typeof window !== "undefined" && (
+        <D3WordCloud
+          data={data}
+          width={500} // Adjust the width as needed
+          height={500}
+          font="Times"
+          fontSize={fontSizeMapper}
+          rotate={0}
+          padding={10}
+          fill={theme.theme === "dark" ? "white" : "black"}
+        />
+      )}
     </>
-  );
+  ) : null;
 };
 
 export default WordCloud;

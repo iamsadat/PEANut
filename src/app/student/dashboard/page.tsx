@@ -2,6 +2,7 @@ import AccountCard from "@/components/dashboard/AccountCard";
 import RecentActivities from "@/components/dashboard/RecentActivities";
 import TopicsCard from "@/components/dashboard/TopicsCard";
 import AttendanceCard from "@/components/dashboard/AttendanceCard";
+import AvailableQuizzes from "@/components/dashboard/AvailableQuizzesComponent";
 import React from "react";
 
 type Props = {};
@@ -19,6 +20,8 @@ const DashboardPage = async (props: Props) => {
       </div>
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
+        <AvailableQuizzes />
+        <TopicsCard />
         <RecentActivities />
       </div>
     </main>
