@@ -19,34 +19,34 @@ const AttendanceCard = (props: Props) => {
 
   let currentAttendance;
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get("/api/getUser");
-        const userData = response.data;
-        if (!userData) {
-          console.error("User data is missing in the response.");
-          return;
-        }
-        setUser(userData);
-        console.log("User data:", userData);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await axios.get("/api/getUser");
+  //       const userData = response.data;
+  //       if (!userData) {
+  //         console.error("User data is missing in the response.");
+  //         return;
+  //       }
+  //       setUser(userData);
+  //       console.log("User data:", userData);
 
-        // Only make the POST request if user data is available
-        if (userData.rollNumber && userData.password) {
-          const attendanceResponse = await axios.post("/api/attendance", {
-            rollNumber: userData.rollNumber,
-            password: userData.password,
-          });
-          const { attendancePercentage } = attendanceResponse.data;
-          setAttendance(attendancePercentage);
-        }
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
+  //       // Only make the POST request if user data is available
+  //       if (userData.rollNumber && userData.password) {
+  //         const attendanceResponse = await axios.post("/api/attendance", {
+  //           rollNumber: userData.rollNumber,
+  //           password: userData.password,
+  //         });
+  //         const { attendancePercentage } = attendanceResponse.data;
+  //         setAttendance(attendancePercentage);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching data:", error);
+  //     }
+  //   };
 
-    fetchData();
-  }, []);
+  //   fetchData();
+  // }, []);
 
   return (
     <div>
