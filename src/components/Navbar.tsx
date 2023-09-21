@@ -80,14 +80,14 @@ const Navbar = () => {
             </>
           )}
         </div>
-        <div className="flex items-center">
+        <div className="flex items-center justify-center">
           <ThemeToggle className="mr-4" />
           {isLoggedIn ? (
             <UserAccountNav />
           ) : (
-            <div>
+            <div className="flex flex-row">
               <Link href={"/student/login"}>
-                <Button className="">Log In</Button>
+                <Button className="mr-2">Log In</Button>
               </Link>
               <Link href={"/student/signup"}>
                 <Button>Sign Up</Button>

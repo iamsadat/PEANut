@@ -1,6 +1,7 @@
 import HistoryComponent from "@/components/HistoryComponent";
 import { buttonVariants } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import axios from "axios";
 import { LucideLayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import React from "react";
@@ -8,6 +9,19 @@ import React from "react";
 type Props = {};
 
 const HistoryPage = (props: Props) => {
+  let id;
+  const fetchData = async () => {
+    try {
+      const response = fetch("/api/getUser")
+        .then((res) => res.json())
+        .then((data) => {
+          id = data.userId;
+          console.log(data.userId);
+        });
+    } catch (error) {
+      console.error("Error fetching data:", error);
+    }
+  };
   return (
     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[400px]">
       <Card>
@@ -21,7 +35,7 @@ const HistoryPage = (props: Props) => {
           </div>
         </CardHeader>
         <CardContent className="max-h-[60vh] overflow-scroll">
-          <HistoryComponent limit={100} userId={""} />
+          <HistoryComponent limit={100} userId={id} />
         </CardContent>
       </Card>
     </div>

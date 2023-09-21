@@ -2,15 +2,17 @@ import jwt from "jsonwebtoken"; // Import the jwt library
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/lib/db";
 import { verifyJwtToken } from "@/lib/auth";
+import { getUser } from "@/helpers/getUser";
 
 export async function GET(request: NextRequest, response: NextResponse) {
   try {
-    const token = request.cookies.get("token")?.value || "";
+    const user = await getUser(request);
 
-    const userRole = await verifyJwtToken(token);
+    console.log(user?.id);
+
     const userFromDb = await prisma.user.findUnique({
       where: {
-        id: userRole?.id,
+        id: user?.id,
       },
     });
 
