@@ -26,7 +26,7 @@ const AccountPage = () => {
 
   useEffect(() => {
     axios.get("/api/getFaculty").then((response) => {
-      const userData = response.data;
+      const userData = response.data.data;
       setUser(userData);
     });
   }, []);

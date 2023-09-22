@@ -18,8 +18,8 @@ const Navbar = () => {
     pathName === "/" ||
     pathName === "/student/login" ||
     pathName === "/student/signup" ||
-    pathName === "/faclty/login" ||
-    pathName === "/faclty/signup"
+    pathName === "/faculty/login" ||
+    pathName === "/faculty/signup"
   ) {
     isLoggedIn = false;
   }

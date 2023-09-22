@@ -1,21 +1,22 @@
-import jwt from "jsonwebtoken"; // Import the jwt library
+import { getUser } from "@/helpers/getUser";
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
-import { verifyJwtToken } from "@/lib/auth";
+import { PrismaClient } from "@prisma/client";
 
-export async function GET(request: NextRequest, response: NextResponse) {
+const prisma = new PrismaClient();
+
+export async function GET(request: NextRequest) {
   try {
-    const token = request.cookies.get("token")?.value || "";
-
-    const user = await verifyJwtToken(token);
-    const userFromDb = await prisma.user.findUnique({
-      where: {
-        id: user?.id,
-      },
+    const facultyId = await getUser(request);
+    const faculty = await prisma.faculty.findUnique({
+      where: { id: facultyId }
+      
+    });
+    return NextResponse.json({
+      message: "User found",
+      data: faculty,
     });
 
-    return NextResponse.json(userFromDb, { status: 200 });
-  } catch (err) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+  } catch (error) {
+    return NextResponse.json({ error: error.message }, { status: 400 });
   }
 }

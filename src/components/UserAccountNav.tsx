@@ -39,7 +39,7 @@ const UserAccountNav = () => {
       try {
         if (pathname.includes("/student")) {
           const response = await axios.get("/api/getUser");
-          const userData = response.data;
+          const userData = response.data.data;
           if (!userData) {
             console.error("User data is missing in the response.");
             return;
@@ -48,7 +48,7 @@ const UserAccountNav = () => {
           console.log("User data:", userData);
         } else {
           const response = await axios.get("/api/getFaculty");
-          const userData = response.data;
+          const userData = response.data.data;
           if (!userData) {
             console.error("User data is missing in the response.");
             return;
