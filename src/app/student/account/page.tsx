@@ -27,11 +27,18 @@ const AccountPage = () => {
   });
 
   useEffect(() => {
-    axios.get("/api/getUser").then((response) => {
-      const userData = response.data;
-      setUser(userData);
-    });
+    const getUserDetails = async () => {
+      try {
+        const res = await axios.get('/api/getUser');
+        setUser(res.data.data);
+      } catch (error) {
+        console.error("Error fetching user details:", error);
+      }
+    }
+
+    getUserDetails();
   }, []);
+
 
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[60vh]">

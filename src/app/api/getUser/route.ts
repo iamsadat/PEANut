@@ -11,7 +11,6 @@ export async function GET(request: NextRequest) {
       where: { id: userId }
       
     });
-    console.log(user.name)
     return NextResponse.json({
       message: "User found",
       data: user,
