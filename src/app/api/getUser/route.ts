@@ -7,15 +7,14 @@ const prisma = new PrismaClient();
 export async function GET(request: NextRequest) {
   try {
     const userId = await getUser(request);
+
     const user = await prisma.user.findUnique({
-      where: { id: userId }
-      
+      where: { id: userId },
     });
     return NextResponse.json({
       message: "User found",
       data: user,
     });
-
   } catch (error) {
     return NextResponse.json({ error: error.message }, { status: 400 });
   }
