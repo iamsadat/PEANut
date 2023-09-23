@@ -17,12 +17,12 @@ const RecentActivityCard = async (props: Props) => {
   let id;
   const fetchData = async () => {
     try {
-      const response = fetch("http://localhost:3000/api/getUser", {
+      const response = fetch("/api/getUser", {
         method: "GET",
       })
         .then((res) => res.json())
         .then((data) => {
-          id = data.userId;
+          id = data.data.data.id;
           console.log(data);
         })
         .catch((err) => console.log(err));
@@ -33,7 +33,7 @@ const RecentActivityCard = async (props: Props) => {
   fetchData();
   const games_count = await prisma.quiz.count({
     where: {
-      userId: id,
+      id: id,
     },
   });
   console.log(games_count);
