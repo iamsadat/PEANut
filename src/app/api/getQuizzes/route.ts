@@ -1,20 +1,16 @@
-import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/db";
-import { verifyJwtToken } from "@/lib/auth";
+import { PrismaClient } from "@prisma/client";
 
-export async function GET(request: NextRequest, response: NextResponse) {
-  try {
-    const token = request.cookies.get("token")?.value || "";
+const prisma = new PrismaClient();
 
-    const userRole = await verifyJwtToken(token);
-    const quizzesFromDb = await prisma.quiz.findMany({
-      where: {
-        id: userRole?.id,
-      },
-    });
-
-    return NextResponse.json(quizzesFromDb, { status: 200 });
-  } catch (err) {
-    return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
-  }
+export async function fetchQuizzes(userId, limit) {
+  const quizzesFromDb = await prisma.quiz.findMany({
+    where: {
+      userId,
+    },
+    take: limit,
+    orderBy: {
+      timeStarted: "desc",
+    },
+  });
+  return quizzesFromDb;
 }

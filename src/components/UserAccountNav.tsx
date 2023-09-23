@@ -45,7 +45,6 @@ const UserAccountNav = () => {
             return;
           }
           setUser(userData);
-          console.log("User data:", userData);
         } else {
           const response = await axios.get("/api/getFaculty");
           const userData = response.data.data;
@@ -68,7 +67,6 @@ const UserAccountNav = () => {
       await axios.post("/api/student/logout");
       toast.success("Logout successful");
       window.location.href = "/";
-
     } catch (error: any) {
       console.log(error.message);
       toast.error(error.message);
