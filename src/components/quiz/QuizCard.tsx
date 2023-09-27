@@ -44,7 +44,7 @@ const QuizCard = (props: Props) => {
     setTimeout(() => {
       setFinishedLoading(true);
       // if (form.getValues("type") === "mcq") {
-      router.push("/student/quiz/mcq/clm9n0ny90000tm14puw28cot");
+      //router.push(`/student/quiz/mcq/${quiz.id}`);
       // } else if (form.getValues("type") === "open_ended") {
       //   router.push(`/quiz/open-ended/${quizId}`);
       // }
@@ -75,11 +75,17 @@ const QuizCard = (props: Props) => {
                 <TableRow key={quiz.id}>
                   <TableCell className="font-medium">{index + 1}</TableCell>
                   <TableCell>
-                    <Link href={`/quiz/mcq/${quiz.id}`}>{quiz.topic}</Link>
+                    <Link href={`/student/quiz/mcq/${quiz.id}`}>
+                      {quiz.topic}
+                    </Link>
                   </TableCell>
                   <TableCell>{quiz.quizType}</TableCell>
                   <TableCell>
-                    <Button onClick={handleClick}>Take Quiz</Button>
+                    <Button onClick={handleClick}>
+                      <Link href={`/student/quiz/mcq/${quiz.id}`}>
+                        Take Quiz
+                      </Link>
+                    </Button>
                   </TableCell>
                 </TableRow>
               );

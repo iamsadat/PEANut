@@ -4,18 +4,21 @@ import React from "react";
 import { prisma } from "@/lib/db";
 import { user_id } from "@/helpers/getUser";
 
-type Props = {};
+type Props = {
+  limit: number;
+  userId: string;
+};
 
-const HistoryComponent = async (props: Props) => {
+const HistoryComponent = async ({ limit, userId }: Props) => {
   const user = await user_id();
   console.log("User ID in history component but using the helper:", user);
   if (user !== null) {
     const quizzes = await prisma.quiz.findMany({
       where: {
-        id: user,
+        userId,
       },
-      include: {
-        user: true,
+      orderBy: {
+        timeStarted: "desc",
       },
     });
 
