@@ -40,7 +40,7 @@ export async function POST(request: NextRequest) {
         questionType: "mcq",
       },
     });
-    NextResponse.json(quiz);
+    return NextResponse.json(quiz);
   } catch (error) {
     console.log(error);
     return NextResponse.error();

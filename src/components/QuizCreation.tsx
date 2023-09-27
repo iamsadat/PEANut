@@ -37,7 +37,7 @@ type Input = z.infer<typeof quizCreationSchema>;
 const QuizCreation = (props: Props) => {
   const { mutate: getQuestions, isLoading } = useMutation({
     mutationFn: async ({ amount, topic, type }: Input) => {
-      const reponse = await axios.post("/api/quiz", {
+      const reponse = await axios.post(`http://localhost:3000/api/quiz`, {
         amount,
         topic,
         type,
