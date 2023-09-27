@@ -48,6 +48,10 @@ model User {
   quizzes         Quiz[]
   accounts      Account[]
   sessions      Session[]
+  forgotPasswordToken      String?
+  forgotPasswordTokenExpiry DateTime?
+  verifyToken              String?
+  verifyTokenExpiry        DateTime?
   role          String    @default("student") 
 }
 
@@ -58,6 +62,10 @@ model Faculty {
   password      String   // Added password field
   department    String
   designation   String
+  forgotPasswordToken      String?
+  forgotPasswordTokenExpiry DateTime?
+  verifyToken              String?
+  verifyTokenExpiry        DateTime?
   role          String    @default("faculty") 
 }
 
