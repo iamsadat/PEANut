@@ -30,6 +30,10 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  if(path.startsWith("/codeEditor") && userRole?.role !== "dev" ){
+    return NextResponse.redirect(new URL("/soon", request.nextUrl));
+  }
+
   if (!token && !isPublicPath) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
@@ -65,5 +69,8 @@ export const config = {
     "/faculty/createquiz",
     "/faculty/createquestions",
     "/faculty/dashboard",
+    "/codeEditor",
+    "/student/attendance",
+    
   ],
 };
