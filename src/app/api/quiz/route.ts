@@ -1,20 +1,18 @@
 import { prisma } from "@/lib/db";
 import { quizCreationSchema } from "@/schemas/form/quiz";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import axios from "axios";
 import { verifyJwtToken } from "@/lib/auth";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: NextRequest, res: NextResponse) {
   try {
     const body = await req.json();
     const { topic, type, amount } = quizCreationSchema.parse(body);
-    const token = localStorage.getItem("token");
-    let user;
-    if (token) {
-      user = await verifyJwtToken(token);
-    }
-    user = user as { id: string };
+    const token = (await req.cookies.get("token").value) || "";
+    const user = await verifyJwtToken(token);
+    console.log(user);
+    console.log(token);
 
     const quiz = await prisma.quiz.create({
       data: {
@@ -63,6 +61,21 @@ export async function POST(req: Request, res: Response) {
       await prisma.question.createMany({
         data: manyData,
       });
+    } else if (type === "open_ended") {
+      type openQuestion = {
+        question: string;
+        answer: string;
+      };
+      await prisma.question.createMany({
+        data: data.questions.map((question: openQuestion) => {
+          return {
+            question: question.question,
+            answer: question.answer,
+            quizId: quiz.id,
+            questionType: "open_ended",
+          };
+        }),
+      });
     }
 
     return NextResponse.json({ quizId: quiz.id }, { status: 200 });
@@ -76,7 +89,7 @@ export async function POST(req: Request, res: Response) {
       );
     } else {
       return NextResponse.json(
-        { error: "An unexpected error occurred." },
+        { error: error.message },
         {
           status: 500,
         }
@@ -108,7 +121,7 @@ export async function GET(req: Request, res: Response) {
     });
     if (!quiz) {
       return NextResponse.json(
-        { error: "quiz not found." },
+        { error: "Quiz not found." },
         {
           status: 404,
         }
@@ -122,10 +135,11 @@ export async function GET(req: Request, res: Response) {
       }
     );
   } catch (error) {
-    console.error(error); // Log the error for debugging
     return NextResponse.json(
-      { error: "An unexpected error occurred." },
-      { status: 500 }
+      { error: error.message },
+      {
+        status: 500,
+      }
     );
   }
 }

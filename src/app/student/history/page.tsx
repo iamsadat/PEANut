@@ -5,6 +5,7 @@ import axios from "axios";
 import { LucideLayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import React from "react";
+import { user_id } from "@/helpers/getUser";
 
 type Props = {};
 
@@ -18,6 +19,8 @@ const HistoryPage = (props: Props) => {
           id = data.userId;
           console.log(data.userId);
         });
+      const user = await user_id();
+      id = user;
     } catch (error) {
       console.error("Error fetching data:", error);
     }
@@ -35,7 +38,7 @@ const HistoryPage = (props: Props) => {
           </div>
         </CardHeader>
         <CardContent className="max-h-[60vh] overflow-scroll">
-          <HistoryComponent limit={100} userId={id} />
+          <HistoryComponent limit={10} userId={id} />
         </CardContent>
       </Card>
     </div>
