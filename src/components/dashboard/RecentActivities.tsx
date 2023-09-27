@@ -29,7 +29,7 @@ const RecentActivityCard = async (props: Props) => {
         </CardHeader>
         <CardContent className="max-h-[580px] overflow-y-scroll">
           {userId !== null ? (
-            <HistoryComponent />
+            <HistoryComponent limit={10} userId={userId} />
           ) : (
             <>No quizzes attempted</>
           )}
