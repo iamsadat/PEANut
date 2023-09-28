@@ -10,6 +10,7 @@ export async function middleware(request: NextRequest) {
     "/student/signup",
     "/faculty/login",
     "/faculty/signup",
+    "/forgotPassword",
   ];
 
   const isPublicPath = publicPaths.includes(path);
@@ -71,6 +72,7 @@ export const config = {
     "/faculty/dashboard",
     "/codeEditor",
     "/student/attendance",
+    "/forgotPassword",
     
   ],
 };
