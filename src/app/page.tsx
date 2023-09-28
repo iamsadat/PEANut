@@ -18,7 +18,7 @@ export default async function Home() {
     <div className="flex flex-row gap-6 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-5 ">
       <Card className="w-[285px] shadow-2xl">
         <CardHeader>
-          <CardTitle className="text-center">Student Portal</CardTitle>
+          <CardTitle className="text-center">Student </CardTitle>
           <CardDescription className="text-center">
             PEANut is a platform for taking quizzes!. Get started by
             logging in below!
@@ -38,7 +38,7 @@ export default async function Home() {
       </Card>
       <Card className="w-[285px] shadow-2xl">
         <CardHeader>
-          <CardTitle className="text-center">Faculty Portal</CardTitle>
+          <CardTitle className="text-center">Faculty </CardTitle>
           <CardDescription className="text-center">
             To access the faculty portal, please log in below!
           </CardDescription>
