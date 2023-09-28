@@ -72,8 +72,9 @@ model Quiz {
   timeStarted   DateTime
   topic        String
   timeEnded     DateTime?
+  author        String
   quizType    QuizType?
-  user         User?     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user         User[]
   questions    Question[]
   @@index([userId], name: "userId")
 }

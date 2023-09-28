@@ -1,10 +1,13 @@
+import { verifyJwtToken } from "@/lib/auth";
 import { prisma } from "@/lib/db";
 import { endQuizSchema } from "@/schemas/questions";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(req: Request, res: Response) {
+export async function POST(req: NextRequest, res: Response) {
   try {
     const body = await req.json();
+    const token = (await req.cookies.get("token").value) || "";
+    const user = await verifyJwtToken(token);
     const { quizId } = endQuizSchema.parse(body);
     const quiz = await prisma.quiz.findUnique({
       where: {
@@ -20,6 +23,11 @@ export async function POST(req: Request, res: Response) {
       },
       data: {
         timeEnded: new Date(),
+        user: {
+          connect: {
+            id: user.id,
+          },
+        },
       },
     });
     return NextResponse.json({ message: "Quiz ended" }, { status: 200 });

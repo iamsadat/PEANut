@@ -11,7 +11,6 @@ export const getUser = async (request: NextRequest) => {
       token,
       process.env.TOKEN_SECRET!
     );
-    console.log("Decoded Token: ", decodedToken);
     userId = decodedToken.id;
     return decodedToken.id;
   } catch (error: any) {

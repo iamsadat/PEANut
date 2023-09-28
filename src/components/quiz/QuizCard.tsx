@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useEffect, useState } from "react";
-import { Quiz, Question } from "@prisma/client";
+import { Quiz, Question, User } from "@prisma/client";
 import axios from "axios";
 import { Card } from "../ui/card";
 import {
@@ -22,6 +22,7 @@ type Props = {};
 
 const QuizCard = (props: Props) => {
   const [allQuizzes, setAllQuizzes] = useState([]);
+  const [user, setUser] = useState<User | null>(null);
   const [showLoader, setShowLoader] = useState(false);
   const [finishedLoading, setFinishedLoading] = useState(false);
 
@@ -30,6 +31,8 @@ const QuizCard = (props: Props) => {
       try {
         const response = await axios.get("/api/getAllQuizzes");
         setAllQuizzes(response.data);
+        const user = await axios.get("/api/getUser");
+        setUser(user.data);
       } catch (error) {
         console.error("Error fetching quizzes:", error);
       }
