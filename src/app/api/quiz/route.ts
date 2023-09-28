@@ -13,12 +13,15 @@ export async function POST(req: NextRequest, res: NextResponse) {
     const user = await verifyJwtToken(token);
     console.log(user);
     console.log(token);
+    const name = user.name;
+    console.log(name);
 
     const quiz = await prisma.quiz.create({
       data: {
         quizType: type,
         timeStarted: new Date(),
         userId: user.id,
+        author: user.name,
         topic,
       },
     });

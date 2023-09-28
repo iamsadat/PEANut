@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/db";
 import { Quiz } from "@prisma/client";
+import { User } from "@prisma/client";
 import React, { useEffect, useState } from "react";
 import {
   Table,
@@ -19,11 +19,14 @@ type Props = {};
 
 const CheckMarksComponent = (props: Props) => {
   const [allQuizzes, setAllQuizzes] = useState([]);
+  const [user, setUser] = useState<User | null>(null);
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await axios.get("/api/getAllQuizzes");
         setAllQuizzes(response.data);
+        const user = await axios.get("/api/getUser");
+        setUser(user.data);
       } catch (error) {
         console.error("Error fetching quizzes:", error);
       }
@@ -32,10 +35,10 @@ const CheckMarksComponent = (props: Props) => {
     fetchData();
   }, []);
   console.log(allQuizzes);
+  console.log(user);
 
   return (
-    <div>
-      <h1>Quiz Card</h1>
+    <div className="m-4">
       <Table className="mt-4">
         <TableCaption>End of list.</TableCaption>
         <TableHeader>
@@ -43,7 +46,7 @@ const CheckMarksComponent = (props: Props) => {
             <TableHead className="w-[10px]">No.</TableHead>
             <TableHead>Topic</TableHead>
             <TableHead>Author</TableHead>
-            <TableHead></TableHead>
+            <TableHead>User</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -53,19 +56,16 @@ const CheckMarksComponent = (props: Props) => {
                 <TableRow key={quiz.id}>
                   <TableCell className="font-medium">{index + 1}</TableCell>
                   <TableCell>
-                    <Link href={`/student/statistics/${quiz.id}`}>
+                    <Link href={`/faculty/checkmarks/${quiz.id}`}>
                       {quiz.topic}
                     </Link>
                   </TableCell>
-                  <TableCell>{quiz.quizType}</TableCell>
+                  <TableCell>{quiz.author}</TableCell>
+                  <TableCell>{}</TableCell>
                   <TableCell>
-                    <Button
-                      onClick={() => {
-                        redirect(`/student/statistics/${quiz.id}`);
-                      }}
-                    >
-                      View Stats
-                    </Button>
+                    <Link href={`/faculty/checkmarks/${quiz.id}`}>
+                      <Button>View Students</Button>
+                    </Link>
                   </TableCell>
                 </TableRow>
               );

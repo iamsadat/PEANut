@@ -17,11 +17,13 @@ export async function verifyJwtToken(token: string | Uint8Array) {
     const role = payload.role;
     const id = payload.id;
     const rollNumber = payload.rollNumber;
+    const name = payload.facultyname;
     const email = payload.email;
-    return { role, id, rollNumber, email } as {
+    return { role, id, rollNumber, name, email } as {
       role: string;
       id: string;
       rollNumber: string;
+      name: string;
       email: string;
     };
   } catch (error) {
