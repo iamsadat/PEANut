@@ -46,7 +46,7 @@ const CheckMarksComponent = (props: Props) => {
             <TableHead className="w-[10px]">No.</TableHead>
             <TableHead>Topic</TableHead>
             <TableHead>Author</TableHead>
-            <TableHead>User</TableHead>
+            <TableHead>{}</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>

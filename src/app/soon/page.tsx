@@ -1,9 +1,20 @@
-export default function soon() {
+import Image from "next/image";
+import React from "react";
+
+type Props = {};
+
+const SoonPage = (props: Props) => {
   return (
-        <div className="bg-black bg-center bg-no-repeat h-screen">
+    <div className="flex items-center justify-center bg-black">
+      <Image
+        src={"/soon.png"}
+        alt="Launching soon image"
+        width={1100}
+        height={1100}
+        quality={100}
+      />
+    </div>
+  );
+};
 
-        <img  src="/soon.png" alt="Launching soon image"></img>
-
-      </div>
-    );
-  }
+export default SoonPage;
