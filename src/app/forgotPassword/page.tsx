@@ -2,22 +2,21 @@
 import { Button } from "@/components/ui/button";
 import axios from "axios";
 import React, { useState } from "react";
-import { toast } from "react-hot-toast";
+import { Toaster, toast } from "react-hot-toast";
 
 export default function ForgotPassword() {
   const [email, setEmail] = useState("");
-  const [isLoading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(false);
 
 
   const onSendVerificationEmail = async () => {
     setLoading(true);
     try {
+      setLoading(true);
       const resp = await axios.post("/api/forgotPassword", { email });
-      console.log(resp);
-      toast.success("Reset password link send to your email");
+      toast.success("The Password reset link has been sent to your email");
       setEmail("");
     } catch (error: any) {
-      console.log(error);
       toast.error(error.message);
     } finally {
       setLoading(false);
@@ -30,9 +29,11 @@ export default function ForgotPassword() {
         <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
           Forgot your Password?
         </h2>
+        <h4 className="mt-3 text-center text-xl font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
+          Don&rsquo;t worry, we&rsquo;ve got you covered!
+        </h4>
         <h5 className="mt-8 text-center text-2l font-bold leading-9 tracking-tight text-gray-900 dark:text-white">
-          Enter your Email Address you&apos;d like your password reset information sent to.
-        </h5>
+          {loading ? "Password reset information has been sent to your Email Address." : "Enter your Email Address and we'll send you instructions on how to reset it."}        </h5>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -66,6 +67,7 @@ export default function ForgotPassword() {
             >
               Request Reset Link
             </Button>
+            <Toaster />
           </div>
         </form>
       </div>

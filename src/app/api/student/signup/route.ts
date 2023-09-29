@@ -39,8 +39,6 @@ export async function POST(request: NextRequest) {
 
     console.log(user);
 
-    await sendEmail({ email, emailType: "RESET", userId: user.id });
-    await sendEmail({ email, emailType: "VERIFY", userId: user.id });
 
     return NextResponse.json({
       message: "User created successfully",

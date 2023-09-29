@@ -70,7 +70,6 @@ export const config = {
     "/faculty/createquiz",
     "/faculty/createquestions",
     "/faculty/dashboard",
-    "/codeEditor",
     "/student/attendance",
     "/forgotPassword",
     
