@@ -45,7 +45,7 @@ const UserAccountNav = () => {
             return;
           }
           setUser(userData);
-        } else {
+        } else if(pathname.includes("/faculty")) {
           const response = await axios.get("/api/getFaculty");
           const userData = response.data.data;
           if (!userData) {
