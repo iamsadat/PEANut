@@ -8,8 +8,6 @@ import { languageOptions } from "@/lib/languageOptions";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
-import { defineTheme } from "@/lib/defineTheme";
 import useKeyPress from "@/hooks/useKeyPress";
 import OutputWindow from "./OutputWindow";
 import CustomInput from "./CustomInput";
@@ -145,14 +143,10 @@ const Landing = () => {
 
     if (["light", "vs-dark"].includes(theme.value)) {
       setTheme(theme);
-    } else {
-      defineTheme(theme.value).then((_) => setTheme(theme));
     }
   }
   useEffect(() => {
-    defineTheme("oceanic-next").then((_) =>
-      setTheme({ value: "oceanic-next", label: "Oceanic Next" })
-    );
+    setTheme({ value: "oceanic-next", label: "Oceanic Next" });
   }, []);
 
   const showSuccessToast = (msg) => {
