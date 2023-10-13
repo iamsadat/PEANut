@@ -1,17 +1,9 @@
 "use client";
 
 import React, { useRef, useState } from "react";
-import { useEffect } from "react";
 import Editor, { loader, useMonaco } from "@monaco-editor/react";
 
-const code = `  int8 public _number;
-
-  function test(int8 number) {
-      _number = number;
-  }
-`;
-
-const CodeEditorWindow = ({ onChange, language, code, theme }) => {
+const CodeEditorWindow = ({ onChange, language, code, theme, defaultCode }) => {
   const [value, setValue] = useState(code || "");
 
   const editorRef = useRef(null);
@@ -31,7 +23,7 @@ const CodeEditorWindow = ({ onChange, language, code, theme }) => {
         path={language}
         value={value}
         theme={theme}
-        defaultValue="// some comment"
+        defaultValue={defaultCode}
         onChange={handleEditorChange}
         onMount={(editor) => (editorRef.current = editor)}
         options={{

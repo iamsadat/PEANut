@@ -15,10 +15,12 @@ import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 
-const javascriptDefault = "console.log('Hello World!')";
-
 const Landing = () => {
-  const [code, setCode] = useState(javascriptDefault);
+  const [language, setLanguage] = useState(languageOptions[0]);
+  const [value, setValue] = useState(language.value);
+  const [id, setId] = useState(language.id);
+  const [defaultCode, setDefaultCode] = useState(language.default);
+  const [code, setCode] = useState(defaultCode);
   const [customInput, setCustomInput] = useState("");
   const [outputDetails, setOutputDetails] = useState(null);
   const [processing, setProcessing] = useState(null);
@@ -26,14 +28,17 @@ const Landing = () => {
     value: "cobalt",
     label: "Cobalt",
   });
-  const [language, setLanguage] = useState(languageOptions[0].value);
 
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
 
   const onSelectChange = (sl) => {
     console.log("selected Option...", sl);
-    setLanguage(sl.value);
+    setLanguage(sl);
+    setValue(sl.value);
+    setDefaultCode(sl.default);
+    setCode(sl.default);
+    setId(sl.id);
   };
 
   useEffect(() => {
@@ -56,60 +61,77 @@ const Landing = () => {
     }
   };
 
-  const handleCompile = () => {
+  const handleCompile = async () => {
     setProcessing(true);
     const formData = {
-      language_id: language,
+      language_id: id,
       // encode source code in base64
       source_code: btoa(code),
       stdin: btoa(customInput),
     };
+    console.log("formData: ", formData);
+    console.log("Code: ", code);
+
     const options = {
       method: "POST",
-      url: process.env.RAPID_API_URL,
-      params: { base64_encoded: "true", fields: "*" },
+      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      params: {
+        base64_encoded: "true",
+        fields: "*",
+      },
       headers: {
         "content-type": "application/json",
         "Content-Type": "application/json",
-        "X-RapidAPI-Host": process.env.RAPID_API_HOST,
-        "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+        "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY,
+        "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST,
       },
       data: formData,
     };
 
-    axios
-      .request(options)
-      .then(function (response) {
-        console.log("res.data", response.data);
-        const token = response.data.token;
-        checkStatus(token);
-      })
-      .catch((err) => {
-        let error = err.response ? err.response.data : err;
-        // get error status
-        let status = err.response?.status;
-        console.log("status", status);
-        if (status === 429) {
-          console.log("too many requests", status);
+    try {
+      const response = await axios.request(options);
+      checkStatus(response.data.token);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
 
-          showErrorToast(
-            `Quota of 100 requests exceeded for the Day! Please read the blog on freeCodeCamp to learn how to setup your own RAPID API Judge0!`,
-            10000
-          );
-        }
-        setProcessing(false);
-        console.log("catch block...", error);
-      });
+    // await axios
+    //   .request(options)
+    //   .then(function (response) {
+    //     console.log("res.data", response.data);
+    //     const token = response.data.token;
+    //     checkStatus(token);
+    //   })
+    //   .catch((err) => {
+    //     let error = err.response ? err.response.data : err;
+    //     // get error status
+    //     let status = err.response?.status;
+    //     console.log("status", status);
+    //     if (status === 429) {
+    //       console.log("too many requests", status);
+
+    //       showErrorToast(
+    //         `Quota of 100 requests exceeded for the Day! Please read the blog on freeCodeCamp to learn how to setup your own RAPID API Judge0!`,
+    //         10000
+    //       );
+    //     }
+    //     setProcessing(false);
+    //     console.log("catch block...", error);
+    //   });
   };
 
   const checkStatus = async (token) => {
     const options = {
       method: "GET",
-      url: process.env.RAPID_API_URL + "/" + token,
-      params: { base64_encoded: "true", fields: "*" },
+      url: `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
+      params: {
+        base64_encoded: "true",
+        fields: "*",
+      },
       headers: {
-        "X-RapidAPI-Host": process.env.RAPID_API_HOST,
-        "X-RapidAPI-Key": process.env.RAPID_API_KEY,
+        "X-RapidAPI-Key": process.env.NEXT_PUBLIC_RAPID_API_KEY,
+        "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST,
       },
     };
     try {
@@ -199,8 +221,9 @@ const Landing = () => {
           <CodeEditorWindow
             code={code}
             onChange={onChange}
-            language={language}
+            language={value}
             theme={theme}
+            defaultCode={defaultCode}
           />
         </div>
 
