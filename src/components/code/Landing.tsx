@@ -5,7 +5,8 @@ import CodeEditorWindow from "./MonacoEditor";
 import axios from "axios";
 import { cn } from "@/lib/utils";
 import { languageOptions } from "@/lib/languageOptions";
-
+import { Resizable } from "react-resizable";
+import "react-resizable/css/styles.css";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import useKeyPress from "@/hooks/useKeyPress";
@@ -14,6 +15,7 @@ import CustomInput from "./CustomInput";
 import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
+import ProblemStatement from "./ProblemStatement";
 
 const Landing = () => {
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -47,7 +49,12 @@ const Landing = () => {
       console.log("ctrlPress", ctrlPress);
       handleCompile();
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlPress, enterPress]);
+
+  const onResize = (e, { size }) => {
+    // handle resize here, you can set the width in state if needed
+  };
 
   const onChange = (action, data) => {
     switch (action) {
@@ -207,45 +214,51 @@ const Landing = () => {
         draggable
         pauseOnHover
       />
-      <div className="h-4 w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"></div>
-      <div className="flex flex-row">
-        <div className="px-4 py-2">
-          <LanguagesDropdown onSelectChange={onSelectChange} />
+      {/* <div className="h-4 w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"></div> */}
+      <div className="flex flex-row justify-evenly">
+        <div className="w-[40%]">
+          <ProblemStatement />
         </div>
-        <div className="px-4 py-2">
-          <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
-        </div>
-      </div>
-      <div className="flex flex-row space-x-4 items-start px-4 py-4">
-        <div className="flex flex-col w-full h-full justify-start items-end">
-          <CodeEditorWindow
-            code={code}
-            onChange={onChange}
-            language={value}
-            theme={theme}
-            defaultCode={defaultCode}
-          />
-        </div>
-
-        <div className="right-container flex flex-shrink-0 w-[30%] flex-col">
-          <OutputWindow outputDetails={outputDetails} />
-          <div className="flex flex-col items-end">
-            <CustomInput
-              customInput={customInput}
-              setCustomInput={setCustomInput}
-            />
-            <button
-              onClick={handleCompile}
-              disabled={!code}
-              className={cn(
-                "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
-                !code ? "opacity-50" : ""
-              )}
-            >
-              {processing ? "Processing..." : "Compile and Execute"}
-            </button>
+        <div className="flex flex-col w-[60%]">
+          <div className="flex flex-row justify-end">
+            <div className="px-4 py-2">
+              <LanguagesDropdown onSelectChange={onSelectChange} />
+            </div>
           </div>
-          {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+
+          <div className="flex flex-col px-4">
+            <div className="flex flex-col w-full h-[40%] justify-start">
+              <CodeEditorWindow
+                code={code}
+                onChange={onChange}
+                language={value}
+                theme={theme}
+                defaultCode={defaultCode}
+              />
+            </div>
+            <div className="right-container flex flex-row justify-center items-center h-[40%]">
+              <div className="w-[55%]  px-2">
+                <OutputWindow outputDetails={outputDetails} />
+              </div>
+              <div className="flex flex-col items-end">
+                <CustomInput
+                  customInput={customInput}
+                  setCustomInput={setCustomInput}
+                />
+                <button
+                  onClick={handleCompile}
+                  disabled={!code}
+                  className={cn(
+                    "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
+                    !code ? "opacity-50" : ""
+                  )}
+                >
+                  {processing ? "Processing..." : "Compile and Execute"}
+                </button>
+              </div>
+            </div>
+            {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+          </div>
         </div>
       </div>
     </>
