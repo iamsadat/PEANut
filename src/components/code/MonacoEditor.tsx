@@ -74,11 +74,13 @@ const CodeEditorWindow = ({ onChange, language, code, theme, defaultCode }) => {
           suggestOnTriggerCharacters: true,
           wordBasedSuggestions: true,
           wordSeparators: "~!@#$%^&*()-=+[{]}|;:'\",.<>/?",
-          wordWrap: "off",
+          wordWrap: "on",
           wordWrapBreakAfterCharacters: "\t})]?|&,;",
           wordWrapBreakBeforeCharacters: "{([+",
           wordWrapColumn: 80,
           wrappingIndent: "none",
+          minimap:{ enabled: false},
+          fontSize:16,
         }}
       />
     </div>

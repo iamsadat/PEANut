@@ -23,7 +23,7 @@ const LogIn = () => {
       const response = await axios.post("/api/faculty/login", data);
       console.log("login success", response.data);
       toast.success("login success");
-      //window.location.href = "/faculty/dashboard";
+      window.location.href = "/faculty/dashboard";
     } catch (error: any) {
       console.log("login failed", error.message);
       toast.error(error.message);
