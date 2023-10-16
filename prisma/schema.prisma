@@ -84,6 +84,7 @@ model Quiz {
   quizType    QuizType?
   user         User[]
   questions    Question[]
+  problems        Code[]
   @@index([userId], name: "userId")
 }
 
@@ -101,4 +102,36 @@ model Question {
   userAnswer String?
 
   @@index([quizId])
+}
+
+model Code {
+  id                String    @id @default(cuid())
+  problemName       String    // Descriptive name of the problem
+  problemStatement  String    @db.LongText// Detailed problem statement
+  testCases         Json      // Input-output test cases for the problem
+  expectedOutput    String    // Expected output for the problem
+  difficulty        String    // Difficulty level (easy, medium, hard, etc.)
+  language          Json      // Programming language used for the problem (e.g., Python, Java, etc.)
+  userAnswer        String?    // User's submitted answer
+  answerStatus      String?    // Status of the user's answer (e.g., accepted, wrong answer, runtime error, etc.)
+  quizId            String?    // ID of the associated quiz
+  quiz              Quiz?      @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  submissions       Submission[] // Record of user submissions for this problem
+  createdAt         DateTime  @default(now()) // Timestamp of problem creation
+  
+  @@index([quizId])
+}
+
+model Submission {
+  id                String    @id @default(cuid())
+  codeId            String    // ID of the associated problem
+  code              Code      @relation(fields: [codeId], references: [id], onDelete: Cascade)
+  userId            String    // ID of the user who made the submission
+  submittedAt       DateTime  @default(now()) // Timestamp of submission
+  status            String    // Submission status (accepted, wrong answer, runtime error, etc.)
+  runtime           Float?    // Runtime of the submission (in milliseconds)
+  memory            Float?    // Memory usage of the submission (in megabytes)
+  language          String    // Programming language used for the submission (e.g., Python, Java, etc.)
+
+  @@index([codeId])
 }

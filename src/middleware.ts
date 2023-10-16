@@ -1,7 +1,21 @@
 import { NextResponse, NextRequest } from "next/server";
 import { verifyJwtToken } from "./lib/auth";
+// import { PrismaClient } from "@prisma/client/edge";
+
+// const prisma = new PrismaClient();
 
 export async function middleware(request: NextRequest) {
+  // const codes = await prisma.code.findMany();
+
+  // const testcases = codes[0].testCases;
+  // const testcasesJson = JSON.parse(testcases);
+  // const firstExpectedOutput = testcasesJson[0].expectedOutput;
+  // console.log(typeof testcasesJson);
+  // console.log(firstExpectedOutput);
+
+  // console.log(typeof testcases);
+
+  // console.log(testcases);
   const path = request.nextUrl.pathname;
 
   const publicPaths = [
