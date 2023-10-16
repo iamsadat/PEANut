@@ -16,6 +16,7 @@ import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 import ProblemStatement from "./ProblemStatement";
+import Split from "react-split";
 
 const Landing = () => {
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -214,9 +215,9 @@ const Landing = () => {
         draggable
         pauseOnHover
       />
-      {/* <div className="h-4 w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500"></div> */}
-      <div className="flex flex-row justify-evenly">
-        <div className="w-[40%]">
+
+      <Split className="split">
+        <div>
           <ProblemStatement />
         </div>
         <div className="flex flex-col w-[60%]">
@@ -260,8 +261,10 @@ const Landing = () => {
             {outputDetails && <OutputDetails outputDetails={outputDetails} />}
           </div>
         </div>
-      </div>
+
+      </Split>
     </>
+
   );
 };
 export default Landing;
