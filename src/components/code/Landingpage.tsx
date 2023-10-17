@@ -17,6 +17,7 @@ import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 import ProblemStatement from "./ProblemStatement";
 import Split from "react-split";
+import { useParams } from "next/navigation";
 
 const Landing = () => {
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -31,6 +32,22 @@ const Landing = () => {
     value: "cobalt",
     label: "Cobalt",
   });
+
+  const params = useParams();
+  const pid = params.pid;
+
+  useEffect(() => {
+    const fetchProblem = async () => {
+      try {
+        const currentProblem = axios.post("/api/getProblem", { id: pid });
+        const currentDefaultCode = (await currentProblem).data.defaultCode;
+        setDefaultCode(currentDefaultCode);
+      } catch (error) {
+        console.log("error", error);
+      }
+    };
+    fetchProblem();
+  }, []);
 
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
@@ -66,12 +83,15 @@ const Landing = () => {
   };
 
   const handleCompile = async () => {
+    const problem = await axios.post("/api/getProblem", { id: pid });
+
     setProcessing(true);
     const formData = {
       language_id: id,
       // encode source code in base64
       source_code: btoa(code),
       stdin: btoa(customInput),
+      expected_output: btoa(problem.data.expectedOutput),
     };
     console.log("formData: ", formData);
     console.log("Code: ", code);
@@ -99,30 +119,6 @@ const Landing = () => {
     } catch (error) {
       console.error(error);
     }
-
-    // await axios
-    //   .request(options)
-    //   .then(function (response) {
-    //     console.log("res.data", response.data);
-    //     const token = response.data.token;
-    //     checkStatus(token);
-    //   })
-    //   .catch((err) => {
-    //     let error = err.response ? err.response.data : err;
-    //     // get error status
-    //     let status = err.response?.status;
-    //     console.log("status", status);
-    //     if (status === 429) {
-    //       console.log("too many requests", status);
-
-    //       showErrorToast(
-    //         `Quota of 100 requests exceeded for the Day! Please read the blog on freeCodeCamp to learn how to setup your own RAPID API Judge0!`,
-    //         10000
-    //       );
-    //     }
-    //     setProcessing(false);
-    //     console.log("catch block...", error);
-    //   });
   };
 
   const checkStatus = async (token) => {
@@ -138,6 +134,7 @@ const Landing = () => {
         "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST,
       },
     };
+
     try {
       let response = await axios.request(options);
       let statusId = response.data.status?.id;
@@ -263,3 +260,28 @@ const Landing = () => {
 };
 
 export default Landing;
+
+{
+  // await axios
+  //   .request(options)
+  //   .then(function (response) {
+  //     console.log("res.data", response.data);
+  //     const token = response.data.token;
+  //     checkStatus(token);
+  //   })
+  //   .catch((err) => {
+  //     let error = err.response ? err.response.data : err;
+  //     // get error status
+  //     let status = err.response?.status;
+  //     console.log("status", status);
+  //     if (status === 429) {
+  //       console.log("too many requests", status);
+  //       showErrorToast(
+  //         `Quota of 100 requests exceeded for the Day! Please read the blog on freeCodeCamp to learn how to setup your own RAPID API Judge0!`,
+  //         10000
+  //       );
+  //     }
+  //     setProcessing(false);
+  //     console.log("catch block...", error);
+  //   });
+}

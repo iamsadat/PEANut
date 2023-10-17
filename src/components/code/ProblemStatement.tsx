@@ -6,6 +6,7 @@ import { TiStarOutline } from "react-icons/ti";
 import React, { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import axios from "axios";
+import { cn } from "@/lib/utils";
 
 type Props = {};
 
@@ -23,7 +24,6 @@ const ProblemStatement = () => {
     createdAt: "",
   });
   const params = useParams();
-  console.log("params", params);
 
   const id = params.pid;
 
@@ -39,6 +39,19 @@ const ProblemStatement = () => {
     };
     fetchProblem();
   }, [id]);
+
+  const difficultyColor = (difficulty) => {
+    switch (difficulty.toLowerCase()) {
+      case "easy":
+        return "bg-green-500 text-green-500";
+      case "medium":
+        return "bg-yellow-500 text-yellow-500";
+      case "hard":
+        return "bg-red-500 text-red-500";
+      default:
+        return "bg-green-500 text-green-500";
+    }
+  };
 
   return (
     <div className="bg black">
@@ -59,13 +72,16 @@ const ProblemStatement = () => {
             {/* Problem heading */}
             <div className="w-full">
               <div className="flex space-x-4">
-                <div className="flex-1 mr-2 text-lg text-white font-medium">
+                <div className="flex-1 mr-2 text-lg dark:text-white font-medium">
                   1. {problem?.problemName}
                 </div>
               </div>
               <div className="flex items-center mt-3">
                 <div
-                  className={`text-olive bg-olive inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize `}
+                  className={cn(
+                    difficultyColor(problem?.difficulty),
+                    "bg-olive inline-block rounded-[21px] bg-opacity-[.15] px-2.5 py-1 text-xs font-medium capitalize flex-wrap"
+                  )}
                 >
                   {problem?.difficulty}
                 </div>
@@ -84,43 +100,9 @@ const ProblemStatement = () => {
                   <TiStarOutline />
                 </div>
               </div>
-
-              {/* Problem Statement(paragraphs) */}
-              <div className="text-white text-sm">
-                {problem?.problemStatement}
-              </div>
-
-              {/* Examples */}
-              <div className="mt-4">
-                {problem.testCases?.map((testCase, index) => (
-                  <>
-                    <div key={index}>Input: {testCase.input}</div>
-                    <div>Output: {testCase.output}</div>
-                  </>
-                ))}
-              </div>
-
-              {/* Constraints */}
-              <div className="my-5">
-                <div className="text-white text-sm font-medium">
-                  Constraints:
-                </div>
-                <ul className="text-white ml-5 list-disc">
-                  <li className="mt-2">
-                    <code>2 ≤ nums.length ≤ 10</code>
-                  </li>
-
-                  <li className="mt-2">
-                    <code>-10 ≤ nums[i] ≤ 10</code>
-                  </li>
-                  <li className="mt-2">
-                    <code>-10 ≤ target ≤ 10</code>
-                  </li>
-                  <li className="mt-2 text-sm">
-                    <strong>Only one valid answer exists.</strong>
-                  </li>
-                </ul>
-              </div>
+              <div
+                dangerouslySetInnerHTML={{ __html: problem.problemStatement }}
+              />
             </div>
           </div>
         </div>

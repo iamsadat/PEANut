@@ -10,27 +10,7 @@ export async function POST(request: NextRequest) {
     // Find the problem by ID using Prisma
     const problem = await prisma.code.findUnique({
       where: {
-        id: id, // Assuming id is a string
-      },
-      select: {
-        id: true,
-        problemName: true,
-        problemStatement: true,
-        testCases: true,
-        expectedOutput: true,
-        difficulty: true,
-        language: true,
-        userAnswer: true,
-        answerStatus: true,
-        quizId: true,
-        createdAt: true,
-        quiz: {
-          select: {
-            // Specify the fields you want to include from the related Quiz table
-            id: true,
-            // ... (other fields you want to include from the Quiz table)
-          },
-        },
+        id: id as string, // Assuming id is a string
       },
     });
 
@@ -43,6 +23,6 @@ export async function POST(request: NextRequest) {
     return NextResponse.json(problem, { status: 200 });
   } catch (error) {
     console.error(error);
-    return NextResponse.error();
+    return NextResponse.json(error, { status: 500 });
   }
 }

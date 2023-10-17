@@ -1,3 +1,4 @@
+import { languageOptions } from "./../../../lib/languageOptions";
 import { prisma } from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -11,14 +12,8 @@ export async function POST(request: NextRequest) {
       expectedOutput,
       difficulty,
       language,
-      quizId,
+      language_id,
     } = reqBody;
-
-    const quizFromDB = await prisma.quiz.findFirst({
-      where: {
-        id: quizId,
-      },
-    });
 
     const problem = await prisma.code.create({
       data: {
@@ -28,9 +23,10 @@ export async function POST(request: NextRequest) {
         expectedOutput: expectedOutput,
         difficulty: difficulty,
         language: {
-          create: {
-            language: language,
-          },
+          language: language,
+          id: language_id,
+          defaultCode:
+            "class Solution {\r\n    public int[] runningSum(int[] nums) {\r\n        \r\n    }\r\n}",
         },
         createdAt: new Date(),
       },
