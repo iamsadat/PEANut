@@ -3,10 +3,8 @@ import React from "react";
 
 type ProblemPageProps = {};
 
-const ProblemPage: React.FC<ProblemPageProps> =() => {
-    return (
-        <Landingpage/>
-    );
+const ProblemPage: React.FC<ProblemPageProps> = () => {
+  return <Landingpage />;
 };
 
 export default ProblemPage;

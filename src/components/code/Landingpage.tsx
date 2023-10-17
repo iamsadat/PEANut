@@ -53,10 +53,6 @@ const Landing = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ctrlPress, enterPress]);
 
-  const onResize = (e, { size }) => {
-    // handle resize here, you can set the width in state if needed
-  };
-
   const onChange = (action, data) => {
     switch (action) {
       case "code": {
@@ -261,10 +257,9 @@ const Landing = () => {
             {outputDetails && <OutputDetails outputDetails={outputDetails} />}
           </div>
         </div>
-
       </Split>
     </>
-
   );
 };
+
 export default Landing;

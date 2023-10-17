@@ -32,8 +32,6 @@ export async function POST(request: NextRequest) {
             language: language,
           },
         },
-        quizId: quizId, // You might want to set the actual quizId here
-        quiz: quizFromDB,
         createdAt: new Date(),
       },
     });
