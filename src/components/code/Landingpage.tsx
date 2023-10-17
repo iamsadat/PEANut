@@ -18,6 +18,7 @@ import LanguagesDropdown from "./LanguagesDropdown";
 import ProblemStatement from "./ProblemStatement";
 import Split from "react-split";
 import { useParams } from "next/navigation";
+// import EditorFooter from "./EditorFooter";
 
 const Landing = () => {
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -221,36 +222,47 @@ const Landing = () => {
           </div>
 
           <div className="flex flex-col px-4">
-            <div className="flex flex-col w-full h-[40%] justify-start">
-              <CodeEditorWindow
-                code={code}
-                onChange={onChange}
-                language={value}
-                theme={theme}
-                defaultCode={defaultCode}
-              />
-            </div>
-            <div className="right-container flex flex-row justify-center items-center h-[40%]">
-              <div className="w-[55%]  px-2">
-                <OutputWindow outputDetails={outputDetails} />
+            <Split
+              className="h-[calc(100vh-94px)]"
+              direction="vertical"
+              sizes={[60, 40]}
+              minSize={60}
+            >
+              <div className="w-full overflow-auto">
+                <div className="flex flex-col w-full h-[100%] justify-start">
+                  <CodeEditorWindow
+                    code={code}
+                    onChange={onChange}
+                    language={value}
+                    theme={theme}
+                    defaultCode={defaultCode}
+                  />
+                </div>
               </div>
-              <div className="flex flex-col items-end">
-                <CustomInput
-                  customInput={customInput}
-                  setCustomInput={setCustomInput}
-                />
-                <button
-                  onClick={handleCompile}
-                  disabled={!code}
-                  className={cn(
-                    "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
-                    !code ? "opacity-50" : ""
-                  )}
-                >
-                  {processing ? "Processing..." : "Compile and Execute"}
-                </button>
+              <div className="right-container flex flex-row justify-center items-center h-[40%]">
+                <div className="w-[55%]  px-2">
+                  <OutputWindow outputDetails={outputDetails} />
+                </div>
+                <div className="flex flex-col items-end">
+                  {/* <CustomInput
+                    customInput={customInput}
+                    setCustomInput={setCustomInput}
+                  /> */}
+                  <button
+                    onClick={handleCompile}
+                    disabled={!code}
+                    className={cn(
+                      "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
+                      !code ? "opacity-50" : ""
+                    )}
+                  >
+                    {processing ? "Processing..." : "Compile and Execute"}
+                  </button>
+                </div>
               </div>
-            </div>
+            </Split>
+            {/* <EditorFooter/> */}
+
             {outputDetails && <OutputDetails outputDetails={outputDetails} />}
           </div>
         </div>
