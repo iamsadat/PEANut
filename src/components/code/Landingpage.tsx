@@ -18,7 +18,7 @@ import LanguagesDropdown from "./LanguagesDropdown";
 import ProblemStatement from "./ProblemStatement";
 import Split from "react-split";
 import { useParams } from "next/navigation";
-// import EditorFooter from "./EditorFooter";
+import EditorFooter from "./EditorFooter";
 
 const Landing = () => {
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -86,23 +86,27 @@ const Landing = () => {
   const handleCompile = async () => {
     const problem = await axios.post("/api/getProblem", { id: pid });
 
+    const testCases = problem.data.testCases;
+
     setProcessing(true);
     const formData = {
-      language_id: id,
-      // encode source code in base64
-      source_code: btoa(code),
-      stdin: btoa(customInput),
-      expected_output: btoa(problem.data.expectedOutput),
+      submissions: testCases.map((testCase) => {
+        return {
+          language_id: id,
+          source_code: code,
+          stdin: testCase.input,
+          expected_output: testCase.expectedOutput,
+        };
+      }),
     };
     console.log("formData: ", formData);
     console.log("Code: ", code);
 
     const options = {
       method: "POST",
-      url: "https://judge0-ce.p.rapidapi.com/submissions",
+      url: "https://judge0-ce.p.rapidapi.com/submissions/batch",
       params: {
         base64_encoded: "true",
-        fields: "*",
       },
       headers: {
         "content-type": "application/json",
@@ -115,18 +119,19 @@ const Landing = () => {
 
     try {
       const response = await axios.request(options);
-      checkStatus(response.data.token);
+      checkStatus(response.data);
       console.log(response.data);
     } catch (error) {
       console.error(error);
     }
   };
 
-  const checkStatus = async (token) => {
+  const checkStatus = async (tokens) => {
     const options = {
       method: "GET",
-      url: `https://judge0-ce.p.rapidapi.com/submissions/${token}`,
+      url: "https://judge0-ce.p.rapidapi.com/submissions/batch",
       params: {
+        tokens: tokens.map((token) => token.token).join(","),
         base64_encoded: "true",
         fields: "*",
       },
@@ -144,7 +149,7 @@ const Landing = () => {
       if (statusId === 1 || statusId === 2) {
         // still processing
         setTimeout(() => {
-          checkStatus(token);
+          checkStatus(tokens);
         }, 2000);
         return;
       } else {
@@ -261,7 +266,7 @@ const Landing = () => {
                 </div>
               </div>
             </Split>
-            {/* <EditorFooter/> */}
+            <EditorFooter />
 
             {outputDetails && <OutputDetails outputDetails={outputDetails} />}
           </div>
