@@ -54,7 +54,7 @@ const ProblemStatement = () => {
   };
 
   return (
-    <div className="bg black">
+    <div className="bg black max-h-full">
       <div className="!bg-dark-layer-1">
         {/* TAB */}
         <div className="flex h-11 w-full items-center pt-2 bg-dark-layer-2 text-white overflow-x-hidden">

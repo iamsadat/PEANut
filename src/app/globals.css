@@ -176,3 +176,24 @@ code {
   color: white;
   font-size: 1rem;
 }
+
+.split {
+  flex: 1;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.code-editor-container {
+  flex: 1;
+  overflow: hidden;
+}
+
+.output-container {
+  flex: 1;
+  overflow-y: auto;
+  overflow-x: hidden;
+}

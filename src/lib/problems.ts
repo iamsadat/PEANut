@@ -8,6 +8,11 @@ export const problems = [
   {
     id: 1,
     name: "Running Sum of 1d Array",
+    code: `class Main {
+      public static void main(String[] args) {
+          System.out.println("Hello World");
+      }
+  }`,
     testCases: [
       {
         input: [1, 2, 3, 4],

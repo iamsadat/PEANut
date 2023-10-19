@@ -59,8 +59,7 @@ const QuizCard = (props: Props) => {
   console.log(allQuizzes);
 
   return (
-    <div>
-      <h1>Quiz Card</h1>
+    <div className="mx-8">
       <Table className="mt-4">
         <TableCaption>End of list.</TableCaption>
         <TableHeader>
@@ -84,7 +83,7 @@ const QuizCard = (props: Props) => {
                   </TableCell>
                   <TableCell>{quiz.quizType}</TableCell>
                   <TableCell>
-                    <Button onClick={handleClick}>
+                    <Button onClick={handleClick} className="flex justify-end">
                       <Link href={`/student/quiz/mcq/${quiz.id}`}>
                         Take Quiz
                       </Link>

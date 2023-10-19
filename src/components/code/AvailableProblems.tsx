@@ -69,7 +69,7 @@ const AvailableProblems = (props: Props) => {
   };
 
   return (
-    <div>
+    <div className="mx-8">
       <Table className="mt-4 px-4">
         <TableCaption>End of list.</TableCaption>
         <TableHeader>
@@ -95,7 +95,7 @@ const AvailableProblems = (props: Props) => {
                   >
                     {problem.difficulty}
                   </TableCell>
-                  <TableCell>
+                  <TableCell className="flex justify-end">
                     <Button onClick={handleClick}>
                       <Link href={`/problems/${problem.id}`}>
                         Attempt Problem
