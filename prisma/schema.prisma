@@ -108,6 +108,7 @@ model Code {
   id                String    @id @default(cuid())
   problemName       String    // Descriptive name of the problem
   problemStatement  String    @db.LongText// Detailed problem statement
+  tags              String?  // Tags associated with the problem
   testCases         Json      // Input-output test cases for the problem
   expectedOutput    String    // Expected output for the problem
   difficulty        String    // Difficulty level (easy, medium, hard, etc.)
