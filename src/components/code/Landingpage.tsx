@@ -94,7 +94,6 @@ const Landing = () => {
         return {
           language_id: id,
           source_code: code,
-          stdin: testCase.input,
           expected_output: testCase.expectedOutput,
         };
       }),
