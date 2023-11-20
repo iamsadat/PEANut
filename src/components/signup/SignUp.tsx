@@ -15,6 +15,7 @@ function SignUp() {
     rollNumber: "",
     email: "",
     department: "",
+    Section:"",
     password: "",
   });
 
@@ -119,6 +120,30 @@ function SignUp() {
                 value={data.department}
                 onChange={(e) =>
                   setData({ ...data, department: e.target.value })
+                }
+                className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="department"
+              className="block text-sm font-medium leading-6 text-gray-900 dark:text-white"
+            >
+              Section
+            </label>
+            <div className="mt-2">
+              <input
+                id="Section"
+                name="Section"
+                type="text"
+                autoComplete="Section"
+                placeholder="Enter your Section"
+                required
+                value={data.Section}
+                onChange={(e) =>
+                  setData({ ...data, Section: e.target.value })
                 }
                 className="block w-full rounded-md border-0 py-1.5 px-4 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
               />
