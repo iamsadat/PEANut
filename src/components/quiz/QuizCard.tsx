@@ -15,7 +15,6 @@ import {
 } from "../ui/table";
 import Link from "next/link";
 import { Button } from "../ui/button";
-import { useRouter } from "next/navigation";
 import LoadingQuestions from "../LoadingQuestions";
 
 type Props = {};
@@ -31,8 +30,8 @@ const QuizCard = (props: Props) => {
       try {
         const response = await axios.get("/api/getAllQuizzes");
         setAllQuizzes(response.data);
-        const user = await axios.get("/api/getUser");
-        setUser(user.data);
+        const data = await axios.get("/api/getUser");
+        setUser(data.data.data);
       } catch (error) {
         console.error("Error fetching quizzes:", error);
       }
@@ -40,7 +39,6 @@ const QuizCard = (props: Props) => {
 
     fetchData();
   }, []);
-  const router = useRouter();
 
   const handleClick = () => {
     setShowLoader(true);
@@ -57,6 +55,9 @@ const QuizCard = (props: Props) => {
   if (showLoader) return <LoadingQuestions finished={finishedLoading} />;
 
   console.log(allQuizzes);
+  console.log("User: ", user);
+  const author = user?.name;
+  console.log("Author: ", author);
 
   return (
     <div className="mx-8">
@@ -81,7 +82,7 @@ const QuizCard = (props: Props) => {
                       {quiz.topic}
                     </Link>
                   </TableCell>
-                  <TableCell>{quiz.quizType}</TableCell>
+                  <TableCell>{author}</TableCell>
                   <TableCell>
                     <Button onClick={handleClick} className="flex justify-end">
                       <Link href={`/student/quiz/mcq/${quiz.id}`}>
