@@ -56,8 +56,6 @@ const QuizCard = (props: Props) => {
 
   console.log(allQuizzes);
   console.log("User: ", user);
-  const author = user?.name;
-  console.log("Author: ", author);
 
   return (
     <div className="mx-8">
@@ -82,7 +80,7 @@ const QuizCard = (props: Props) => {
                       {quiz.topic}
                     </Link>
                   </TableCell>
-                  <TableCell>{author}</TableCell>
+                  <TableCell>{quiz.author}</TableCell>
                   <TableCell>
                     <Button onClick={handleClick} className="flex justify-end">
                       <Link href={`/student/quiz/mcq/${quiz.id}`}>
