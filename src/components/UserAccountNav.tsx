@@ -25,6 +25,7 @@ const UserAccountNav = () => {
     email: "",
     password: "",
     department: "",
+    Section: "",
     emailVerified: null,
     image: null,
     designation: "",
@@ -45,7 +46,7 @@ const UserAccountNav = () => {
             return;
           }
           setUser(userData);
-        } else if(pathname.includes("/faculty")) {
+        } else if (pathname.includes("/faculty")) {
           const response = await axios.get("/api/getFaculty");
           const userData = response.data.data;
           if (!userData) {
@@ -89,6 +90,7 @@ const UserAccountNav = () => {
                     {user.rollNumber}
                   </p>
                 )}
+                {user.department && user.Section && <p className="w-[200px] truncate text-sm text-zinc-700 dark:text-white">{user.department} - {user.Section}</p>}
               </>
             ) : (
               <>
