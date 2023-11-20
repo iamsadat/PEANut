@@ -21,6 +21,7 @@ const AccountPage = () => {
     email: "",
     password: "",
     department: "",
+    Section: "",
     emailVerified: null,
     image: null,
     role: "",
@@ -67,6 +68,10 @@ const AccountPage = () => {
               <div className="flex justify-between">
                 <div className="font-semibold">Department:</div>
                 <div className="ml-4 font-semibold">{user.department}</div>
+              </div>
+              <div className="flex justify-between">
+                <div className="font-semibold">Section:</div>
+                <div className="ml-4 font-semibold">{user.Section}</div>
               </div>
             </div>
           )}
