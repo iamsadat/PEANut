@@ -43,6 +43,7 @@ model User {
   email         String   @unique
   password      String   // Added password field
   department    String
+  Section       String
   emailVerified DateTime?
   image         String?
   quizzes         Quiz[]
