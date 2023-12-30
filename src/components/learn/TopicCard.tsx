@@ -6,28 +6,28 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
-import { Brackets } from 'lucide-react';
 import { useRouter } from "next/navigation";
+import { BookOpen } from 'lucide-react';
 
-const ArrayCard = () => {
+const TopicCard = ({topic}) => {
     const router = useRouter();
     return (
         <>
             <Card
                 className="hover:cursor-pointer hover:opacity-75"
                 onClick={() => {
-                    router.push("/learn/arrays");
+                    router.push(`/learn/${topic}`);
                 }}
             >                <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
-                    <CardTitle className="text-2xl font-bold">Arrays</CardTitle>
-                    <Brackets size={28} strokeWidth={2.5} />
+                    <CardTitle className="text-lg font-bold">{topic}</CardTitle>
+                    <BookOpen size={28} strokeWidth={2.5} />
                 </CardHeader>
                 <CardContent>
-                    <p className="text-sm text-muted-foreground">Learn about Arrays</p>
+                    {/* <p className="text-sm text-muted-foreground">Learn about {topic}</p> */}
                 </CardContent>
             </Card>
         </>
     )
 }
 
-export default ArrayCard;
+export default TopicCard;
