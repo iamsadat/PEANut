@@ -1,0 +1,50 @@
+{
+  "averages": {
+    "topic": "Averages",
+    "description": "Averages involve finding the mean or central value of a set of numbers."
+  },
+  "percentages": {
+    "topic": "Percentages",
+    "description": "Percentages represent a portion of a whole."
+  },
+  "data-interpretation": {
+    "topic": "Data Interpretation",
+    "description": "Data interpretation involves analyzing, understanding, and deriving meaningful insights from data sets."
+  },
+  "number-series-word-analogy": {
+    "topic": "Number series, Word Analogy",
+    "description": "Topics covering number series and word analogy."
+  },
+  "reasoning-logical-diagram-ability": {
+    "topic": "Reasoning logical diagram and Reasoning ability",
+    "description": "Topics related to reasoning, logical diagrams, and reasoning ability."
+  },
+  "number-system-progressions-inequalities": {
+    "topic": "Number system, Progressions and Inequalities",
+    "description": "Topics covering number systems, progressions, and inequalities."
+  },
+  "profit-loss-simple-interest-compound-interest": {
+    "topic": "Profit and loss, Simple Interest & Compound Interest",
+    "description": "Topics involving profit and loss, simple interest, and compound interest."
+  },
+  "speed-time-distance-work": {
+    "topic": "Speed, Time & Distance Time & Work",
+    "description": "Topics covering speed, time, distance, and work."
+  },
+  "probabilities": {
+    "topic": "Probabilities",
+    "description": "Topics related to probabilities and likelihood."
+  },
+  "permutations-combinations": {
+    "topic": "Permutations and Combinations",
+    "description": "Topics involving permutations and combinations."
+  },
+  "clocks-calendars": {
+    "topic": "Clocks and Calendars",
+    "description": "Topics covering clocks and calendars."
+  },
+  "geometry-mensuration": {
+    "topic": "Geometry and Mensuration",
+    "description": "Topics related to geometry and mensuration."
+  }
+}
