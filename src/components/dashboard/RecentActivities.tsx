@@ -27,13 +27,15 @@ const RecentActivityCard = async (props: Props) => {
             Here are the quizzes that you have attempted.
           </CardDescription>
         </CardHeader>
-        <CardContent className="max-h-[580px] overflow-y-scroll">
-          {userId !== null ? (
+        {userId !== null ? (
+          <CardContent className="max-h-[580px] overflow-y-scroll">
             <HistoryComponent limit={10} userId={userId} />
-          ) : (
-            <>No quizzes attempted</>
-          )}
-        </CardContent>
+          </CardContent>
+        ) : (
+          <CardContent>
+            <>No quizzes attempted :(</>
+          </CardContent>
+        )}
       </Card>
     );
   } catch (error) {

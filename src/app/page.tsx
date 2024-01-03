@@ -12,11 +12,11 @@ import { redirect } from "next/navigation";
 export default async function Home() {
   return (
     <div className="flex flex-col items-center ">
-      <h1 className="text-7xl font-bold mt-20 mb-20 font-mono 	">
+      <h1 className="text-7xl font-bold mt-20 font-mono">
         Welcome To PEANut!🔥{" "}
       </h1>
 
-      <div className="flex flex-row gap-6 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-5 ">
+      <div className="flex flex-row gap-6 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-10 ">
         <Card className="w-[285px] shadow-2xl">
           <CardHeader>
             <CardTitle className="text-center">Student Portal</CardTitle>
