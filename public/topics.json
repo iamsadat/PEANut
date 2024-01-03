@@ -1,0 +1,50 @@
+[
+  {
+    "title": "Averages",
+    "path": "averages"
+  },
+  {
+    "title": "Percentages",
+    "path": "percentages"
+  },
+  {
+    "title": "Data Interpretation",
+    "path": "data-interpretation"
+  },
+  {
+    "title": "Number series, Word Analogy",
+    "path": "number-series-word-analogy"
+  },
+  {
+    "title": "Reasoning logical diagram and Reasoning ability",
+    "path": "reasoning-logical-diagram-ability"
+  },
+  {
+    "title": "Number system, Progressions and Inequalities ",
+    "path": "number-system-progressions-inequalities"
+  },
+  {
+    "title": "Profit and loss, Simple Interest & Compound Interest",
+    "path": "profit-loss-simple-interest-compound-interest"
+  },
+  {
+    "title": "Speed, Time & Distance Time & Work",
+    "path": "speed-time-distance-work"
+  },
+  {
+    "title": "Probabilities",
+    "path": "probabilities"
+  },
+  {
+    "title": "Permutations and Combinations",
+    "path": "permutations-combinations"
+  },
+  {
+    "title": "Clocks and Calendars",
+    "path": "clocks-calendars"
+  },
+  {
+    "title": "Geometry and Mensuration",
+    "path": "geometry-mensuration"
+  }
+]

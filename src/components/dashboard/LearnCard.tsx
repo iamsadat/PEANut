@@ -23,7 +23,7 @@ const LearnCard = (props: Props) => {
                 <Code2 size={28} strokeWidth={2.5} />
             </CardHeader>
             <CardContent>
-                <p className="text-sm text-muted-foreground">Learn Data Structures</p>
+                <p className="text-sm text-muted-foreground">Learn Aptitude and Reasoning.</p>
             </CardContent>
         </Card>
     )

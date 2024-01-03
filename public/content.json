@@ -1,0 +1,113 @@
+{
+  "averages": {
+    "topic": "Averages",
+    "description": "Averages involve finding the mean or central value of a set of numbers, a fundamental concept in aptitude tests and reasoning assessments. Understanding averages helps in analyzing data and solving problems efficiently across various contexts, including weighted averages, median, and mode calculations.",
+    "formulas": [
+      "Mean (Average) = Sum of all values / Number of values",
+      "Weighted Average = (Value1 * Weight1 + Value2 * Weight2 + ...) / (Weight1 + Weight2 + ...)",
+      "Median (Middle value of a sorted data set)",
+      "Mode (Most frequently occurring value in a data set)"
+    ]
+  },
+  "percentages": {
+    "topic": "Percentages",
+    "description": "Percentages represent a portion of a whole, a critical concept in both aptitude and reasoning assessments. Proficiency in percentages aids in interpreting data, solving problems related to proportions, and making informed decisions in various scenarios, including percentage change, increase, and decrease.",
+    "formulas": [
+      "Percentage = (Part / Whole) * 100",
+      "Percentage Increase = ((New Value - Old Value) / Old Value) * 100",
+      "Percentage Decrease = ((Old Value - New Value) / Old Value) * 100"
+    ]
+  },
+  "data-interpretation": {
+    "topic": "Data Interpretation",
+    "description": "Data interpretation involves analyzing, understanding, and deriving meaningful insights from data sets, which is essential in aptitude and reasoning assessments. Proficiency in data interpretation helps in solving complex problems, making logical deductions, and drawing conclusions based on available information, including charts, graphs, and tables.",
+    "formulas": [
+      "Simple Chart Interpretation",
+      "Percentage Calculation from Graphs",
+      "Comparison and Ratio Analysis from Tables"
+    ]
+  },
+  "number-series-word-analogy": {
+    "topic": "Number series, Word Analogy",
+    "description": "Topics covering number series and word analogy are vital in aptitude and reasoning assessments. Number series tests analytical skills while word analogy assesses the ability to recognize relationships between words. Proficiency in these areas enhances logical reasoning and problem-solving abilities, including alphanumeric series and word patterns.",
+    "formulas": [
+      "Finding the Pattern in Number Series",
+      "Analogies: Word Relationships and Pairing Words"
+    ]
+  },
+  "reasoning-logical-diagram-ability": {
+    "topic": "Reasoning logical diagram and Reasoning ability",
+    "description": "Topics related to reasoning, logical diagrams, and reasoning ability form the core of aptitude assessments. Proficiency in logical reasoning involves understanding patterns, making deductions, and drawing conclusions logically. Skills in diagrammatic reasoning aid in problem-solving by visual representation, including syllogism and logical deductions.",
+    "formulas": [
+      "Syllogism: Understanding Categorical Logic",
+      "Analyzing Logical Diagrams and Venn Diagrams",
+      "Making Inferences and Deductions"
+    ]
+  },
+  "number-system-progressions-inequalities": {
+    "topic": "Number system, Progressions and Inequalities",
+    "description": "Topics covering number systems, progressions, and inequalities are foundational in aptitude tests and reasoning assessments. Understanding number systems and progressions helps in solving complex mathematical problems. Inequalities contribute to logical reasoning and problem-solving skills, including arithmetic, geometric progressions, and inequalities.",
+    "formulas": [
+      "Number System Operations: Addition, Subtraction, Multiplication, Division",
+      "Arithmetic Progression (AP): nth term = a + (n - 1) * d",
+      "Geometric Progression (GP): nth term = a * r^(n-1)",
+      "Inequalities: Solving and Graphical Representation"
+    ]
+  },
+  "profit-loss-simple-interest-compound-interest": {
+    "topic": "Profit and loss, Simple Interest & Compound Interest",
+    "description": "Topics involving profit and loss, simple interest, and compound interest are crucial in aptitude assessments. Proficiency in these areas aids in financial calculations, decision-making, and problem-solving involving financial scenarios, including discount, mark-up, simple and compound interest calculations.",
+    "formulas": [
+      "Profit = Selling Price - Cost Price",
+      "Loss = Cost Price - Selling Price",
+      "Simple Interest = (Principal * Rate * Time) / 100",
+      "Compound Interest = Principal * [(1 + Rate / 100) ^ Time - 1]"
+    ]
+  },
+  "speed-time-distance-work": {
+    "topic": "Speed, Time & Distance Time & Work",
+    "description": "Topics covering speed, time, distance, and work are essential in aptitude assessments. These concepts play a significant role in problem-solving related to travel, work, and efficiency calculations in various scenarios, including relative speed, average speed, and work-efficiency problems.",
+    "formulas": [
+      "Speed = Distance / Time",
+      "Time = Distance / Speed",
+      "Work Efficiency = Work Done / Time",
+      "Relative Speed = Sum of Speeds while moving in the same direction, Difference while moving in opposite directions"
+    ]
+  },
+  "probabilities": {
+    "topic": "Probabilities",
+    "description": "Topics related to probabilities and likelihood are integral to aptitude and reasoning assessments. Understanding probabilities helps in decision-making, risk assessment, and predicting outcomes based on available information, including probability distributions and conditional probabilities.",
+    "formulas": [
+      "Probability = (Number of favorable outcomes) / (Total number of possible outcomes)",
+      "Conditional Probability = P(A ∩ B) / P(B)",
+      "Probability Distributions: Normal, Binomial, and Poisson"
+    ]
+  },
+  "permutations-combinations": {
+    "topic": "Permutations and Combinations",
+    "description": "Topics involving permutations and combinations are crucial in aptitude assessments. Proficiency in these areas aids in problem-solving scenarios involving arrangements, selections, and possibilities, including factorial, combinations, and permutations with and without repetition.",
+    "formulas": [
+      "Permutation (without repetition) = n! / (n - r)!",
+      "Permutation (with repetition) = n^r",
+      "Combination = n! / (r! * (n - r)!)"
+    ]
+  },
+  "clocks-calendars": {
+    "topic": "Clocks and Calendars",
+    "description": "Topics covering clocks and calendars are important in aptitude and reasoning assessments. These concepts are crucial for solving problems related to time, scheduling, and planning in various scenarios, including clock-based problems, calendar dates, and day calculations.",
+    "formulas": [
+      "Clock Problems: Angle between the hands = |(11/2) * (Hours - Minutes)|",
+      "Calendar Problems: Finding Day on a Given Date, Leap Year Calculations"
+    ]
+  },
+  "geometry-mensuration": {
+    "topic": "Geometry and Mensuration",
+    "description": "Topics related to geometry and mensuration are fundamental in aptitude and reasoning assessments. Proficiency in geometry aids in spatial understanding and problem-solving, while mensuration involves measurements and calculations of various shapes and figures, including area, perimeter, volume, and surface area calculations.",
+    "formulas": [
+      "Area Formulas: Rectangle = Length * Width, Triangle = (1/2) * Base * Height, Circle = π * Radius^2",
+      "Perimeter Formulas: Rectangle = 2 * (Length + Width), Triangle = Sum of all three sides",
+      "Volume Formulas: Cube = Side^3, Cylinder = π * Radius^2 * Height",
+      "Surface Area Formulas: Sphere = 4 * π * Radius^2, Cuboid = 2 * (Length * Width + Width * Height + Height * Length)"
+    ]
+  }
+}
