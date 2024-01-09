@@ -37,7 +37,7 @@ export default function Content() {
                         </ul>
                     </div>
                     <div className="mt-10">
-                        <h3 className=" text-2xl font-semibold underline mb-10">Take a mock test on {topicsData[path].topic}</h3>
+                        <h3 className=" text-2xl font-semibold underline">Take a mock test on {topicsData[path].topic}</h3>
                         <FilteredQuizzes topic={topicsData[path].topic} />
                     </div>
                 </div>

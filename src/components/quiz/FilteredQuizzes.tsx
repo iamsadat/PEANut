@@ -62,13 +62,10 @@ const QuizCard = (props: Props) => {
 
   return (
     <div className="mx-8">
-      <Table className="mt-4 mb-8">
+      <Table className="mt-2 mb-4">
         <TableCaption></TableCaption>
         <TableHeader>
           <TableRow>
-            <TableHead className="w-[10px]">No.</TableHead>
-            <TableHead>Topic</TableHead>
-            <TableHead>Author</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
