@@ -1,4 +1,5 @@
 "use client";
+import { StudentResults } from "@/components/component/StudentResults";
 import QuizUsersCard from "@/components/quiz/QuizUsersCard";
 import { User } from "@prisma/client";
 import axios from "axios";
@@ -37,7 +38,7 @@ const QuizUsersPage = ({ params: { quizId } }: Props) => {
 
   return (
     <div>
-      <QuizUsersCard />
+      <StudentResults />
     </div>
   );
 };
