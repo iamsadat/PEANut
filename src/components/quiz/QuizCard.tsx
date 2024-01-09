@@ -16,6 +16,7 @@ import {
 import Link from "next/link";
 import { Button } from "../ui/button";
 import LoadingQuestions from "../LoadingQuestions";
+import { DataTable } from "../table/Table";
 
 type Props = {};
 
@@ -59,41 +60,7 @@ const QuizCard = (props: Props) => {
 
   return (
     <div className="mx-8">
-      <Table className="mt-4">
-        <TableCaption>End of list.</TableCaption>
-        <TableHeader>
-          <TableRow>
-            <TableHead className="w-[10px]">No.</TableHead>
-            <TableHead>Topic</TableHead>
-            <TableHead>Author</TableHead>
-            <TableHead></TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          <>
-            {allQuizzes.map((quiz: Quiz, index: number) => {
-              return (
-                <TableRow key={quiz.id}>
-                  <TableCell className="font-medium">{index + 1}</TableCell>
-                  <TableCell>
-                    <Link href={`/student/quiz/mcq/${quiz.id}`}>
-                      {quiz.topic}
-                    </Link>
-                  </TableCell>
-                  <TableCell>{quiz.author}</TableCell>
-                  <TableCell>
-                    <Button onClick={handleClick} className="flex justify-end">
-                      <Link href={`/student/quiz/mcq/${quiz.id}`}>
-                        Take Quiz
-                      </Link>
-                    </Button>
-                  </TableCell>
-                </TableRow>
-              );
-            })}
-          </>
-        </TableBody>
-      </Table>
+      <DataTable data={[]} columns={[]} />
     </div>
   );
 };
