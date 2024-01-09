@@ -17,6 +17,7 @@ import Link from "next/link";
 import { Button } from "../ui/button";
 import LoadingQuestions from "../LoadingQuestions";
 import { DataTable } from "../table/Table";
+import { AllQuizzesTable } from "../component/component";
 
 type Props = {};
 
@@ -60,7 +61,7 @@ const QuizCard = (props: Props) => {
 
   return (
     <div className="mx-8">
-      <DataTable data={[]} columns={[]} />
+      <AllQuizzesTable />
     </div>
   );
 };
