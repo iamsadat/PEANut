@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import {
   Card,
@@ -9,39 +11,58 @@ import {
 import Link from "next/link";
 import HistoryComponent from "../HistoryComponent";
 import { user_id } from "@/helpers/getUser";
+import { useRouter } from "next/navigation";
+import { History, SearchCodeIcon } from "lucide-react";
 
 type Props = {};
 
-const RecentActivityCard = async (props: Props) => {
+const RecentActivityCard = (props: Props) => {
   try {
-    const userId = await user_id();
-    console.log("User ID in the dashboard:", userId);
+    const router = useRouter();
+    if (!router.prefetch) return <div>Error</div>;
 
     return (
-      <Card className="col-span-4 lg:col-span-3">
-        <CardHeader>
+      <Card
+        className="col-span-4 hover:cursor-pointer hover:opacity-75"
+        onClick={() => {
+          router.push("/student/history");
+        }}
+      >
+        <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
           <CardTitle className="text-2xl font-bold">
             <Link href="/student/history">Recent Activity</Link>
           </CardTitle>
-          <CardDescription>
-            Here are the quizzes that you have attempted.
-          </CardDescription>
+          <History size={28} strokeWidth={2.5} />
         </CardHeader>
-        {userId !== null ? (
-          <CardContent className="max-h-[580px] overflow-y-scroll">
-            <HistoryComponent limit={10} userId={userId} />
-          </CardContent>
-        ) : (
-          <CardContent>
-            <>No quizzes attempted :(</>
-          </CardContent>
-        )}
+        <CardContent>
+          <p className="text-sm text-muted-foreground">
+            Here are the quizzes that you have attempted.
+          </p>
+        </CardContent>
       </Card>
+      // <Card className="col-span-4 lg:col-span-3">
+      //   <CardHeader>
+      //     <CardTitle className="text-2xl font-bold">
+      //       <Link href="/student/history">Recent Activity</Link>
+      //     </CardTitle>
+      //     <CardDescription>
+      //       Here are the quizzes that you have attempted.
+      //     </CardDescription>
+      //   </CardHeader>
+      //   {userId !== null ? (
+      //     <CardContent className="max-h-[580px] overflow-y-scroll">
+      //       <HistoryComponent limit={10} userId={userId} />
+      //     </CardContent>
+      //   ) : (
+      //     <CardContent>
+      //       <>No quizzes attempted :(</>
+      //     </CardContent>
+      //   )}
+      // </Card>
     );
   } catch (error) {
     console.error("Error fetching user data:", error);
-    // Handle errors as needed
-    return null; // Return null or an error message if necessary
+    return null;
   }
 };
 

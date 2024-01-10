@@ -66,10 +66,8 @@ const QuizCreation = (props: Props) => {
   });
 
   const onSubmit = async (data: Input) => {
-    setShowLoader(true);
     getQuestions(data, {
       onError: (error) => {
-        setShowLoader(false);
         if (error instanceof AxiosError) {
           if (error.response?.status === 500) {
             toast({
@@ -82,7 +80,6 @@ const QuizCreation = (props: Props) => {
       },
     });
     setTimeout(() => {
-      setFinishedLoading(true);
       // if (form.getValues("type") === "mcq") {
       router.push("/faculty/createquestions");
       // } else if (form.getValues("type") === "open_ended") {
