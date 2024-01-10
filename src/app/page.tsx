@@ -17,10 +17,10 @@ export default async function Home() {
         className="banner pt-4 sm:pt-navbar px-16 relative flex flex-col justify-center items-center sm:px-0 sm:justify-between sm:flex-row"
       >
         <div className="hidden sm:flex w-88 h-full items-center justify-center">
-          <img className="w-full pb-20" src="/home1.svg" />
+          <img className="w-full pb-0" src="/home01.jpg" />
         </div>
         <div
-          className="sm:h-full sm:flex sm:flex-1 flex-col items-center justify-center"
+          className="sm:h-full sm:flex sm:flex-1 flex-col items-center justify-center ml-2"
         >
           <h1
             className="text-4.5xl sm:text-5xl pt-navbar text-center font-extrabold leading-170"
@@ -39,18 +39,6 @@ export default async function Home() {
         <div
           className=" sm:w-88 flex flex-row-reverse justify-between sm:h-full sm:items-center sm:justify-center"
         >
-          <div>
-            <img
-              className="w-60 sm:w-88 pt-8 sm:pt-20"
-              src="/home2.svg"
-            />
-          </div>
-          <div>
-            <img
-              className="w-60 sm:hidden sm:w-full pt-8"
-              src="/home4.svg"
-            />
-          </div>
         </div>
       </div>
       <div className="banner-footer flex justify-center items-start">
