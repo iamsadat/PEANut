@@ -46,18 +46,14 @@ const QuizCard = (props: Props) => {
     setShowLoader(true);
     setTimeout(() => {
       setFinishedLoading(true);
-      // if (form.getValues("type") === "mcq") {
-      //router.push(`/student/quiz/mcq/${quiz.id}`);
-      // } else if (form.getValues("type") === "open_ended") {
-      //   router.push(`/quiz/open-ended/${quizId}`);
-      // }
+     
     }, 2000);
   };
   const filteredQuizzes = allQuizzes.filter((quiz: Quiz) => quiz.topic === props.topic);
 
   // if (showLoader) return <LoadingQuestions finished={finishedLoading} />;
 
-  console.log(allQuizzes);
+  // console.log(allQuizzes);
   console.log("User: ", user);
 
   return (
@@ -83,7 +79,7 @@ const QuizCard = (props: Props) => {
                   <TableCell>{quiz.author}</TableCell>
                   <TableCell>
                     <Button onClick={handleClick} className="flex justify-end">
-                      <Link href={`/student/quiz/mcq/${quiz.id}`}>
+                      <Link href={`/student/quiz/instructions/${quiz.id}`}>
                         Take Quiz
                       </Link>
                     </Button>

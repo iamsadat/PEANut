@@ -39,7 +39,7 @@ const MCQ = ({ quiz }: Props) => {
   const currentQuestion = React.useMemo(() => {
     return quiz.questions[questionIndex];
   }, [questionIndex, quiz.questions]);
-  
+
   const options = React.useMemo(() => {
     if (!currentQuestion) return [];
     if (!currentQuestion.options) return [];
@@ -58,7 +58,7 @@ const MCQ = ({ quiz }: Props) => {
       return response.data;
     },
   });
-  
+
   const { mutate: endQuiz } = useMutation({
     mutationFn: async () => {
       const payload: z.infer<typeof endQuizSchema> = {
@@ -77,7 +77,7 @@ const MCQ = ({ quiz }: Props) => {
     }, 1000);
     return () => clearInterval(interval);
   }, [hasEnded]);
-  
+
   const handleNext = React.useCallback(() => {
     checkAnswer(undefined, {
       onSuccess: ({ isCorrect }) => {
@@ -118,13 +118,13 @@ const MCQ = ({ quiz }: Props) => {
         setTabSwitchCount((count) => count + 1);
       }
 
-      if (tabSwitchCount === 2) {
+      if (tabSwitchCount === 4) {
         await axios.post("/api/student/logout");
         window.location.href = "/";
         // toast.success("You have been Logged Out Because of multiple Tab Switches");
         console.log("You have been Logged Out Because of multiple Tab Switches");
       } else {
-        alert('Warning: You switched tabs. Pay attention to the quiz!');
+        alert('Warning: You switched tabs 🤨📸. Pay attention to the quiz!');
       }
     };
 
@@ -134,11 +134,11 @@ const MCQ = ({ quiz }: Props) => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
     };
   }, [tabSwitchCount]);
-  
+
   React.useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
       const key = event.key;
-      
+
       if (key === "1") {
         setSelectedChoice(0);
       } else if (key === "2") {
@@ -151,11 +151,11 @@ const MCQ = ({ quiz }: Props) => {
         handleNext();
       }
     };
-    
+
     if (typeof window !== "undefined") {
       document.addEventListener("keydown", handleKeyDown);
     }
-    
+
     return () => {
       if (typeof window !== "undefined") {
         document.removeEventListener("keydown", handleKeyDown);
@@ -180,7 +180,7 @@ const MCQ = ({ quiz }: Props) => {
       </div>
     );
   }
-  
+
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw] top-1/2 left-1/2">
       <div className="flex flex-row justify-between">
