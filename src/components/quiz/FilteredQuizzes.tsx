@@ -55,7 +55,7 @@ const QuizCard = (props: Props) => {
   };
   const filteredQuizzes = allQuizzes.filter((quiz: Quiz) => quiz.topic === props.topic);
 
-  if (showLoader) return <LoadingQuestions finished={finishedLoading} />;
+  // if (showLoader) return <LoadingQuestions finished={finishedLoading} />;
 
   console.log(allQuizzes);
   console.log("User: ", user);

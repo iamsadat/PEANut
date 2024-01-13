@@ -50,7 +50,7 @@ export default async function Home() {
             className="pt-0 -mt-14 sm:-mt-0 block sm:h-10"
             src="/down-arrow.svg"
           />
-          <span className="text-1.5xl sm:text-xl font-medium text-center pt-5 sm:w-5/7 leading-160 opacity-60 "
+          <span className="text-0xl sm:text-xl font-medium text-center pt-5 sm:w-5/7 leading-160 opacity-60 "
           >Get Started
           </span>
         </Link>
