@@ -192,7 +192,7 @@ export function AllQuizzesTable() {
                 {currentItems.map((row, index) => (
                   <TableRow key={index}>
                     <TableCell className="font-medium">
-                      <Link href={`/student/quiz/mcq/${row.id}`}>
+                      <Link href={`/student/quiz/instructions/${row.id}`}>
                         {row.topic}
                       </Link>
                     </TableCell>
@@ -203,7 +203,7 @@ export function AllQuizzesTable() {
                       ${new Date(row.timeStarted).toLocaleDateString()}`}
                     </TableCell>
                     <TableCell>
-                      <Link href={`/student/quiz/mcq/${row.id}`}>
+                      <Link href={`/student/quiz/instructions/${row.id}`}>
                         <Button>Take Quiz</Button>
                       </Link>
                     </TableCell>
