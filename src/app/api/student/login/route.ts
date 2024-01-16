@@ -15,7 +15,6 @@ export async function POST(request: NextRequest) {
             where: { rollNumber },
         });
 
-
         if (!rollNumber) {
             return NextResponse.json(
                 { error: "User doesn't exist" },

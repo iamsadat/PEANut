@@ -19,6 +19,8 @@ import axios from "axios";
 import { z } from "zod";
 import { useToast } from "./ui/use-toast";
 import { toast } from "react-hot-toast";
+import jwt from "jsonwebtoken";
+import { NextRequest, NextResponse } from "next/server";
 
 
 type Props = {
@@ -112,6 +114,28 @@ const MCQ = ({ quiz }: Props) => {
     });
   }, [checkAnswer, questionIndex, quiz.questions.length, toast, endQuiz]);
 
+  const QuizTokenEnd = async () => {
+    try {
+      const response = NextResponse.json({
+        message: "quiz ended",
+        success: true,
+      });
+
+      response.cookies.set("qt", "", {
+        httpOnly: true,
+        expires: new Date(0),
+      });
+
+    } catch (error) {
+      console.error('Error ending quiz:', error.message);
+    }
+
+    return NextResponse.json({
+      message: "Internal server error",
+      success: false,
+    });
+  };
+
   React.useEffect(() => {
     const handleVisibilityChange = async () => {
       if (document.hidden) {
@@ -181,6 +205,14 @@ const MCQ = ({ quiz }: Props) => {
     );
   }
 
+  const handleQuizToken = async () => {
+    try {
+      await QuizTokenEnd();
+    } catch (error) {
+      console.error('Error calling QuizToken:', error.message);
+    }
+  };
+
   return (
     <div className="absolute -translate-x-1/2 -translate-y-1/2 md:w-[80vw] max-w-4xl w-[90vw] top-1/2 left-1/2">
       <div className="flex flex-row justify-between">
@@ -244,6 +276,16 @@ const MCQ = ({ quiz }: Props) => {
         >
           {isChecking && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           Next <ChevronRight className="w-4 h-4 ml-2" />
+        </Button>
+        <Button
+          onClick={() => {
+            QuizTokenEnd()
+          }} 
+          variant="default"
+          className="mt-2"
+          size="lg"
+        >
+          Submit Quiz
         </Button>
       </div>
     </div>

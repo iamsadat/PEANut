@@ -11,6 +11,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
+import axios from "axios";
 
 const instructions = [
     {
@@ -63,7 +64,17 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                 <div className="w-full">
                     <CardFooter>
                         <Link href={`/student/quiz/mcq/${QuizId}`}>
-                            <Button className="w-full m-10">
+                            <Button
+                                className="w-full m-10"
+                                onClick={async () => {
+                                    try {
+                                        await axios.post('/api/startQuiz');
+                                        console.log('Quiz started successfully');
+                                    } catch (error) {
+                                        console.error('Error starting quiz:', error.message);
+                                    }
+                                }}
+                            >
                                 Start Quiz
                             </Button>
                         </Link>

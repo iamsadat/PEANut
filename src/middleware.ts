@@ -84,7 +84,7 @@ export const config = {
     "/faculty/createquiz",
     "/faculty/createquestions",
     "/faculty/dashboard",
-    //"/codeEditor",
+    "/codeEditor",
     "/student/attendance",
     "/forgotPassword",
   ],
