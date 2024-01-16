@@ -114,27 +114,27 @@ const MCQ = ({ quiz }: Props) => {
     });
   }, [checkAnswer, questionIndex, quiz.questions.length, toast, endQuiz]);
 
-  const QuizTokenEnd = async () => {
-    try {
-      const response = NextResponse.json({
-        message: "quiz ended",
-        success: true,
-      });
+  // const QuizTokenEnd = async () => {
+  //   try {
+  //     const response = NextResponse.json({
+  //       message: "quiz ended",
+  //       success: true,
+  //     });
 
-      response.cookies.set("qt", "", {
-        httpOnly: true,
-        expires: new Date(0),
-      });
+  //     response.cookies.set("qt", "", {
+  //       httpOnly: true,
+  //       expires: new Date(0),
+  //     });
 
-    } catch (error) {
-      console.error('Error ending quiz:', error.message);
-    }
+  //   } catch (error) {
+  //     console.error('Error ending quiz:', error.message);
+  //   }
 
-    return NextResponse.json({
-      message: "Internal server error",
-      success: false,
-    });
-  };
+  //   return NextResponse.json({
+  //     message: "Internal server error",
+  //     success: false,
+  //   });
+  // };
 
   React.useEffect(() => {
     const handleVisibilityChange = async () => {
@@ -205,11 +205,11 @@ const MCQ = ({ quiz }: Props) => {
     );
   }
 
-  const handleQuizToken = async () => {
+  const deleteQt = async () => {
     try {
-      await QuizTokenEnd();
-    } catch (error) {
-      console.error('Error calling QuizToken:', error.message);
+      await axios.post("/api/deleteQt");
+    } catch (error: any) {
+      console.log(error.message);
     }
   };
 
@@ -277,9 +277,10 @@ const MCQ = ({ quiz }: Props) => {
           {isChecking && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
           Next <ChevronRight className="w-4 h-4 ml-2" />
         </Button>
+
         <Button
           onClick={() => {
-            QuizTokenEnd()
+            deleteQt()
           }} 
           variant="default"
           className="mt-2"
