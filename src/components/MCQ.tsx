@@ -280,9 +280,14 @@ const MCQ = ({ quiz }: Props) => {
         </Button>
 
         <Button
-          onClick={() => {
-            deleteQt()
-          }} 
+          onClick={async () => {
+            try {
+              await axios.post("/api/deleteQt");
+              router.push("/student/dashboard");
+            } catch (error) {
+              console.error(error.message);
+            }
+          }}
           variant="default"
           className="mt-2"
           size="lg"
