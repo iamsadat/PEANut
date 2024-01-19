@@ -11,6 +11,7 @@ import {
 } from "@/components/ui/card"
 import axios from "axios";
 import { useRouter } from 'next/navigation'
+import Link from 'next/link';
 
 const instructions = [
     {
@@ -76,21 +77,21 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                 </div>
                 <div className="w-full">
                     <CardFooter>
+                        <Link href={`/student/quiz/mcq/${QuizId}`}>
                             <Button
                                 className="w-full m-10"
                                 onClick={async () => {
                                     try {
                                         await axios.post('/api/startQuiz');
                                         console.log('Quiz started successfully');
-                            
-                                        router.push(`/student/quiz/mcq/${QuizId}`);
                                     } catch (error) {
                                         console.error('Error starting quiz:', error.message);
                                     }
-                                  }}
+                                }}
                             >
                                 Start Quiz
                             </Button>
+                        </Link>
                     </CardFooter>
                 </div>
             </Card>
