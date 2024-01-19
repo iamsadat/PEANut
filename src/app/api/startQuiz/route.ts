@@ -5,31 +5,25 @@ import { NextRequest, NextResponse } from "next/server";
 export async function POST(request: NextRequest) {
     try {
 
+        const tokenData = {
+            quizStart: "yes",
+        };
+
+        const qt = await jwt.sign(tokenData, process.env.QT_SECRET!, {
+            expiresIn: "1d",
+        });
+
         const response = NextResponse.json({
             message: "quiz started",
             success: true,
         });
 
-        const tokenData = {
-            quizStart: "yes",
-        };
+        response.cookies.set("qt", qt, {
+            httpOnly: true,
+        });
 
-        try {
-            const qt = await jwt.sign(tokenData, process.env.QT_SECRET!, {
-                expiresIn: "1d",
-            });
-
-            response.cookies.set("qt", qt, {
-                httpOnly: true,
-            });
-
-            return response;
-
-        } catch (jwtError) {
-            console.error('Error signing JWT token:', jwtError.message);
-            return NextResponse.json({ error: 'Failed to sign JWT token' }, { status: 500 });
-        }
-
+        return response;
+       
     } catch (error: any) {
         console.error('Unexpected error:', error.message);
         return NextResponse.json({ error: 'Unexpected error occurred' }, { status: 500 });
