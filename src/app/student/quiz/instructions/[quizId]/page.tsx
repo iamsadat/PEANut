@@ -78,7 +78,16 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                     <CardFooter>
                             <Button
                                 className="w-full m-10"
-                                onClick={startQuiz}
+                                onClick={async () => {
+                                    try {
+                                        await axios.post('/api/startQuiz');
+                                        console.log('Quiz started successfully');
+                            
+                                        router.push(`/student/quiz/mcq/${QuizId}`);
+                                    } catch (error) {
+                                        console.error('Error starting quiz:', error.message);
+                                    }
+                                  }}
                             >
                                 Start Quiz
                             </Button>
