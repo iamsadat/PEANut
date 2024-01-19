@@ -36,19 +36,6 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
     const QuizId = path.split('/').pop();
     const router = useRouter()
 
-    const startQuiz = async () => {
-        try {
-            // Make an asynchronous request to start the quiz
-            await axios.post('/api/startQuiz');
-            console.log('Quiz started successfully');
-
-            // Redirect to the quiz page after a successful response
-            router.push(`/student/quiz/mcq/${QuizId}`);
-        } catch (error) {
-            console.error('Error starting quiz:', error.message);
-        }
-
-    };
     return (
         <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[80vh] m-5" {...props}>
             <Card>
@@ -77,21 +64,21 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                 </div>
                 <div className="w-full">
                     <CardFooter>
-                            <Button
-                                className="w-full m-10"
-                                onClick={async () => {
-                                    try {
-                                        await axios.post('/api/startQuiz');
-                                        console.log('Quiz started successfully');
-                            
-                                        // router.push(`/student/quiz/mcq/${QuizId}`);
-                                    } catch (error) {
-                                        console.error('Error starting quiz:', error.message);
-                                    }
-                                }}
-                            >
-                                Start Quiz
-                            </Button>
+                        <Button
+                            className="w-full m-10"
+                            onClick={async () => {
+                                try {
+                                    await axios.post('/api/startQuiz');
+                                    console.log('Quiz started successfully');
+
+                                    router.push(`/student/quiz/mcq/${QuizId}`);
+                                } catch (error) {
+                                    console.error('Error starting quiz:', error.message);
+                                }
+                            }}
+                        >
+                            Start Quiz
+                        </Button>
                     </CardFooter>
                 </div>
             </Card>

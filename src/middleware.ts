@@ -1,8 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
 import { verifyJwtToken } from "./lib/auth";
-// import { PrismaClient } from "@prisma/client/edge";
-
-// const prisma = new PrismaClient();
 
 export async function middleware(request: NextRequest) {
 

@@ -114,28 +114,6 @@ const MCQ = ({ quiz }: Props) => {
     });
   }, [checkAnswer, questionIndex, quiz.questions.length, toast, endQuiz]);
 
-  // const QuizTokenEnd = async () => {
-  //   try {
-  //     const response = NextResponse.json({
-  //       message: "quiz ended",
-  //       success: true,
-  //     });
-
-  //     response.cookies.set("qt", "", {
-  //       httpOnly: true,
-  //       expires: new Date(0),
-  //     });
-
-  //   } catch (error) {
-  //     console.error('Error ending quiz:', error.message);
-  //   }
-
-  //   return NextResponse.json({
-  //     message: "Internal server error",
-  //     success: false,
-  //   });
-  // };
-
   React.useEffect(() => {
     const handleVisibilityChange = async () => {
       if (document.hidden) {
@@ -145,7 +123,7 @@ const MCQ = ({ quiz }: Props) => {
       if (tabSwitchCount === 4) {
         await axios.post("/api/student/logout");
         window.location.href = "/";
-        // toast.success("You have been Logged Out Because of multiple Tab Switches");
+
         console.log("You have been Logged Out Because of multiple Tab Switches");
       } else {
         alert('Warning: You switched tabs 🤨📸. Pay attention to the quiz!');
