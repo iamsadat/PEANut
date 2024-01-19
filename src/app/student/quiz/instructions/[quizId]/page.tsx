@@ -84,7 +84,7 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                                         await axios.post('/api/startQuiz');
                                         console.log('Quiz started successfully');
                             
-                                        router.push(`/student/quiz/mcq/${QuizId}`);
+                                        // router.push(`/student/quiz/mcq/${QuizId}`);
                                     } catch (error) {
                                         console.error('Error starting quiz:', error.message);
                                     }
