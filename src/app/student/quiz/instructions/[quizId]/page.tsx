@@ -1,7 +1,5 @@
 "use client"
-import Link from "next/link";
 import { usePathname } from 'next/navigation'
-import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
 import {
     Card,
@@ -12,6 +10,7 @@ import {
     CardTitle,
 } from "@/components/ui/card"
 import axios from "axios";
+import { useRouter } from 'next/navigation'
 
 const instructions = [
     {
@@ -34,7 +33,21 @@ type CardProps = React.ComponentProps<typeof Card>
 const InstructionsPage = ({ className, ...props }: CardProps) => {
     const path = usePathname()
     const QuizId = path.split('/').pop();
+    const router = useRouter()
 
+    const startQuiz = async () => {
+        try {
+            // Make an asynchronous request to start the quiz
+            await axios.post('/api/startQuiz');
+            console.log('Quiz started successfully');
+
+            // Redirect to the quiz page after a successful response
+            router.push(`/student/quiz/mcq/${QuizId}`);
+        } catch (error) {
+            console.error('Error starting quiz:', error.message);
+        }
+
+    };
     return (
         <div className="absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-[80vh] m-5" {...props}>
             <Card>
@@ -63,21 +76,12 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                 </div>
                 <div className="w-full">
                     <CardFooter>
-                        <Link href={`/student/quiz/mcq/${QuizId}`}>
                             <Button
                                 className="w-full m-10"
-                                onClick={async () => {
-                                    try {
-                                        await axios.post('/api/startQuiz');
-                                        console.log('Quiz started successfully');
-                                    } catch (error) {
-                                        console.error('Error starting quiz:', error.message);
-                                    }
-                                }}
+                                onClick={startQuiz}
                             >
                                 Start Quiz
                             </Button>
-                        </Link>
                     </CardFooter>
                 </div>
             </Card>

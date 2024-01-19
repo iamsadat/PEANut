@@ -19,9 +19,7 @@ import axios from "axios";
 import { z } from "zod";
 import { useToast } from "./ui/use-toast";
 import { toast } from "react-hot-toast";
-import jwt from "jsonwebtoken";
-import { NextRequest, NextResponse } from "next/server";
-
+import { useRouter } from "next/navigation";
 
 type Props = {
   quiz: Quiz & { questions: Pick<Question, "id" | "options" | "question">[] };
@@ -50,6 +48,7 @@ const MCQ = ({ quiz }: Props) => {
   }, [currentQuestion]);
 
   const { toast } = useToast();
+  const router = useRouter();
   const { mutate: checkAnswer, isLoading: isChecking } = useMutation({
     mutationFn: async () => {
       const payload: z.infer<typeof checkAnswerSchema> = {
@@ -67,6 +66,7 @@ const MCQ = ({ quiz }: Props) => {
         quizId: quiz.id,
       };
       const response = await axios.post(`/api/endQuiz`, payload);
+      deleteQt()
       return response.data;
     },
   });
@@ -208,6 +208,7 @@ const MCQ = ({ quiz }: Props) => {
   const deleteQt = async () => {
     try {
       await axios.post("/api/deleteQt");
+      router.push("/student/dashboard")
     } catch (error: any) {
       console.log(error.message);
     }

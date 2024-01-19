@@ -5,17 +5,7 @@ import { verifyJwtToken } from "./lib/auth";
 // const prisma = new PrismaClient();
 
 export async function middleware(request: NextRequest) {
-  // const codes = await prisma.code.findMany();
 
-  // const testcases = codes[0].testCases;
-  // const testcasesJson = JSON.parse(testcases);
-  // const firstExpectedOutput = testcasesJson[0].expectedOutput;
-  // console.log(typeof testcasesJson);
-  // console.log(firstExpectedOutput);
-
-  // console.log(typeof testcases);
-
-  // console.log(testcases);
   const path = request.nextUrl.pathname;
 
   const publicPaths = [
@@ -27,9 +17,17 @@ export async function middleware(request: NextRequest) {
     "/forgotPassword",
   ];
 
+  const quizPaths = [
+    "/student/quiz/mcq/*",
+  ];
+
   const isPublicPath = publicPaths.includes(path);
 
+  const isQuizPath = quizPaths.includes(path);
+
   const token = request.cookies.get("token")?.value || "";
+
+  const qt = request.cookies.get("qt")?.value || "";
 
   const userRole = await verifyJwtToken(token);
 
@@ -45,12 +43,13 @@ export async function middleware(request: NextRequest) {
     }
   }
 
-  if (path.startsWith("/codeEditor") && userRole?.role !== "dev") {
-    return NextResponse.redirect(new URL("/soon", request.nextUrl));
-  }
-
   if (!token && !isPublicPath) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
+  }
+
+  if (!qt && path.startsWith("/student/quiz/mcq/")) {
+    console.log("Redirecting to /student/dashboard");
+    return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
   }
 
   if (token && !isPublicPath) {
@@ -78,6 +77,7 @@ export const config = {
     "/student/login",
     "/student/signup",
     "/student/attendance",
+    "/student/playground",
     "/faculty/login",
     "/faculty/signup",
     "/faculty/dashboard",
@@ -85,7 +85,12 @@ export const config = {
     "/faculty/createquestions",
     "/faculty/dashboard",
     "/codeEditor",
-    "/student/attendance",
     "/forgotPassword",
+    "/student/quiz/instructions",
+    "/student/quiz/instructions/:quizId*",
+    "/student/quiz/mcq",
+    "/student/quiz/mcq/:quizId*",
+    "/learn",
+    "/learn/:id*",
   ],
 };
