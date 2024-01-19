@@ -77,13 +77,14 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                 </div>
                 <div className="w-full">
                     <CardFooter>
-                        <Link href={`/student/quiz/mcq/${QuizId}`}>
                             <Button
                                 className="w-full m-10"
                                 onClick={async () => {
                                     try {
                                         await axios.post('/api/startQuiz');
                                         console.log('Quiz started successfully');
+                            
+                                        router.push(`/student/quiz/mcq/${QuizId}`);
                                     } catch (error) {
                                         console.error('Error starting quiz:', error.message);
                                     }
@@ -91,7 +92,6 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                             >
                                 Start Quiz
                             </Button>
-                        </Link>
                     </CardFooter>
                 </div>
             </Card>
