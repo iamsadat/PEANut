@@ -14,7 +14,7 @@ const TopicCard = ({ topic }) => {
 
     const handleClick = () => {
         // Assuming your 'topic' object has a 'path' property containing the route path
-        router.push(`/learn/${topic.path}`);
+        router.push(`/student/learn/${topic.path}`);
     };
 
     return (
