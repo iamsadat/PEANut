@@ -40,10 +40,28 @@ const MCQ = ({ quiz }: Props) => {
     return quiz.questions[questionIndex];
   }, [questionIndex, quiz.questions]);
 
+  function shuffle(array) {
+    let currentIndex = array.length,
+      randomIndex;
+    while (currentIndex > 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+
+    return array;
+  }
+
   const options = React.useMemo(() => {
     if (!currentQuestion) return [];
     if (!currentQuestion.options) return [];
     const currentOptions = Object.values(currentQuestion.options);
+    console.log("Before shuffle: ", currentOptions);
+    shuffle(currentOptions);
+    console.log("After shuffle: ", currentOptions);
     return currentOptions;
   }, [currentQuestion]);
 
@@ -66,7 +84,7 @@ const MCQ = ({ quiz }: Props) => {
         quizId: quiz.id,
       };
       const response = await axios.post(`/api/endQuiz`, payload);
-      deleteQt()
+      deleteQt();
       return response.data;
     },
   });
@@ -124,23 +142,23 @@ const MCQ = ({ quiz }: Props) => {
         await axios.post("/api/deleteQt");
         window.location.href = "/";
 
-        hotToast.error(
-          "Quiz has ended due to multiple Tab Switches", {
+        hotToast.error("Quiz has ended due to multiple Tab Switches", {
           position: "top-center",
-        }
-        );
-
-      } else {
-        hotToast("Warning: You switched tabs 🤨📸. Pay attention to the quiz.\n\n The quiz will end if you continue to switch tabs.", {
-          icon: "🚨",
-          position: "top-center",
-          style: {
-            border: '1px solid #713200',
-            padding: "16px",
-            background: '#FEEFB3',
-          },
-          className: "font-bold",
         });
+      } else {
+        hotToast(
+          "Warning: You switched tabs 🤨📸. Pay attention to the quiz.\n\n The quiz will end if you continue to switch tabs.",
+          {
+            icon: "🚨",
+            position: "top-center",
+            style: {
+              border: "1px solid #713200",
+              padding: "16px",
+              background: "#FEEFB3",
+            },
+            className: "font-bold",
+          }
+        );
       }
     };
 
@@ -200,7 +218,7 @@ const MCQ = ({ quiz }: Props) => {
   const deleteQt = async () => {
     try {
       await axios.post("/api/deleteQt");
-      router.push("/student/dashboard")
+      router.push("/student/dashboard");
     } catch (error: any) {
       console.log(error.message);
     }
@@ -278,11 +296,11 @@ const MCQ = ({ quiz }: Props) => {
               hotToast.success("Quiz Ended successfully", {
                 position: "top-center",
                 style: {
-                  border: '1px solid #713200',
+                  border: "1px solid #713200",
                   padding: "16px",
                 },
                 className: "font-bold",
-              })
+              });
               router.push("/student/dashboard");
             } catch (error) {
               console.error(error.message);

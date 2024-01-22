@@ -16,6 +16,15 @@ const MCQPage = async ({ params: { quizId } }: Props) => {
     return <div>Invalid quizId {quizId} </div>; // You can provide an error message or handle this case as needed
   }
 
+  const startTiming = await prisma.quiz.update({
+    where: {
+      id: quizId,
+    },
+    data: {
+      timeStarted: new Date(),
+    },
+  });
+
   const quiz = await prisma.quiz.findUnique({
     where: {
       id: quizId,
