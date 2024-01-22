@@ -66,7 +66,7 @@ const MCQ = ({ quiz }: Props) => {
         quizId: quiz.id,
       };
       const response = await axios.post(`/api/endQuiz`, payload);
-      deleteQt()
+      deleteQt2()
       return response.data;
     },
   });
@@ -201,6 +201,14 @@ const MCQ = ({ quiz }: Props) => {
     try {
       await axios.post("/api/deleteQt");
       router.push("/student/dashboard")
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  };
+
+  const deleteQt2 = async () => {
+    try {
+      await axios.post("/api/deleteQt");
     } catch (error: any) {
       console.log(error.message);
     }
