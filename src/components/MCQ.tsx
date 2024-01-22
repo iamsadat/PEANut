@@ -18,7 +18,7 @@ import { useMutation } from "@tanstack/react-query";
 import axios from "axios";
 import { z } from "zod";
 import { useToast } from "./ui/use-toast";
-import { toast } from "react-hot-toast";
+import { toast as hotToast } from "react-hot-toast";
 import { useRouter } from "next/navigation";
 
 type Props = {
@@ -121,12 +121,26 @@ const MCQ = ({ quiz }: Props) => {
       }
 
       if (tabSwitchCount === 4) {
-        await axios.post("/api/student/logout");
+        await axios.post("/api/deleteQt");
         window.location.href = "/";
 
-        console.log("You have been Logged Out Because of multiple Tab Switches");
+        hotToast.error(
+          "Quiz has ended due to multiple Tab Switches", {
+          position: "top-center",
+        }
+        );
+
       } else {
-        alert('Warning: You switched tabs 🤨📸. Pay attention to the quiz!');
+        hotToast("Warning: You switched tabs 🤨📸. Pay attention to the quiz.\n\n The quiz will end if you continue to switch tabs.", {
+          icon: "🚨",
+          position: "top-center",
+          style: {
+            border: '1px solid #713200',
+            padding: "16px",
+            background: '#FEEFB3',
+          },
+          className: "font-bold",
+        });
       }
     };
 
@@ -261,6 +275,14 @@ const MCQ = ({ quiz }: Props) => {
           onClick={async () => {
             try {
               await axios.post("/api/deleteQt");
+              hotToast.success("Quiz Ended successfully", {
+                position: "top-center",
+                style: {
+                  border: '1px solid #713200',
+                  padding: "16px",
+                },
+                className: "font-bold",
+              })
               router.push("/student/dashboard");
             } catch (error) {
               console.error(error.message);

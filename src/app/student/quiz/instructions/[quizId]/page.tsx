@@ -12,6 +12,7 @@ import {
 import axios from "axios";
 import { useRouter } from 'next/navigation'
 import Link from 'next/link';
+import toast from 'react-hot-toast';
 
 const instructions = [
     {
@@ -70,7 +71,14 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                                 try {
                                     await axios.post('/api/startQuiz');
                                     console.log('Quiz started successfully');
-
+                                    toast.success("Quiz started successfully", {
+                                        position: "top-center",
+                                        style: {
+                                            border: '1px solid #713200',
+                                            padding: "16px",
+                                        },
+                                        className: "font-bold",
+                                    });
                                     router.push(`/student/quiz/mcq/${QuizId}`);
                                 } catch (error) {
                                     console.error('Error starting quiz:', error.message);

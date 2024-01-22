@@ -9,7 +9,7 @@ export async function POST(request: NextRequest) {
             quizStart: "yes",
         };
 
-        const qt = await jwt.sign(tokenData, process.env.QT_SECRET!, {
+        const qt = await jwt.sign(tokenData, process.env.TOKEN_SECRET!, {
             expiresIn: "1d",
         });
 
