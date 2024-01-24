@@ -3,12 +3,12 @@ import React from "react";
 const OutputDetails = ({ outputDetails }) => {
   return (
     <div className="metrics-container mt-4 flex flex-col space-y-3 mx-12">
-      <p className="text-sm">
+      {/* <p className="text-sm">
         Expected Output:{" "}
         <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
           {atob(outputDetails?.expected_output)}
         </span>
-      </p>
+      </p> */}
       <p className="text-sm">
         Status:{" "}
         <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
