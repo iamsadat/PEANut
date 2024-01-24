@@ -43,7 +43,7 @@ export default async function Home() {
       </div>
       <div className="banner-footer flex justify-center items-start">
 
-        <Link href="/dashboard#settings"
+        <Link href="/student/login"
           className="inline-flex flex-col items-center no-underline text-base">
 
           <img
