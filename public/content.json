@@ -15,7 +15,13 @@
     "formulas": [
       "Percentage = (Part / Whole) * 100",
       "Percentage Increase = ((New Value - Old Value) / Old Value) * 100",
-      "Percentage Decrease = ((Old Value - New Value) / Old Value) * 100"
+      "Percentage Decrease = ((Old Value - New Value) / Old Value) * 100",
+      "Expenditure Reduction Percentage = (Price Increase Percentage / (100 + Price Increase Percentage)) * 100",
+      "Consumption Increase Percentage = ((Price Decrease Percentage / (100 - Price Decrease Percentage)) * 100",
+      "B Less Than A Percentage = (x / (100 + x)) * 100",
+      "B More Than A Percentage = (x / (100 - x)) * 100",
+      "A is x% of C and B is y% of C: A = (x / y) * 100% of B",
+      "Two numbers x% and y% more than the third: First = [(100 + x) / (100 + y) * 100]% of Second, Second = [(100 + y) / (100 + x) * 100]% of First"
     ]
   },
   "data-interpretation": {
@@ -24,7 +30,10 @@
     "formulas": [
       "Simple Chart Interpretation",
       "Percentage Calculation from Graphs",
-      "Comparison and Ratio Analysis from Tables"
+      "Comparison and Ratio Analysis from Tables",
+      "Average = (Sum of Numbers) / (Number of Numbers)",
+      "Average of Consecutive Numbers = (Sum of Numbers) / (Number of Consecutive Terms)",
+      "Percentage Increase or Decrease = [(New Value - Old Value) / Old Value] * 100"
     ]
   },
   "number-series-word-analogy": {
@@ -32,7 +41,13 @@
     "description": "Topics covering number series and word analogy are vital in aptitude and reasoning assessments. Number series tests analytical skills while word analogy assesses the ability to recognize relationships between words. Proficiency in these areas enhances logical reasoning and problem-solving abilities, including alphanumeric series and word patterns.",
     "formulas": [
       "Finding the Pattern in Number Series",
-      "Analogies: Word Relationships and Pairing Words"
+      "Analogies: Word Relationships and Pairing Words",
+      "Number Series Patterns:",
+      "1) Based on Addition/Subtraction/Division/Multiplication",
+      "2) Based on Squares /Cubes",
+      "3) Based on Prime numbers /Squares /Cubes",
+      "4) Based on Percentage /Decimals",
+      "5) Based on Mixed/Half patterns"
     ]
   },
   "reasoning-logical-diagram-ability": {
@@ -41,7 +56,26 @@
     "formulas": [
       "Syllogism: Understanding Categorical Logic",
       "Analyzing Logical Diagrams and Venn Diagrams",
-      "Making Inferences and Deductions"
+      "Making Inferences and Deductions",
+      "Logical Diagrams and Venn Diagrams Explanation:",
+      "1. If all the words are of different groups, they will be shown by the diagram as given below:",
+      "   Example: Dog, Cow, Horse",
+      "2. If the first word is related to the second word and the second word is related to the third word, they will be shown by a diagram as given below:",
+      "   Example: Unit, Tens, Hundreds",
+      "3. If two different items are completely related to the third item, they will be shown as below:",
+      "   Example: Pen, Pencil, Stationery",
+      "Puzzles:",
+      "Blood Relations:",
+      "   If A + B means A is the mother of B; A x B means A is the father of B; A $ B means A is the brother of B and A @ B means A is the sister of B, then which of the following means P is the son of Q?",
+      "   (A) Q + R @ P @ N (B) Q + R * P @ N (C) Q x R $ P @ N (D) Q x R $ P $ N",
+      "Direction:",
+      "   - There are four main directions – East, West, North, and South.",
+      "   - There are four cardinal directions – North-East (N-E), North-West (N-W), South-East (S-E), and South-West (S-W).",
+      "   - At the time of sunrise, if a man stands facing the east, his shadow will be towards the west. At the time of sunset, the shadow of an object is always in the east.",
+      "   - If a man stands facing the North, at the time of sunrise his shadow will be towards his left, and at the time of sunset, it will be towards his right.",
+      "   - At 12:00 noon, the rays of the sun are vertically downward hence there will be no shadow.",
+      "Problem: Siva starting from his house, goes 5 km in the East, then he turns to his left and goes 4 km. Finally, he turns to his left and goes 5 km. Now how far is he from his house and in what direction?",
+      "   Solution: Siva is 4 km north and 5 km east from his house."
     ]
   },
   "number-system-progressions-inequalities": {
