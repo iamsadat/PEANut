@@ -91,7 +91,7 @@ model Quiz {
 
 model Question {
   id            String    @id @default(cuid())
-  question     String
+  question     String     @db.LongText
   answer      String
   quizId      String
   quizName    String

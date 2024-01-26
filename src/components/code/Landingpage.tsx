@@ -19,6 +19,11 @@ import ProblemStatement from "./ProblemStatement";
 import Split from "react-split";
 import { useParams } from "next/navigation";
 import EditorFooter from "./EditorFooter";
+import {
+  ResizableHandle,
+  ResizablePanel,
+  ResizablePanelGroup,
+} from "../ui/resizable";
 
 const Landing = () => {
   const [language, setLanguage] = useState(languageOptions[0]);
@@ -84,7 +89,7 @@ const Landing = () => {
   };
 
   const handleCompile = async () => {
-    const problem = await axios.post("/api/getProblem", { id: pid });
+    // const problem = await axios.post("/api/getProblem", { id: pid });
 
     setProcessing(true);
     const formData = {
@@ -92,7 +97,7 @@ const Landing = () => {
       // encode source code in base64
       source_code: btoa(code),
       stdin: btoa(customInput),
-      expected_output: btoa(problem.data.expectedOutput),
+      // expected_output: btoa(problem.data.expectedOutput),
     };
     console.log("formData: ", formData);
     console.log("Code: ", code);
@@ -209,68 +214,58 @@ const Landing = () => {
         draggable
         pauseOnHover
       />
-
-      <div className="flex-container">
-        <Split className="split">
-          <div>
+      <ResizablePanelGroup
+        direction="horizontal"
+        className="min-h-[200px] rounded-lg border"
+      >
+        {/* <div>
             <ProblemStatement />
+          </div> */}
+        <ResizablePanel defaultSize={75}>
+          <div className="px-4 py-2">
+            <LanguagesDropdown onSelectChange={onSelectChange} />
           </div>
-          <div className="flex flex-col w-[60%]">
-            <div className="flex flex-row justify-end">
-              <div className="px-4 py-2">
-                <LanguagesDropdown onSelectChange={onSelectChange} />
-              </div>
+          <div className="overflow-auto">
+            <CodeEditorWindow
+              code={code}
+              onChange={onChange}
+              language={value}
+              theme={theme}
+              defaultCode={defaultCode}
+            />
+          </div>
+        </ResizablePanel>
+        <ResizableHandle withHandle />
+        <ResizablePanel defaultSize={25}>
+          <div className="output-container my-10">
+            <div className="px-2 w-full">
+              <OutputWindow outputDetails={outputDetails} />
             </div>
-
-            <div className="code-editor-container">
-              <Split
-                className="h-full"
-                direction="vertical"
-                sizes={[60, 40]}
-                minSize={60}
+            <div className="flex flex-col items-end">
+              <button
+                onClick={handleCompile}
+                disabled={!code}
+                className={cn(
+                  "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] mx-2 px-3 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
+                  !code ? "opacity-50" : ""
+                )}
               >
-                <div className="w-full overflow-auto">
-                  <div className="flex flex-col w-full h-full justify-start">
-                    <CodeEditorWindow
-                      code={code}
-                      onChange={onChange}
-                      language={value}
-                      theme={theme}
-                      defaultCode={defaultCode}
-                    />
-                  </div>
-                </div>
-                <div className="output-container">
-                  <div className="px-2 w-full">
-                    <OutputWindow outputDetails={outputDetails} />
-                  </div>
-                  <div className="flex flex-col items-end">
-                    <button
-                      onClick={handleCompile}
-                      disabled={!code}
-                      className={cn(
-                        "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] mx-2 px-3 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
-                        !code ? "opacity-50" : ""
-                      )}
-                    >
-                      {processing ? "Processing..." : "Compile and Execute"}
-                    </button>
-                  </div>
-                  {/* 
+                {processing ? "Processing..." : "Compile and Execute"}
+              </button>
+            </div>
+            {/* 
                   <CustomInput
                     customInput={customInput}
                     setCustomInput={setCustomInput}
                   /> 
                    */}
-                </div>
-              </Split>
-            </div>
-            {/* <EditorFooter /> */}
-
-            {/* {outputDetails && <OutputDetails outputDetails={outputDetails} />} */}
+            {outputDetails && <OutputDetails outputDetails={outputDetails} />}
           </div>
-        </Split>
-      </div>
+        </ResizablePanel>
+        {/* <EditorFooter /> */}
+
+        {/* </div> */}
+      </ResizablePanelGroup>
     </div>
   );
 };
