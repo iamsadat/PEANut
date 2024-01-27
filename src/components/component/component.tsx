@@ -135,7 +135,7 @@ export function AllQuizzesTable() {
       <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
         <div className="shadow overflow-hidden border-b border-gray-200 sm:rounded-lg">
           <div className="px-4 py-3 bg-white sm:px-6">
-            <div className="flex items-center justify-between">
+            <div className="flex items-center justify-evenly">
               <Input
                 className="mr-6"
                 placeholder="Search..."
@@ -155,7 +155,7 @@ export function AllQuizzesTable() {
             <div>Fetching Quizzes...</div>
           ) : (
             <Table className="min-w-full divide-y divide-gray-200">
-              <TableHeader>
+              <TableHeader className="flex items-center justify-evenly">
                 <TableRow>
                   <TableHead
                     className="w-[100px]"
