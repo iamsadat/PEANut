@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 import Providers from "@/components/Providers";
 import Navbar from "@/components/Navbar";
 import { Toaster } from "react-hot-toast";
+import SmoothScroll from "@/components/SmoothScroll";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +24,7 @@ export default function RootLayout({
       <body className={cn(inter.className, "antialiased min-h-screen pt-16")}>
         <Providers>
           <Navbar />
-          {children}
+          <SmoothScroll>{children}</SmoothScroll>
           <Toaster position="top-right" />
         </Providers>
       </body>

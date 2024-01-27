@@ -1,6 +1,15 @@
+"use client"
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { useLenis } from "@studio-freight/react-lenis/types";
 import Link from "next/link";
 
 export default async function Home() {
+
+  const lenis = useLenis(({ scroll }) => {
+
+  })
+
   return (
 
     <div>
@@ -34,8 +43,8 @@ export default async function Home() {
       </div>
       <div className="banner-footer flex justify-center items-start">
 
-        <Link href="/getstarted"
-          className="inline-flex flex-col items-center no-underline text-base">
+        {/* <Link onClick={() => lenis.scrollTo("#last-image", { lerp: 0.01 })}
+        className="inline-flex flex-col items-center no-underline text-base" href={""}>
 
           <img
             className="pt-0 -mt-14 sm:-mt-0 block sm:h-10"
@@ -44,9 +53,64 @@ export default async function Home() {
           <span className="text-0xl sm:text-xl font-medium text-center pt-5 sm:w-5/7 leading-160 opacity-60 "
           >Get Started
           </span>
-        </Link>
+        </Link> */}
 
+        <button
+        ref="#last-image"
+        onClick={() => lenis.scrollTo("#last-image", { lerp: 0.01 })}
+        className="bg-white text-black capitalize p-4 font-semibold text-xl mt-16 hover:bg-white/90"
+      >
+        scroll to anchor
+      </button>
+        
+      </div>
+      <div className="flex flex-col items-center ">
+        <h1 id="last-image" className="text-7xl font-bold mt-20 mb-20 font-mono 	">
+          Welcome To PEANut!🔥{" "}
+        </h1>
+
+        <div className="flex flex-row gap-6 absolute -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 mt-5 ">
+          <Card className="w-[285px] shadow-2xl">
+            <CardHeader>
+              <CardTitle className="text-center">Student Portal</CardTitle>
+              <CardDescription className="text-center">
+                PEANut is a platform for taking quizzes!. Get started by logging
+                in below!
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-between px-3">
+                <Link href="/student/login">
+                  <Button>Log In</Button>
+                </Link>
+                <Link href="/student/signup">
+                  <Button>Sign Up</Button>
+                </Link>
+                {/* signUpButton */}
+              </div>
+            </CardContent>
+          </Card>
+          <Card className="w-[285px] shadow-2xl">
+            <CardHeader>
+              <CardTitle className="text-center">Faculty Portal</CardTitle>
+              <CardDescription className="text-center pt-4">
+                To access the faculty portal, please log in below!
+              </CardDescription>
+            </CardHeader>
+            <CardContent>
+              <div className="flex justify-center px-3 pt-1">
+                <Link href="/faculty/login">
+                  <Button>Log In</Button>
+                </Link>
+
+                {/* signUpButton */}
+              </div>
+            </CardContent>
+          </Card>
+        </div>
       </div>
     </div >
+
+
   );
 }
