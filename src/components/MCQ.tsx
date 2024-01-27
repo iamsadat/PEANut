@@ -138,14 +138,17 @@ const MCQ = ({ quiz }: Props) => {
         setTabSwitchCount((count) => count + 1);
       }
 
-      if (tabSwitchCount === 4) {
+      if (tabSwitchCount === 3) {
         await axios.post("/api/deleteQt");
         window.location.href = "/";
 
         hotToast.error("Quiz has ended due to multiple Tab Switches", {
           position: "top-center",
+          duration: 8000,
         });
-      } else {
+      }
+
+      else {
         hotToast(
           "Warning: You switched tabs 🤨📸. Pay attention to the quiz.\n\n The quiz will end if you continue to switch tabs.",
           {

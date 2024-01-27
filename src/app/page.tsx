@@ -1,13 +1,4 @@
-import { Button } from "@/components/ui/button";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 
 export default async function Home() {
   return (
@@ -31,7 +22,7 @@ export default async function Home() {
       </div>
       <div className="banner-footer flex justify-center items-start">
         <Link
-          href="/student/login"
+          href="/getstarted"
           className="inline-flex flex-col items-center no-underline text-base"
         >
           <img
