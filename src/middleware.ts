@@ -44,10 +44,10 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL("/", request.nextUrl));
   }
 
-  if (!qt && path.startsWith("/student/quiz/mcq/")) {
-    console.log("Redirecting to /student/dashboard");
-    return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
-  }
+  // if (!qt && path.startsWith("/student/quiz/mcq/")) {
+  //   console.log("Redirecting to /student/dashboard");
+  //   return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
+  // }
 
   if (token && !isPublicPath) {
     if (userRole?.role === "student" && !path.startsWith("/student")) {
