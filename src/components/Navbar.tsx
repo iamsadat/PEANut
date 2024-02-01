@@ -15,7 +15,8 @@ const Navbar = () => {
   console.log(pathName);
 
   if (
-    pathName === "/" ||
+    pathName === "/" || 
+    pathName ==="/getstarted"||
     pathName === "/student/login" ||
     pathName === "/student/signup" ||
     pathName === "/faculty/login" ||
