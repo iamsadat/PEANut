@@ -46,7 +46,7 @@ export async function middleware(request: NextRequest) {
 
   if (!qt && path.startsWith("/student/quiz/mcq/")) {
     console.log("Redirecting to /student/dashboard");
-    return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
+    return NextResponse.redirect(new URL("/student/learn", request.nextUrl));
 
   }
 
