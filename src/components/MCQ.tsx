@@ -287,42 +287,45 @@ const MCQ = ({ quiz }: Props) => {
             </Button>
           );
         })}
-        <Button
-          variant="default"
-          className="mt-2"
-          size="lg"
-          disabled={isChecking || hasEnded}
-          onClick={() => {
-            handleNext();
-          }}
-        >
-          {isChecking && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
-          Next <ChevronRight className="w-4 h-4 ml-2" />
-        </Button>
+        <div className="flex">
 
-        <Button
-          onClick={async () => {
-            try {
-              await axios.post("/api/deleteQt");
-              hotToast.success("Quiz Ended successfully", {
-                position: "top-center",
-                style: {
-                  border: "1px solid #713200",
-                  padding: "16px",
-                },
-                className: "font-bold",
-              });
-              router.push("/student/dashboard");
-            } catch (error) {
-              console.error(error.message);
-            }
-          }}
-          variant="default"
-          className="mt-2"
-          size="lg"
-        >
-          Submit Quiz
-        </Button>
+          <Button
+            variant="default"
+            className="mt-2 mr-2"
+            size="lg"
+            disabled={isChecking || hasEnded}
+            onClick={() => {
+              handleNext();
+            }}
+          >
+            {isChecking && <Loader2 className="w-4 h-4 mr-2 animate-spin" />}
+            Next <ChevronRight className="w-4 h-4 ml-2" />
+          </Button>
+
+          <Button
+            onClick={async () => {
+              try {
+                await axios.post("/api/deleteQt");
+                hotToast.success("Quiz Ended successfully", {
+                  position: "top-center",
+                  style: {
+                    border: "1px solid #713200",
+                    padding: "16px",
+                  },
+                  className: "font-bold",
+                });
+                router.push("/student/dashboard");
+              } catch (error) {
+                console.error(error.message);
+              }
+            }}
+            variant="default"
+            className="mt-2"
+            size="lg"
+          >
+            Submit Quiz
+          </Button>
+        </div>
       </div>
     </div>
   );
