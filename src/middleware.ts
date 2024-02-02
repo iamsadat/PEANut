@@ -14,14 +14,9 @@ export async function middleware(request: NextRequest) {
     "/forgotPassword",
   ];
 
-  const quizPaths = [
-    "/student/quiz/mcq/*",
-  ];
 
   const isPublicPath = publicPaths.includes(path);
-
-  const isQuizPath = quizPaths.includes(path);
-
+  
   const token = request.cookies.get("token")?.value || "";
 
   const qt = request.cookies.get("qt")?.value || "";
@@ -46,8 +41,7 @@ export async function middleware(request: NextRequest) {
 
   if (!qt && path.startsWith("/student/quiz/mcq/")) {
     console.log("Redirecting to /student/dashboard");
-    return NextResponse.redirect(new URL("/student/learn", request.nextUrl));
-
+    return NextResponse.redirect(new URL("/student/dashboard", request.nextUrl));
   }
 
   if (token && !isPublicPath) {
