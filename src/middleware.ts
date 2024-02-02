@@ -16,7 +16,7 @@ export async function middleware(request: NextRequest) {
 
 
   const isPublicPath = publicPaths.includes(path);
-  
+
   const token = request.cookies.get("token")?.value || "";
 
   const qt = request.cookies.get("qt")?.value || "";
