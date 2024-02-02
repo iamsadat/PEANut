@@ -12,6 +12,7 @@ export async function middleware(request: NextRequest) {
     "/faculty/login",
     "/faculty/signup",
     "/forgotPassword",
+    "/getstarted",
   ];
 
 
