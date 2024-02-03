@@ -83,7 +83,7 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                                 try {
                                     await axios.post("/api/startQuiz");
                                     console.log("Quiz started successfully");
-                                    const countdownDuration = 5; // Countdown duration in seconds
+                                    const countdownDuration = 3; // Countdown duration in seconds
                                     let countdown = countdownDuration;
 
                                     // Display countdown toast
