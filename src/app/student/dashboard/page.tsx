@@ -6,6 +6,7 @@ import AvailableQuizzes from "@/components/dashboard/AvailableQuizzesComponent";
 import LearnCard from "@/components/dashboard/LearnCard";
 import React from "react";
 import CodePlayGroundCard from "@/components/dashboard/CodePlayGroundCard";
+import AssesmentsCard from "@/components/dashboard/AssesmentsCard";
 
 type Props = {};
 
@@ -23,6 +24,7 @@ const DashboardPage = async (props: Props) => {
 
       <div className="grid gap-4 mt-4 md:grid-cols-2">
         <AvailableQuizzes />
+        <AssesmentsCard/>
         <CodePlayGroundCard/>
         <RecentActivities />
         <TopicsCard />
