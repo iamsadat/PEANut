@@ -14,9 +14,9 @@ const CodeEditorWindow = ({ onChange, language, code, theme, defaultCode }) => {
   };
 
   return (
-    <div className="overlay rounded-md overflow-clip shadow-4xl">
+    <div className="overlay rounded-md overflow-hidden shadow-4xl">
       <Editor
-        height="80vh"
+        height="85vh"
         width={`100%`}
         defaultLanguage={language}
         language={language}

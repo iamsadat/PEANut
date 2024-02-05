@@ -1,6 +1,7 @@
 import React from "react";
 import Select from "react-select";
 import monacoThemes from "monaco-themes/themes/themelist.json";
+import { customStyles } from "@/lib/customStyles";
 
 const ThemeDropdown = ({ handleThemeChange, theme }) => {
   return (
@@ -14,6 +15,7 @@ const ThemeDropdown = ({ handleThemeChange, theme }) => {
       }))}
       value={theme}
       onChange={handleThemeChange}
+      styles={customStyles}
     />
   );
 };
