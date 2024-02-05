@@ -16,10 +16,10 @@ import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
 import Split from "react-split";
-
+import { defineTheme } from "@/lib/defineTheme";
 
 const Landing = () => {
-  const [language, setLanguage] = useState(languageOptions[0]);
+  const [language, setLanguage] = useState(languageOptions[5]);
   const [value, setValue] = useState(language.value);
   const [id, setId] = useState(language.id);
   const [defaultCode, setDefaultCode] = useState(language.default);
@@ -29,9 +29,8 @@ const Landing = () => {
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState<{ value: string; label: string }>({
     value: "cobalt",
-    label: "Cobalt",
+    label: "Select Theme",
   });
-
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
 
@@ -163,17 +162,16 @@ const Landing = () => {
     }
   };
 
-  function handleThemeChange(th) {
-    const theme = th;
-    console.log("theme...", theme);
-
-    if (["light", "vs-dark"].includes(theme.value)) {
-      setTheme(theme);
-    }
-  }
-  useEffect(() => {
-    setTheme({ value: "oceanic-next", label: "Oceanic Next" });
-  }, []);
+    function handleThemeChange(th) {
+      const theme = th;
+      console.log("theme...", theme);
+  
+      if (["light", "vs-dark"].includes(theme.value)) {
+        setTheme(theme);
+      } else {
+        defineTheme(theme.value).then((_) => setTheme(theme));
+      }
+    }  
 
   const showSuccessToast = (msg) => {
     toast.success(msg || `Compiled Successfully!`, {
@@ -227,7 +225,7 @@ const Landing = () => {
             code={code}
             onChange={onChange}
             language={value}
-            theme={theme}
+            theme={theme.value}
             defaultCode={defaultCode}
           />
         </div>
