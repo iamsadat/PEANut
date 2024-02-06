@@ -83,8 +83,8 @@ export const config = {
     "/student/quiz/instructions/:quizId*",
     "/student/quiz/mcq",
     "/student/quiz/mcq/:quizId*",
-    "/learn",
-    "/learn/:id*",
+    "/student/learn",
+    "/student/learn/:id*",
     "/getstarted",
   ],
 };
