@@ -15,18 +15,11 @@ import CustomInput from "./CustomInput";
 import OutputDetails from "./OutputDetails";
 import ThemeDropdown from "./ThemeDropdown";
 import LanguagesDropdown from "./LanguagesDropdown";
-import ProblemStatement from "./ProblemStatement";
 import Split from "react-split";
-import { useParams } from "next/navigation";
-import EditorFooter from "./EditorFooter";
-import {
-  ResizableHandle,
-  ResizablePanel,
-  ResizablePanelGroup,
-} from "../ui/resizable";
+import { defineTheme } from "@/lib/defineTheme";
 
 const Landing = () => {
-  const [language, setLanguage] = useState(languageOptions[0]);
+  const [language, setLanguage] = useState(languageOptions[5]);
   const [value, setValue] = useState(language.value);
   const [id, setId] = useState(language.id);
   const [defaultCode, setDefaultCode] = useState(language.default);
@@ -36,25 +29,8 @@ const Landing = () => {
   const [processing, setProcessing] = useState(null);
   const [theme, setTheme] = useState<{ value: string; label: string }>({
     value: "cobalt",
-    label: "Cobalt",
+    label: "Select Theme",
   });
-
-  const params = useParams();
-  const pid = params.pid;
-
-  useEffect(() => {
-    const fetchProblem = async () => {
-      try {
-        const currentProblem = axios.post("/api/getProblem", { id: pid });
-        const currentDefaultCode = (await currentProblem).data.defaultCode;
-        setDefaultCode(currentDefaultCode);
-      } catch (error) {
-        console.log("error", error);
-      }
-    };
-    fetchProblem();
-  }, []);
-
   const enterPress = useKeyPress("Enter");
   const ctrlPress = useKeyPress("Control");
 
@@ -89,15 +65,12 @@ const Landing = () => {
   };
 
   const handleCompile = async () => {
-    // const problem = await axios.post("/api/getProblem", { id: pid });
-
     setProcessing(true);
     const formData = {
       language_id: id,
       // encode source code in base64
       source_code: btoa(code),
       stdin: btoa(customInput),
-      // expected_output: btoa(problem.data.expectedOutput),
     };
     console.log("formData: ", formData);
     console.log("Code: ", code);
@@ -125,6 +98,30 @@ const Landing = () => {
     } catch (error) {
       console.error(error);
     }
+
+    // await axios
+    //   .request(options)
+    //   .then(function (response) {
+    //     console.log("res.data", response.data);
+    //     const token = response.data.token;
+    //     checkStatus(token);
+    //   })
+    //   .catch((err) => {
+    //     let error = err.response ? err.response.data : err;
+    //     // get error status
+    //     let status = err.response?.status;
+    //     console.log("status", status);
+    //     if (status === 429) {
+    //       console.log("too many requests", status);
+
+    //       showErrorToast(
+    //         `Quota of 100 requests exceeded for the Day! Please read the blog on freeCodeCamp to learn how to setup your own RAPID API Judge0!`,
+    //         10000
+    //       );
+    //     }
+    //     setProcessing(false);
+    //     console.log("catch block...", error);
+    //   });
   };
 
   const checkStatus = async (token) => {
@@ -140,7 +137,6 @@ const Landing = () => {
         "X-RapidAPI-Host": process.env.NEXT_PUBLIC_RAPID_API_HOST,
       },
     };
-
     try {
       let response = await axios.request(options);
       let statusId = response.data.status?.id;
@@ -166,17 +162,16 @@ const Landing = () => {
     }
   };
 
-  function handleThemeChange(th) {
-    const theme = th;
-    console.log("theme...", theme);
-
-    if (["light", "vs-dark"].includes(theme.value)) {
-      setTheme(theme);
-    }
-  }
-  useEffect(() => {
-    setTheme({ value: "oceanic-next", label: "Oceanic Next" });
-  }, []);
+    function handleThemeChange(th) {
+      const theme = th;
+      console.log("theme...", theme);
+  
+      if (["light", "vs-dark"].includes(theme.value)) {
+        setTheme(theme);
+      } else {
+        defineTheme(theme.value).then((_) => setTheme(theme));
+      }
+    }  
 
   const showSuccessToast = (msg) => {
     toast.success(msg || `Compiled Successfully!`, {
@@ -202,7 +197,7 @@ const Landing = () => {
   };
 
   return (
-    <div className="max-h-full">
+    <>
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -214,85 +209,49 @@ const Landing = () => {
         draggable
         pauseOnHover
       />
-      <ResizablePanelGroup
-        direction="horizontal"
-        className="min-h-[200px] rounded-lg border"
-      >
-        {/* <div>
-            <ProblemStatement />
-          </div> */}
-        <ResizablePanel defaultSize={75}>
-          <div className="px-4 py-2">
-            <LanguagesDropdown onSelectChange={onSelectChange} />
-          </div>
-          <div className="overflow-auto">
-            <CodeEditorWindow
-              code={code}
-              onChange={onChange}
-              language={value}
-              theme={theme}
-              defaultCode={defaultCode}
-            />
-          </div>
-        </ResizablePanel>
-        <ResizableHandle withHandle />
-        <ResizablePanel defaultSize={25}>
-          <div className="output-container my-10">
-            <div className="px-2 w-full">
-              <OutputWindow outputDetails={outputDetails} />
-            </div>
-            <div className="flex flex-col items-end">
-              <button
-                onClick={handleCompile}
-                disabled={!code}
-                className={cn(
-                  "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] mx-2 px-3 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
-                  !code ? "opacity-50" : ""
-                )}
-              >
-                {processing ? "Processing..." : "Compile and Execute"}
-              </button>
-            </div>
-            {/* 
-                  <CustomInput
-                    customInput={customInput}
-                    setCustomInput={setCustomInput}
-                  /> 
-                   */}
-            {outputDetails && <OutputDetails outputDetails={outputDetails} />}
-          </div>
-        </ResizablePanel>
-        {/* <EditorFooter /> */}
 
-        {/* </div> */}
-      </ResizablePanelGroup>
-    </div>
+      <div className="h-4 w-full bg-gradient-to-r from-blue-700 via-blue-400 to-blue-200"></div>
+      <div className="flex flex-row">
+        <div className="px-4 py-2">
+          <LanguagesDropdown onSelectChange={onSelectChange} />
+        </div>
+        <div className="px-4 py-2">
+          <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
+        </div>
+      </div>
+      <div className="flex flex-row space-x-4 items-start px-4 py-4">
+        <div className="flex flex-col w-full h-[40%] justify-start">
+          <CodeEditorWindow
+            code={code}
+            onChange={onChange}
+            language={value}
+            theme={theme.value}
+            defaultCode={defaultCode}
+          />
+        </div>
+        <div className="right-container flex flex-shrink-0 w-[30%] flex-col">
+          <OutputWindow outputDetails={outputDetails} />
+          <div className="flex flex-col items-end">
+            <CustomInput
+              customInput={customInput}
+              setCustomInput={setCustomInput}
+            />
+            <button
+              onClick={handleCompile}
+              disabled={!code}
+              className={cn(
+                "mt-4 border-2 border-black z-10 rounded-md shadow-[5px_5px_0px_0px_rgba(0,0,0)] px-4 py-2 hover:shadow transition duration-200 bg-white flex-shrink-0",
+                !code ? "opacity-50" : ""
+              )}
+            >
+              {processing ? "Processing..." : "Compile and Execute"}
+            </button>
+          </div>
+          {outputDetails && <OutputDetails outputDetails={outputDetails} />}
+        </div>
+      </div>
+    </>
   );
 };
 
 export default Landing;
-
-{
-  // await axios
-  //   .request(options)
-  //   .then(function (response) {
-  //     console.log("res.data", response.data);
-  //     const token = response.data.token;
-  //     checkStatus(token);
-  //   })
-  //   .catch((err) => {
-  //     let error = err.response ? err.response.data : err;
-  //     // get error status
-  //     let status = err.response?.status;
-  //     console.log("status", status);
-  //     if (status === 429) {
-  //       console.log("too many requests", status);
-  //       showErrorToast(
-  //         `Quota of 100 requests exceeded for the Day! Please read the blog on freeCodeCamp to learn how to setup your own RAPID API Judge0!`,
-  //         10000
-  //       );
-  //     }
-  //     setProcessing(false);
-  //     console.log("catch block...", error);
-  //   });
-}

@@ -83,15 +83,28 @@ const InstructionsPage = ({ className, ...props }: CardProps) => {
                                 try {
                                     await axios.post("/api/startQuiz");
                                     console.log("Quiz started successfully");
-                                    toast.success("Quiz started successfully", {
-                                        position: "top-center",
-                                        style: {
-                                            border: "1px solid #713200",
-                                            padding: "16px",
-                                        },
-                                        className: "font-bold",
-                                    });
-                                    router.push(`/student/quiz/mcq/${QuizId}`);
+                                    const countdownDuration = 3; // Countdown duration in seconds
+                                    let countdown = countdownDuration;
+
+                                    // Display countdown toast
+                                    const countdownInterval = setInterval(() => {
+                                        countdown -= 1;
+                                        if (countdown > 0) {
+                                            toast.loading(`The test will begin in ${countdown} seconds...`, {
+                                                position: "top-center",
+                                                style: {
+                                                    border: "1px solid #713200",
+                                                    padding: "16px",
+                                                },
+                                                className: "font-bold",
+                                            });
+                                        } else {
+                                            clearInterval(countdownInterval);
+                                            toast.dismiss(); // Dismiss countdown toast
+                                            router.push(`/student/quiz/mcq/${QuizId}`);
+                                        }
+                                    }, 1000); // Update countdown every second
+
                                 } catch (error) {
                                     console.error("Error starting quiz:", error.message);
                                 }

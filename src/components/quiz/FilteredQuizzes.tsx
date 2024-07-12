@@ -18,7 +18,7 @@ import { Button } from "../ui/button";
 import LoadingQuestions from "../LoadingQuestions";
 
 type Props = {
-    topic:String;
+  topic: String;
 };
 
 const QuizCard = (props: Props) => {
@@ -46,7 +46,7 @@ const QuizCard = (props: Props) => {
     setShowLoader(true);
     setTimeout(() => {
       setFinishedLoading(true);
-     
+
     }, 2000);
   };
   const filteredQuizzes = allQuizzes.filter((quiz: Quiz) => quiz.topic === props.topic);
@@ -58,16 +58,19 @@ const QuizCard = (props: Props) => {
 
   return (
     <div className="mx-8">
-      <Table className="mt-2 mb-4">
+      <Table className="mt-4">
         <TableCaption></TableCaption>
         <TableHeader>
           <TableRow>
+            <TableHead className="w-[100px]">No.</TableHead>
+            <TableHead>Topic</TableHead>
+            <TableHead>Author</TableHead>
             <TableHead></TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
           <>
-          {filteredQuizzes.map((quiz: Quiz, index: number) => {
+            {filteredQuizzes.map((quiz: Quiz, index: number) => {
               return (
                 <TableRow key={quiz.id}>
                   <TableCell className="font-medium">{index + 1}</TableCell>

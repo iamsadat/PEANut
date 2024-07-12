@@ -1,13 +1,13 @@
 generator client {
   provider = "prisma-client-js"
 }
- 
+
 datasource db {
-  provider     = "mysql"
-  url          = env("DATABASE_URL")
-  relationMode = "prisma"
+  provider  = "postgresql"
+  url  	    = env("DATABASE_URL")
+  directUrl = env("DATABASE_URL_UNPOOLED")
 }
- 
+
 model Account {
   id                String  @id @default(cuid())
   userId            String
@@ -21,53 +21,53 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User @relation(fields: [userId], references: [id], onDelete: Cascade)
   @@unique([provider, providerAccountId])
 
-  @@index([userId], name: "userId")
+  @@index([userId], map: "account_userId_idx")
 }
- 
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
   userId       String
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  @@index([userId], name: "userId")
+  @@index([userId], map: "session_userId_idx")
 }
- 
+
 model User {
   id            String    @id @default(cuid())
-  rollNumber    String   @unique
+  rollNumber    String    @unique
   name          String
-  email         String   @unique
-  password      String   // Added password field
+  email         String    @unique
+  password      String    // Added password field
   department    String
   Section       String
   emailVerified DateTime?
   image         String?
-  quizzes         Quiz[]
+  quizzes       Quiz[]
   accounts      Account[]
   sessions      Session[]
   forgotPasswordToken      String?
   forgotPasswordTokenExpiry DateTime?
   verifyToken              String?
   verifyTokenExpiry        DateTime?
-  role          String    @default("student") 
+  role          String    @default("student")
 }
 
 model Faculty {
   id            String    @id @default(cuid())
   name          String
-  email         String   @unique
-  password      String   // Added password field
+  email         String    @unique
+  password      String    // Added password field
   department    String
   designation   String
   forgotPasswordToken      String?
   forgotPasswordTokenExpiry DateTime?
   verifyToken              String?
   verifyTokenExpiry        DateTime?
-  role          String    @default("faculty") 
+  role          String    @default("faculty")
 }
 
 enum QuizType {
@@ -79,61 +79,61 @@ model Quiz {
   id            String    @id @default(cuid())
   userId        String
   timeStarted   DateTime
-  topic        String
+  topic         String
   timeEnded     DateTime?
   author        String
-  quizType    QuizType?
-  user         User[]
-  questions    Question[]
-  problems        Code[]
-  @@index([userId], name: "userId")
+  quizType      QuizType?
+  user          User[]
+  questions     Question[]
+  problems      Code[]
+  @@index([userId], map: "quiz_userId_idx")
 }
 
 model Question {
   id            String    @id @default(cuid())
-  question     String     @db.LongText
-  answer      String
-  quizId      String
-  quizName    String
-  options      Json?
-  quiz         Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  question      String    @db.Text
+  answer        String
+  quizId        String
+  quizName      String
+  options       Json?
+  quiz          Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
   percentageCorrect Float?
-  isCorrect Boolean?
-  questionType QuizType
-  userAnswer String?
+  isCorrect     Boolean?
+  questionType  QuizType
+  userAnswer    String?
 
-  @@index([quizId])
+  @@index([quizId], map: "question_quizId_idx")
 }
 
 model Code {
   id                String    @id @default(cuid())
-  problemName       String    // Descriptive name of the problem
-  problemStatement  String    @db.LongText// Detailed problem statement
-  tags              String?  // Tags associated with the problem
-  testCases         Json      // Input-output test cases for the problem
-  expectedOutput    String    // Expected output for the problem
-  difficulty        String    // Difficulty level (easy, medium, hard, etc.)
-  language          Json      // Programming language used for the problem (e.g., Python, Java, etc.)
-  userAnswer        String?    // User's submitted answer
-  answerStatus      String?    // Status of the user's answer (e.g., accepted, wrong answer, runtime error, etc.)
-  quizId            String?    // ID of the associated quiz
+  problemName       String
+  problemStatement  String    @db.Text
+  tags              String?
+  testCases         Json
+  expectedOutput    String
+  difficulty        String
+  language          Json
+  userAnswer        String?
+  answerStatus      String?
+  quizId            String?
   quiz              Quiz?      @relation(fields: [quizId], references: [id], onDelete: Cascade)
-  submissions       Submission[] // Record of user submissions for this problem
-  createdAt         DateTime  @default(now()) // Timestamp of problem creation
-  
-  @@index([quizId])
+  submissions       Submission[]
+  createdAt         DateTime  @default(now())
+
+  @@index([quizId], map: "code_quizId_idx")
 }
 
 model Submission {
   id                String    @id @default(cuid())
-  codeId            String    // ID of the associated problem
+  codeId            String
   code              Code      @relation(fields: [codeId], references: [id], onDelete: Cascade)
-  userId            String    // ID of the user who made the submission
-  submittedAt       DateTime  @default(now()) // Timestamp of submission
-  status            String    // Submission status (accepted, wrong answer, runtime error, etc.)
-  runtime           Float?    // Runtime of the submission (in milliseconds)
-  memory            Float?    // Memory usage of the submission (in megabytes)
-  language          String    // Programming language used for the submission (e.g., Python, Java, etc.)
+  userId            String
+  submittedAt       DateTime  @default(now())
+  status            String
+  runtime           Float?
+  memory            Float?
+  language          String
 
-  @@index([codeId])
+  @@index([codeId], map: "submission_codeId_idx")
 }
