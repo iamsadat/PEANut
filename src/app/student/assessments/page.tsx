@@ -7,7 +7,9 @@ type Props = {};
 const AvailableQuizzesPage = (props: Props) => {
     return (
         <div>
-            <FilteredQuizzes topic="Assesment - I" />
+            <FilteredQuizzes topic="Assessment - I" />
+            <FilteredQuizzes topic="Assessment - II" />
+
         </div>
     );
 };

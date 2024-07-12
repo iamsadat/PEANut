@@ -6,14 +6,14 @@ import { PencilLine } from "lucide-react";
 
 type Props = {};
 
-const AssesmentsCard = (props: Props) => {
+const AssessmentsCard = (props: Props) => {
     const router = useRouter();
     if (!router.prefetch) return <div>Error</div>;
     return (
         <Card
             className="col-span-4 hover:cursor-pointer hover:opacity-75"
             onClick={() => {
-                router.push("/student/assesments");
+                router.push("/student/assessments");
             }}
         >
             <CardHeader className="flex flex-row items-center justify-between pb-2 space-y-0">
@@ -28,4 +28,4 @@ const AssesmentsCard = (props: Props) => {
     );
 };
 
-export default AssesmentsCard;
+export default AssessmentsCard;
