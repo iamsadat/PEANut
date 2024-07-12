@@ -146,9 +146,7 @@ const MCQ = ({ quiz }: Props) => {
           position: "top-center",
           duration: 8000,
         });
-      }
-
-      else {
+      } else {
         hotToast(
           "Warning: You switched tabs 🤨📸. Pay attention to the quiz.\n\n The quiz will end if you continue to switch tabs.",
           {
