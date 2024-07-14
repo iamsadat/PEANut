@@ -58,25 +58,25 @@ const OutputDetails = ({ outputDetails }) => {
               <p className="text-sm">
                 Expected Output:{" "}
                 <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-                  {atob(details?.expected_output)}
+                  {atob((details as any)?.expected_output)}
                 </span>
               </p>
               <p className="text-sm">
                 Status:{" "}
                 <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-                  {details?.status?.description}
+                  {(details as any)?.status?.description}
                 </span>
               </p>
               <p className="text-sm">
                 Memory:{" "}
                 <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-                  {details?.memory}
+                  {(details as any)?.memory}
                 </span>
               </p>
               <p className="text-sm">
                 Time:{" "}
                 <span className="font-semibold px-2 py-1 rounded-md bg-gray-100">
-                  {details?.time}
+                  {(details as any)?.time}
                 </span>
               </p>
             </div>
