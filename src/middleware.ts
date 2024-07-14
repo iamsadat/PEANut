@@ -2,11 +2,11 @@ import { NextResponse, NextRequest } from "next/server";
 import { verifyJwtToken } from "./lib/auth";
 
 export async function middleware(request: NextRequest) {
-
   const path = request.nextUrl.pathname;
 
   const publicPaths = [
     "/",
+    "/student/playground",
     "/student/login",
     "/student/signup",
     "/faculty/login",
@@ -14,7 +14,6 @@ export async function middleware(request: NextRequest) {
     "/forgotPassword",
     "/getstarted",
   ];
-
 
   const isPublicPath = publicPaths.includes(path);
 
